@@ -17,6 +17,10 @@ public class Dicer
     }
     public bool Chance(int chance = 50)
     {
-        return _faker.Random.Number(0,100) <= chance;
+        return Percentage() <= chance;
+    }
+
+    public int Percentage(){
+        return _faker.Random.Number(0,100);
     }
 }

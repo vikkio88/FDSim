@@ -6,7 +6,11 @@ public abstract class Person : IdEntity
 {
     public String Name { get; init; }
     public String Surname { get; init; }
-    public int Age { get; init; }
+    public int Age { get; set; }
+
+    // Here I might CAP it to 100
+    public int SkillAvg { get; set; }
+
     public Nationality Nationality { get; init; }
 
     public Person()

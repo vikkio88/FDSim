@@ -27,11 +27,13 @@ public class PeopleGeneratorTest
         var p = pg.GetPlayer(
             forcedNationality: FDSim.Models.Enums.Nationality.Italian,
             forcedRole: FDSim.Models.Enums.Role.Goalkeeper,
-            forcedMaxAge: 15
+            forcedMaxAge: 15,
+            forcedSkillPercent: 90
             );
         Assert.True(p.Nationality == FDSim.Models.Enums.Nationality.Italian);
         Assert.True(p.Role == FDSim.Models.Enums.Role.Goalkeeper);
         Assert.True(p.Age == 15);
+        Assert.True(p.SkillAvg >= 90);
 
     }
 }

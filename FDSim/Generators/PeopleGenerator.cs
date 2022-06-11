@@ -3,9 +3,12 @@ namespace FDSim.Generators;
 using System;
 using Bogus;
 
+
 using Models.People;
 using Models.Enums;
 using Models.Enums.Helpers;
+
+using DataProviders;
 
 public class PeopleGenerator
 {
@@ -19,10 +22,14 @@ public class PeopleGenerator
         Randomizer.Seed = new Random(_seed);
     }
 
-    public Player GetPlayer(Nationality? forcedNationality = null, Role? forcedRole = null, int? forcedMaxAge = null)
+    public Player GetPlayer(
+        Nationality? forcedNationality = null, Role? forcedRole = null,
+        int? forcedMaxAge = null, int? forcedSkillPercent = null
+     )
     {
-        var faker = new Faker();
-        var nationality = forcedNationality ?? faker.PickRandom<Nationality>();
+        var dicer = new Dicer(_seed);
+        var peopleSR = new PeopleSkillRange(dicer);
+        var nationality = forcedNationality ?? dicer.Faker.PickRandom<Nationality>();
         // Male Footballers, hardcoded Gender
         var gender = Bogus.DataSets.Name.Gender.Male;
         return new Faker<Player>(locale: NationalityHelper.GetLocale(nationality))
@@ -30,6 +37,7 @@ public class PeopleGenerator
         .RuleFor(p => p.Name, f => f.Name.FirstName(gender: gender))
         .RuleFor(p => p.Surname, f => f.Name.LastName(gender: gender))
         .RuleFor(p => p.Age, f => f.Random.Number(15, forcedMaxAge ?? 39))
+        .RuleFor(p => p.SkillAvg, peopleSR.GetSkill(forcedSkillPercent))
         .RuleFor(p => p.Nationality, nationality)
         .RuleFor(p => p.Role, f => forcedRole ?? f.PickRandom<Role>());
     }
@@ -42,7 +50,8 @@ public class PeopleGenerator
             list.Add(GetPlayer(forcedNationality: mainNationality));
         }
 
-        foreach(int _ in Enumerable.Range(0,  foreignPlayers)){
+        foreach (int _ in Enumerable.Range(0, foreignPlayers))
+        {
             list.Add(GetPlayer());
         }
 
