@@ -5,19 +5,19 @@ using Enums;
 
 public static class NationalityHelper
 {
-    public static String getLocale(Nationality nationality)
+    public static String GetLocale(Nationality nationality)
     {
-        switch (nationality)
+        return nationality switch
         {
-            case Nationality.English: { return "en_GB"; }
-            case Nationality.German: { return "de"; }
-            case Nationality.Italian: { return "it"; }
-            case Nationality.Spanish: { return "es"; }
-            case Nationality.French: { return "fr"; }
-            case Nationality.Dutch: { return "nl"; }
-            case Nationality.Polish: { return "pl"; }
-            case Nationality.Turkish: { return "tr"; }
-            default: { return "en_GB"; }
-        }
+            Nationality.English => "en_GB",
+            Nationality.German => "de",
+            Nationality.Italian => "it",
+            Nationality.Spanish => "es",
+            Nationality.French => "fr",
+            Nationality.Dutch => "nl",
+            Nationality.Polish => "pl",
+            Nationality.Turkish => "tr",
+            _ => "en_GB"
+        };
     }
 }
