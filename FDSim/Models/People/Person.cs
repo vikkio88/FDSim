@@ -4,10 +4,10 @@ using FDSim.Models.Enums;
 
 public abstract class Person : IdEntity
 {
-    public String Name { get; set; }
-    public String Surname { get; set; }
-    public int Age { get; set; }
-    public Nationality Nationality { get; set; }
+    public String Name { get; init; }
+    public String Surname { get; init; }
+    public int Age { get; init; }
+    public Nationality Nationality { get; init; }
 
     public Person()
     {

@@ -2,11 +2,11 @@ namespace FDSim.Generators;
 
 public interface IIdGenerator
 {
-    public String generate();
+    public String Generate();
 }
 class IdGenerator : IIdGenerator
 {
-    public String generate()
+    public String Generate()
     {
         return Ulid.NewUlid().ToString();
     }

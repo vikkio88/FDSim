@@ -25,8 +25,8 @@ public class PeopleGenerator
         var nationality = forcedNationality ?? faker.PickRandom<Nationality>();
         // Male Footballers, hardcoded Gender
         var gender = Bogus.DataSets.Name.Gender.Male;
-        return new Faker<Player>(locale: NationalityHelper.getLocale(nationality))
-        .RuleFor(p => p.Id, _idGen.generate())
+        return new Faker<Player>(locale: NationalityHelper.GetLocale(nationality))
+        .RuleFor(p => p.Id, _idGen.Generate())
         .RuleFor(p => p.Name, f => f.Name.FirstName(gender: gender))
         .RuleFor(p => p.Surname, f => f.Name.LastName(gender: gender))
         .RuleFor(p => p.Age, f => f.Random.Number(15, forcedMaxAge ?? 39))

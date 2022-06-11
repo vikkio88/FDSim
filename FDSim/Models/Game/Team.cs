@@ -5,11 +5,11 @@ using FDSim.Models.Enums;
 
 public class Team : IdEntity
 {
-    public String Name { get; set; }
-    public String City { get; set; }
-    public Nationality Nationality { get; set; }
+    public String Name { get; init; }
+    public String City { get; init; }
+    public Nationality Nationality { get; init; }
 
-    public List<Player> Roster { get; set; }
+    public List<Player> Roster { get; init; }
 
     public Team()
     {

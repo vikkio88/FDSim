@@ -3,7 +3,7 @@
 using FDSim.Models.Enums;
 public class Player : Person
 {
-    public Role Role { get; set; }
+    public Role Role { get; init; }
 
     public Player() : base() { Role = Role.Goalkeeper; }
     public Player(String name, String surname, int age, Role role) : base(name, surname, age) { Role = role; }

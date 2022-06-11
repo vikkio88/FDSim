@@ -29,8 +29,8 @@ public class GameEntityGenerator
     {
         var nameTemplate = _dicer.Chance(50) ? "{0}" : _dicer.Faker.PickRandom(TeamNameTemplates.Data);
         var nationality = forcedNationality ?? _dicer.Faker.PickRandom<Nationality>();
-        return new Faker<Team>(locale: NationalityHelper.getLocale(nationality))
-        .RuleFor(p => p.Id, _idGen.generate())
+        return new Faker<Team>(locale: NationalityHelper.GetLocale(nationality))
+        .RuleFor(p => p.Id, _idGen.Generate())
         .RuleFor(p => p.Name, f => String.Format(nameTemplate, f.Address.City()))
         .RuleFor(p => p.Nationality, nationality)
         .RuleFor(t => t.Roster, f =>
