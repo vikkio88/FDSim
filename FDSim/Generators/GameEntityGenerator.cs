@@ -3,7 +3,7 @@ namespace FDSim.Generators;
 using System;
 using Bogus;
 
-using Models.Game;
+using Models.Game.Team;
 using Models.Enums;
 using Models.Enums.Helpers;
 
@@ -29,13 +29,28 @@ public class GameEntityGenerator
     {
         var nameTemplate = _dicer.Chance(50) ? "{0}" : _dicer.Faker.PickRandom(TeamNameTemplates.Data);
         var nationality = forcedNationality ?? _dicer.Faker.PickRandom<Nationality>();
-        return new Faker<Team>(locale: NationalityHelper.GetLocale(nationality))
+        var t = new Faker<Team>(locale: NationalityHelper.GetLocale(nationality))
         .RuleFor(p => p.Id, _idGen.Generate())
         .RuleFor(p => p.Name, f => String.Format(nameTemplate, f.Address.City()))
         .RuleFor(p => p.Nationality, nationality)
         .RuleFor(t => t.Roster, f =>
         {
-            return _pGen.GetPlayers(amount: f.Random.Number(15, 20), mainNationality: nationality, foreignPlayers: f.Random.Number(0, 5));
-        });
+            return new(
+                _pGen.GetPlayers(
+                    amount: f.Random.Number(15, 20),
+                    mainNationality: nationality,
+                    foreignPlayers: f.Random.Number(0, 5)
+                    )
+            );
+        }).Generate();
+        
+        // 20% chance of a Champion
+        if (_dicer.Chance(20))
+        {
+            var champion = _pGen.GetPlayer(forcedSkillPercent: 90);
+            t.Roster?.AddPlayer(champion);
+        }
+
+        return t;
     }
 }
