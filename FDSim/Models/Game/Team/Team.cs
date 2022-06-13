@@ -23,12 +23,7 @@ public class Team : IdEntity
 
     public override string ToString()
     {
-        return String.Format(
-            "{0}_Team: {1} {2} ({3}) - Roster: {4}",
-            base.ToString(),
-            Name, City, Nationality,
-            Roster?.Count() ?? 0
-        );
+        return $"{base.ToString()}_Team: {Name} ({City} {Nationality}) - Roster: {Roster?.Count() ?? 0}";
     }
 
 }
