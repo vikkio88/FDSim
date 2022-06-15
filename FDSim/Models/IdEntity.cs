@@ -4,7 +4,8 @@ public abstract class IdEntity
     public String Id { get; set; }
     public IdEntity()
     {
-        Id = "";
+        //@TODO: Maybe not doing this by default?
+        Id = this.GetHashCode().ToString();
     }
 
     public override string ToString()

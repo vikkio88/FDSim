@@ -29,9 +29,9 @@ public class LineupTests
 
 
         Assert.Equal(1, lineup.RolesAssigned[Role.Goalkeeper]);
-        Assert.Equal(1, lineup.RolesMissing[Role.Defender]);
-        Assert.Equal(4, lineup.RolesMissing[Role.Midfielder]);
-        Assert.Equal(1, lineup.RolesMissing[Role.Stricker]);
+        Assert.Equal(1, lineup.RolesAssigned[Role.Defender]);
+        Assert.Equal(4, lineup.RolesAssigned[Role.Midfielder]);
+        Assert.Equal(1, lineup.RolesAssigned[Role.Stricker]);
 
         Assert.Equal(1, lineup.Bench.Count);
 

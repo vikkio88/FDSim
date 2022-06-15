@@ -35,6 +35,7 @@ public class Lineup
             picks.ForEach(p => selectedPlayers.Add(p.Id));
 
             avgSkillPerRole[role] = picks.Average(p => p.SkillAvg);
+            rolesAssigned[role] = picks.Count;
             rolesMissing[role] = amount - picks.Count;
 
             starters = starters.Concat(picks).ToList();
