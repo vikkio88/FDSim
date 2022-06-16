@@ -16,6 +16,8 @@ public class Lineup
     public DRi RolesNeeded { get; init; }
     public DRi RolesMissing { get; init; }
     public DRd AvgSkillPerRole { get; init; }
+    public double AvgMorale { get; init; } = 0;
+    public double AvgCondition { get; init; } = 0;
 
 
     public static Lineup Make(Dictionary<Role, List<Player>> players, Formation formation)
@@ -30,13 +32,21 @@ public class Lineup
         var rolesAssigned = RoleHelper.GetEmptyRoleCounter();
         var rolesMissing = RoleHelper.GetEmptyRoleCounter();
         var avgSkillPerRole = RoleHelper.GetEmptyRoleDouble();
+        double moraleTotal = 0.0;
+        double conditionTotal = 0.0;
 
 
         foreach (var (role, amount) in rolesNeeded)
         {
             var playersInRole = players[role];
+            // maybe here we could also order by morale and condition
             var picks = playersInRole.OrderBy(p => p.SkillAvg).Take(amount).ToList();
-            picks.ForEach(p => selectedPlayers.Add(p.Id));
+            picks.ForEach(p =>
+            {
+                moraleTotal += p.Status.Morale.Value;
+                conditionTotal += p.Status.Condition.Value;
+                selectedPlayers.Add(p.Id);
+            });
 
             avgSkillPerRole[role] = picks.Count > 0 ? picks.Average(p => p.SkillAvg) : 0.0;
             rolesAssigned[role] = picks.Count;
@@ -58,7 +68,9 @@ public class Lineup
             RolesAssigned = rolesAssigned,
             RolesMissing = rolesMissing,
             RolesNeeded = rolesNeeded,
-            AvgSkillPerRole = avgSkillPerRole
+            AvgSkillPerRole = avgSkillPerRole,
+            AvgMorale = moraleTotal / (double)starters.Count,
+            AvgCondition = conditionTotal / (double)starters.Count,
         };
     }
 
