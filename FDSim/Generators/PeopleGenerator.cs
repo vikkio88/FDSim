@@ -14,6 +14,7 @@ public class PeopleGenerator
 {
     private int _seed;
     private IIdGenerator _idGen;
+    private Dicer? _dicer;
 
     public PeopleGenerator(int seed, IIdGenerator? idGen = null)
     {
@@ -27,17 +28,24 @@ public class PeopleGenerator
         int? forcedMaxAge = null, int? forcedSkillPercent = null
      )
     {
-        var dicer = new Dicer(_seed);
-        var peopleSR = new PeopleSkillRange(dicer);
-        var nationality = forcedNationality ?? dicer.Faker.PickRandom<Nationality>();
+        _dicer = _dicer ?? new Dicer(_seed);
+        var peopleSR = new PeopleSkillRange(_dicer);
+        var nationality = forcedNationality ?? _dicer.Faker.PickRandom<Nationality>();
         // Male Footballers, hardcoded Gender
         var gender = Bogus.DataSets.Name.Gender.Male;
+        var status = new PlayerStatus()
+        {
+            Morale = new(_dicer.Faker.Random.Int(30, 100)),
+            Condition = new(_dicer.Faker.Random.Int(40, 100)),
+            Attachment = new(_dicer.Faker.Random.Int(20, 100)),
+        };
         return new Faker<Player>(locale: NationalityHelper.GetLocale(nationality))
         .RuleFor(p => p.Id, _idGen.Generate())
         .RuleFor(p => p.Name, f => f.Name.FirstName(gender: gender))
         .RuleFor(p => p.Surname, f => f.Name.LastName(gender: gender))
         .RuleFor(p => p.Age, f => f.Random.Number(15, forcedMaxAge ?? 39))
         .RuleFor(p => p.SkillAvg, peopleSR.GetSkill(forcedSkillPercent))
+        .RuleFor(p => p.Status, status)
         .RuleFor(p => p.Nationality, nationality)
         .RuleFor(p => p.Role, f => forcedRole ?? f.PickRandom<Role>());
     }
