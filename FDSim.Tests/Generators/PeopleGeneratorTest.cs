@@ -6,6 +6,7 @@ using Mocks;
 
 public class PeopleGeneratorTest
 {
+    //[Fact]
     [Fact(Skip = "Debugging Test")]
     public void PlayerGeneratorTest()
     {
@@ -15,6 +16,7 @@ public class PeopleGeneratorTest
         {
             var p = pg.GetPlayer();
             Console.WriteLine(p);
+            Console.WriteLine(p.Status);
         }
     }
 
