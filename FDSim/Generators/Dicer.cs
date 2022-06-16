@@ -5,7 +5,8 @@ using Bogus;
 
 public class Dicer
 {
-    int _seed;
+    private int _seed;
+    public int Seed { get => _seed; }
     private Faker _faker;
     public Faker Faker { get => _faker; }
     public Dicer(int seed)
@@ -19,8 +20,14 @@ public class Dicer
     {
         return Percentage() <= chance;
     }
+    
+    public bool Chance(double chance)
+    {
+        return Percentage() <= chance;
+    }
 
-    public int Percentage(){
-        return _faker.Random.Number(0,100);
+    public int Percentage()
+    {
+        return _faker.Random.Number(0, 100);
     }
 }
