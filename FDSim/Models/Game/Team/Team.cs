@@ -1,8 +1,5 @@
 namespace FDSim.Models.Game.Team;
 
-
-
-using FDSim.Models.People;
 using FDSim.Models.Enums;
 
 public class Team : IdEntity

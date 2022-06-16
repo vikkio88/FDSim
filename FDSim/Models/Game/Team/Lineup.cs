@@ -4,14 +4,18 @@ using Enums;
 using Enums.Helpers;
 using People;
 
+using DRi = Dictionary<Enums.Role, int>;
+using DRd = Dictionary<Enums.Role, double>;
+
 public class Lineup
 {
     const int NUMBER_OF_SUBS = 2;
     public List<Player> Starters { get; init; }
     public List<Player> Bench { get; init; }
-    public Dictionary<Role, int> RolesAssigned { get; init; }
-    public Dictionary<Role, int> RolesNeeded { get; init; }
-    public Dictionary<Role, int> RolesMissing { get; init; }
+    public DRi RolesAssigned { get; init; }
+    public DRi RolesNeeded { get; init; }
+    public DRi RolesMissing { get; init; }
+    public DRd AvgSkillPerRole { get; init; }
 
 
     public static Lineup Make(Dictionary<Role, List<Player>> players, Formation formation)
@@ -34,7 +38,7 @@ public class Lineup
             var picks = playersInRole.OrderBy(p => p.SkillAvg).Take(amount).ToList();
             picks.ForEach(p => selectedPlayers.Add(p.Id));
 
-            avgSkillPerRole[role] = picks.Average(p => p.SkillAvg);
+            avgSkillPerRole[role] = picks.Count > 0 ? picks.Average(p => p.SkillAvg) : 0.0;
             rolesAssigned[role] = picks.Count;
             rolesMissing[role] = amount - picks.Count;
 
@@ -53,8 +57,25 @@ public class Lineup
             Bench = bench,
             RolesAssigned = rolesAssigned,
             RolesMissing = rolesMissing,
-            RolesNeeded = rolesNeeded
+            RolesNeeded = rolesNeeded,
+            AvgSkillPerRole = avgSkillPerRole
         };
+    }
 
+
+    // Maybe can move this to avgSkill calculation
+    public DRd gtAdjustedAvgSkillPerRole()
+    {
+        var adjusted = RoleHelper.GetEmptyRoleDouble();
+        foreach (var (role, avg) in AvgSkillPerRole)
+        {
+            var newAvg = avg;
+            if (RolesMissing[role] > 0)
+                newAvg = (avg / (double)(RolesAssigned[role] + RolesMissing[role]));
+
+            adjusted[role] = newAvg;
+        }
+
+        return adjusted;
     }
 }

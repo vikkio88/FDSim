@@ -7,8 +7,8 @@ using Mocks;
 
 public class GameEntityGeneratorTest
 {
-    //[Fact(Skip = "Debugging Test")]
-    [Fact]
+    //[Fact]
+    [Fact(Skip = "Debugging Test")]
     public void TeamGeneratorTest()
     {
         var gEG = new GameEntityGenerator(0, new MockedIdGen());
