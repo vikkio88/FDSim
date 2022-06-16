@@ -16,13 +16,13 @@ public class GameEntityGenerator
     private PeopleGenerator _pGen;
     private Dicer _dicer;
 
-    public GameEntityGenerator(int seed, IIdGenerator? idGen = null)
+    public GameEntityGenerator(int seed, IIdGenerator? idGen = null, Dicer? dicer = null)
     {
         _seed = seed;
         _idGen = idGen ?? new IdGenerator();
         Randomizer.Seed = new Random(_seed);
         _pGen = new PeopleGenerator(_seed, _idGen);
-        _dicer = new Dicer(seed);
+        _dicer = dicer ?? new Dicer(seed);
     }
 
     public Team GetTeam(Nationality? forcedNationality = null)
@@ -45,7 +45,7 @@ public class GameEntityGenerator
                     )
             );
         }).Generate();
-        
+
         // 20% chance of a Champion
         if (_dicer.Chance(20))
         {
