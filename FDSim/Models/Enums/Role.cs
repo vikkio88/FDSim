@@ -4,5 +4,5 @@ public enum Role {
     Goalkeeper,
     Defender,
     Midfielder,
-    Stricker
+    Striker
 }
