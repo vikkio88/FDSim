@@ -24,8 +24,9 @@ public class MatchTests
     // [Fact]
     public void MatchSimulationDebugTests()
     {
-        // const int SIMULATIONS = 500;
-        const int SIMULATIONS = 40;
+        var sw = new System.IO.StreamWriter("./results.txt");
+        const int SIMULATIONS = 500;
+        // const int SIMULATIONS = 40;
         var dicer = new Dicer(0);
         var gG = new GameEntityGenerator(dicer.Seed, dicer: dicer);
         var t1 = gG.GetTeam();
@@ -38,7 +39,8 @@ public class MatchTests
         {
             var m = Match.Make(t1, t2);
             m.Simulate(dicer);
-            Console.WriteLine($"{index + 1} - {m}");
+            // Console.WriteLine($"{index + 1} - {m}");
+            sw.WriteLine($"{index + 1} - {m}");
             if (m.Result?.isDraw ?? false)
                 counter[1]++;
             else
@@ -54,6 +56,7 @@ public class MatchTests
         t2.Roster?.AddPlayer(new() { SkillAvg = 100, Role = FDSim.Models.Enums.Role.Striker, Status = amazingStatus });
         t2.Roster?.AddPlayer(new() { SkillAvg = 100, Role = FDSim.Models.Enums.Role.Striker, Status = amazingStatus });
         Console.WriteLine($"{counter[0]} - {counter[1]} - {counter[2]}");
+        sw.WriteLine($"{counter[0]} - {counter[1]} - {counter[2]}");
         counter[0] = 0;
         counter[1] = 0;
         counter[2] = 0;
@@ -64,12 +67,16 @@ public class MatchTests
         {
             var m = Match.Make(t1, t2);
             m.Simulate(dicer);
-            Console.WriteLine($"{index + 1} - {m}");
+            // Console.WriteLine($"{index + 1} - {m}");
+            sw.WriteLine($"{index + 1} - {m}");
             if (m.Result?.isDraw ?? false)
                 counter[1]++;
             else
                 counter[m.Result?.GoalHome > m.Result?.GoalAway ? 0 : 2]++;
         }
         Console.WriteLine($"{counter[0]} - {counter[1]} - {counter[2]}");
+        sw.WriteLine($"{counter[0]} - {counter[1]} - {counter[2]}");
+        sw.Dispose();
     }
+
 }

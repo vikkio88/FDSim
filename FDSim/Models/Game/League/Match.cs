@@ -30,8 +30,13 @@ public class Match
         var homeLineup = Home.Roster.GetLineup(coachPreferredLineup);
         var awayLineup = Away.Roster.GetLineup(coachPreferredLineup);
 
-        var goalHome = 0;
-        var goalAway = 0;
+        var isHomeAvgMore = Home.Roster.Average() >= Away.Roster.Average();
+        var differenceAvg = Math.Abs(Home.Roster.Average() - Away.Roster.Average());
+
+        var goalHome = dicer.Chance(isHomeAvgMore ? Home.Roster.Average() : 50) ? dicer.Faker.Random.Int(0, 1) : 0;
+        // bit less of a chance to start with a goal for away team
+        // adding home stadium influence
+        var goalAway = dicer.Chance(isHomeAvgMore ? differenceAvg : Away.Roster.Average()) ? dicer.Faker.Random.Int(0, 1) : 0;
 
         var homeAvg = homeLineup.gtAdjustedAvgSkillPerRole();
         var awayAvg = awayLineup.gtAdjustedAvgSkillPerRole();
@@ -52,11 +57,10 @@ public class Match
         // adding status morale influence
         goalHome += dicer.Chance(homeLineup.AvgMorale) ? dicer.Faker.Random.Int(0, 1) : 0;
         goalAway += dicer.Chance(awayLineup.AvgMorale) ? dicer.Faker.Random.Int(0, 1) : 0;
-        
+
         goalHome += dicer.Chance(homeLineup.AvgCondition) ? dicer.Faker.Random.Int(0, 1) : 0;
         goalAway += dicer.Chance(awayLineup.AvgCondition) ? dicer.Faker.Random.Int(0, 1) : 0;
         // adding previous victories
-        // adding home stadium influence
 
         // Defence bonus
         goalHome -= goalHome == 0 ? 0 : (dicer.Chance((awayAvg[Role.Defender] + awayAvg[Role.Goalkeeper]) / 2.0) ? dicer.Faker.Random.Int(0, goalHome) : 0);
