@@ -26,7 +26,7 @@ public class Roster
             {Role.Goalkeeper, new()},
             {Role.Defender, new()},
             {Role.Midfielder, new()},
-            {Role.Stricker, new()},
+            {Role.Striker, new()},
         };
 
         foreach (var p in _players)

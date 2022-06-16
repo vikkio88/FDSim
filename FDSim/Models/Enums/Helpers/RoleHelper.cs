@@ -8,7 +8,7 @@ public static class RoleHelper
                 {Role.Goalkeeper, 0},
                 {Role.Defender, 0},
                 {Role.Midfielder, 0},
-                {Role.Stricker, 0},
+                {Role.Striker, 0},
             };
     }
     public static Dictionary<Role, double> GetEmptyRoleDouble()
@@ -17,7 +17,7 @@ public static class RoleHelper
                 {Role.Goalkeeper, 0.0},
                 {Role.Defender, 0.0},
                 {Role.Midfielder, 0.0},
-                {Role.Stricker, 0.0},
+                {Role.Striker, 0.0},
             };
     }
 }

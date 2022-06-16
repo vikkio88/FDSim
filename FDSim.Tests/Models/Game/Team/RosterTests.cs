@@ -14,7 +14,7 @@ public class RosterTests
             new Player("a", "b", 1, 10, Role.Defender),
             new Player("b", "a", 1, 20, Role.Defender),
             new Player("a", "b", 1, 10, Role.Midfielder),
-            new Player("a", "b", 1, 10, Role.Stricker),
+            new Player("a", "b", 1, 10, Role.Striker),
         };
 
         var roster = new Roster(players);
@@ -29,7 +29,7 @@ public class RosterTests
             new Player("a", "b", 1, 10, Role.Goalkeeper),
             new Player("a", "b", 1, 10, Role.Defender),
             new Player("b", "a", 1, 20, Role.Defender),
-            new Player("a", "b", 1, 10, Role.Stricker),
+            new Player("a", "b", 1, 10, Role.Striker),
         };
 
         var roster = new Roster(players);
@@ -44,7 +44,7 @@ public class RosterTests
             new Player("a", "b", 1, Role.Defender),
             new Player("b", "a", 1, Role.Defender),
             new Player("a", "b", 1, Role.Midfielder),
-            new Player("a", "b", 1, Role.Stricker),
+            new Player("a", "b", 1, Role.Striker),
         };
 
         var roster = new Roster(players);
@@ -53,7 +53,7 @@ public class RosterTests
         Assert.Equal(1, roles[Role.Goalkeeper]);
         Assert.Equal(2, roles[Role.Defender]);
         Assert.Equal(1, roles[Role.Midfielder]);
-        Assert.Equal(1, roles[Role.Stricker]);
+        Assert.Equal(1, roles[Role.Striker]);
     }
     
     
@@ -65,7 +65,7 @@ public class RosterTests
             new Player("a", "b", 1, Role.Defender),
             new Player("b", "a", 1, Role.Defender),
             new Player("a", "b", 1, Role.Midfielder),
-            new Player("a", "b", 1, Role.Stricker),
+            new Player("a", "b", 1, Role.Striker),
         };
 
         var roster = new Roster(players);
@@ -75,6 +75,6 @@ public class RosterTests
         Assert.Equal(1, roles[Role.Goalkeeper]);
         Assert.Equal(2, roles[Role.Defender]);
         Assert.Equal(1, roles[Role.Midfielder]);
-        Assert.Equal(1, roles[Role.Stricker]);
+        Assert.Equal(1, roles[Role.Striker]);
     }
 }
