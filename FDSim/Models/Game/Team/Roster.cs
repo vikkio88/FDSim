@@ -46,7 +46,7 @@ public class Roster
     {
         if (_avg < 0)
         {
-            _avg = _players.Average(p => p.SkillAvg);
+            _avg = _players.Average(p => p.SkillAvg.Value);
         }
 
         return _avg;

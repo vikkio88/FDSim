@@ -1,5 +1,6 @@
 namespace FDSim.Models.People;
 
+using FDSim.Models.Common;
 using FDSim.Models.Enums;
 
 public abstract class Person : IdEntity
@@ -9,7 +10,7 @@ public abstract class Person : IdEntity
     public int Age { get; set; }
 
     // Here I might CAP it to 100
-    public int SkillAvg { get; set; }
+    public Perc SkillAvg { get; set; } = new(0);
 
     public Nationality Nationality { get; init; }
 
