@@ -41,7 +41,7 @@ public class Lineup
             var playersInRole = players[role];
             // here we could make coach influence whether i skill more important than morale
             var picks = playersInRole
-            .OrderBy(p => p.SkillAvg)
+            .OrderBy(p => p.Skill)
             .ThenBy(p => p.Status.Condition.Value)
             .ThenBy(p => p.Status.Morale.Value)
             .Take(amount).ToList();
@@ -52,7 +52,7 @@ public class Lineup
                 selectedPlayers.Add(p.Id);
             });
 
-            avgSkillPerRole[role] = picks.Count > 0 ? picks.Average(p => p.SkillAvg.Value) : 0.0;
+            avgSkillPerRole[role] = picks.Count > 0 ? picks.Average(p => p.Skill.Value) : 0.0;
             rolesAssigned[role] = picks.Count;
             rolesMissing[role] = amount - picks.Count;
 

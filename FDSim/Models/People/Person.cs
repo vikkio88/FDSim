@@ -9,8 +9,7 @@ public abstract class Person : IdEntity
     public String Surname { get; init; }
     public int Age { get; set; }
 
-    // Here I might CAP it to 100
-    public Perc SkillAvg { get; set; } = new(0);
+    public Perc Skill { get; set; } = new(0);
 
     public Nationality Nationality { get; init; }
 

@@ -48,13 +48,13 @@ public class MatchTests
 
         }
         var amazingStatus = new PlayerStatus() { Morale = new(100), Condition = new(100) };
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Goalkeeper, Status = amazingStatus });
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Defender, Status = amazingStatus });
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Defender, Status = amazingStatus });
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Midfielder, Status = amazingStatus });
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Midfielder, Status = amazingStatus });
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Striker, Status = amazingStatus });
-        t2.Roster?.AddPlayer(new() { SkillAvg = new(100), Role = FDSim.Models.Enums.Role.Striker, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Goalkeeper, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Defender, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Defender, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Midfielder, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Midfielder, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Striker, Status = amazingStatus });
+        t2.Roster?.AddPlayer(new() { Skill = new(100), Role = FDSim.Models.Enums.Role.Striker, Status = amazingStatus });
         Console.WriteLine($"{counter[0]} - {counter[1]} - {counter[2]}");
         sw.WriteLine($"{counter[0]} - {counter[1]} - {counter[2]}");
         counter[0] = 0;

@@ -15,7 +15,7 @@ public class Player : Person
     public Player(String name, String surname, int age, int skillAvg, Role role, PlayerStatus? status = null)
     : base(name, surname, age)
     {
-        SkillAvg = new (skillAvg);
+        Skill = new (skillAvg);
         Role = role;
         Status = status ?? new PlayerStatus();
     }

@@ -44,7 +44,7 @@ public class PeopleGenerator
         .RuleFor(p => p.Name, f => f.Name.FirstName(gender: gender))
         .RuleFor(p => p.Surname, f => f.Name.LastName(gender: gender))
         .RuleFor(p => p.Age, f => f.Random.Number(15, forcedMaxAge ?? 39))
-        .RuleFor(p => p.SkillAvg, peopleSR.GetSkill(forcedSkillPercent))
+        .RuleFor(p => p.Skill, peopleSR.GetSkill(forcedSkillPercent))
         .RuleFor(p => p.Status, status)
         .RuleFor(p => p.Nationality, nationality)
         .RuleFor(p => p.Role, f => forcedRole ?? f.PickRandom<Role>());
