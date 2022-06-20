@@ -19,6 +19,33 @@ public class MatchTests
         Assert.True(m.isFinished);
         Assert.NotNull(m.Result);
     }
+    
+    [Fact(Skip="Testing result and scorers")]
+    public void MatchSimulationDebugScorersTests()
+    {
+        var dicer = new Dicer(0);
+        var gG = new GameEntityGenerator(dicer.Seed, dicer: dicer);
+        var t1 = gG.GetTeam();
+        var t2 = gG.GetTeam();
+
+        var m = Match.Make(t1, t2);
+        m.Simulate(dicer);
+
+        Assert.True(m.isFinished);
+        Assert.NotNull(m.Result);
+
+        Console.WriteLine(m.Result);
+        Console.WriteLine(t1);
+        foreach (var p in t1?.Roster.GetByIds(m?.Result?.ScorersHomeIds))
+        {
+            Console.WriteLine(p);
+        }
+        Console.WriteLine(t2);
+        foreach (var p in t2?.Roster.GetByIds(m?.Result?.ScorersAwayIds))
+        {
+            Console.WriteLine(p);
+        }
+    }
 
     [Fact(Skip = "Debug Test")]
     // [Fact]
