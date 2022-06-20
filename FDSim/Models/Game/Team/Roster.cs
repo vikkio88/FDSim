@@ -6,12 +6,13 @@ using FDSim.Models.People;
 using FDSim.Models.Enums;
 using FDSim.Models.Enums.Helpers;
 
-public class Roster
+public class Roster : IdEntity
 {
     // -1 means that needs to be calculated
     private double _avg = -1;
 
     private List<Player> _players { get; init; }
+    private Dictionary<String, Player>? _playersById;
     private Dictionary<Role, List<Player>>? _playersPerRole;
 
     public Roster(List<Player> list)
@@ -28,10 +29,12 @@ public class Roster
             {Role.Midfielder, new()},
             {Role.Striker, new()},
         };
+        _playersById = new();
 
         foreach (var p in _players)
         {
             _playersPerRole[p.Role].Add(p);
+            _playersById[p.Id] = p;
         }
     }
 
@@ -57,6 +60,28 @@ public class Roster
         _players.Add(player);
         _avg = -1;
     }
+
+    public Player? GetById(String id)
+    {
+        return (_playersById?.ContainsKey(id) ?? false) ? _playersById[id] : null;
+    }
+
+
+    public List<Player> GetByIds(List<String> ids)
+    {
+        var result = new List<Player>();
+        foreach (var id in ids)
+        {
+            if (_playersById?.ContainsKey(id) ?? false)
+            {
+                result.Add(_playersById[id]);
+            }
+        }
+
+        return result;
+    }
+
+
 
     public Dictionary<Role, int> AvailablePerRole()
     {

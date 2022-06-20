@@ -3,7 +3,7 @@ namespace FDSim.Models.Game.League;
 using FDSim.Generators;
 using FDSim.Models.Enums;
 using FDSim.Models.Game.Team;
-public class Match
+public class Match : IdEntity
 {
     public Team Home { get; init; }
     public Team Away { get; init; }

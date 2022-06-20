@@ -7,7 +7,7 @@ using People;
 using DRi = Dictionary<Enums.Role, int>;
 using DRd = Dictionary<Enums.Role, double>;
 
-public class Lineup
+public class Lineup : IdEntity
 {
     const int NUMBER_OF_SUBS = 2;
     public List<Player> Starters { get; init; }
