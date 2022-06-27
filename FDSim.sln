@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FDSim", "FDSim\FDSim.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FDSim.Tests", "FDSim.Tests\FDSim.Tests.csproj", "{093E8732-1ED7-4BCE-BCE2-9C64727EB6F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatchesGame", "MatchesGame\MatchesGame.csproj", "{8180BEEB-D807-4A7B-B173-75202BBBD928}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{093E8732-1ED7-4BCE-BCE2-9C64727EB6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{093E8732-1ED7-4BCE-BCE2-9C64727EB6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{093E8732-1ED7-4BCE-BCE2-9C64727EB6F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8180BEEB-D807-4A7B-B173-75202BBBD928}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8180BEEB-D807-4A7B-B173-75202BBBD928}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8180BEEB-D807-4A7B-B173-75202BBBD928}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8180BEEB-D807-4A7B-B173-75202BBBD928}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
