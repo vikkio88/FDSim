@@ -1,19 +1,43 @@
-<UserControl 
-  xmlns="https://github.com/avaloniaui"
-  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-  mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-  x:Class="MatchesGame.Views.GameView">
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="MatchesGame.Views.GameView">
   <DockPanel LastChildFill="True">
     <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center" FontSize="30">Matches Game</TextBlock>
+      <TextBlock HorizontalAlignment="Center" FontSize="30">Matches</TextBlock>
     </Border>
     <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
-      <DockPanel>
-        <TextBlock>Team 1</TextBlock>
-        <TextBlock>Team 2</TextBlock>
-      </DockPanel>
+      <Grid HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="100"/>
+          <ColumnDefinition Width="100"/>
+          <ColumnDefinition Width="100"/>
+          <ColumnDefinition Width="100"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="50"/>
+          <RowDefinition Height="50"/>
+          <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Margin="4,0,0,0" FontSize="20" FontWeight="Bold">Home</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1" Margin="4,0,0,0" FontSize="20" FontWeight="Bold">Away</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="2" Margin="20,3,0,0" FontSize="15" FontWeight="Bold">Bet</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="3" Margin="20,0,0,0" FontSize="20" FontWeight="Bold">Result</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="0" Margin="4,0,0,0" VerticalAlignment="Center">Team 3</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center">Team 4</TextBlock>
+        <StackPanel Grid.Row="1" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+          <Button HorizontalAlignment="Center">1</Button>
+          <Button HorizontalAlignment="Center">X</Button>
+          <Button HorizontalAlignment="Center">2</Button>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Grid.Column="3" Margin="30,0,0,0" VerticalAlignment="Center">-</TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" Margin="4,0,0,0" VerticalAlignment="Center">Team 5</TextBlock>
+        <TextBlock Grid.Row="2" Grid.Column="1" Margin="4,0,0,0" VerticalAlignment="Center">Team 6</TextBlock>
+        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Center">
+          <Button HorizontalAlignment="Center">1</Button>
+          <Button HorizontalAlignment="Center">X</Button>
+          <Button HorizontalAlignment="Center">2</Button>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" VerticalAlignment="Center">-</TextBlock>
+      </Grid>
     </Border>
   </DockPanel>
 </UserControl>
