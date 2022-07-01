@@ -15,6 +15,8 @@ public class Roster : IdEntity
     private Dictionary<String, Player>? _playersById;
     private Dictionary<Role, List<Player>>? _playersPerRole;
 
+    public int Count { get => _players.Count; }
+
     public Roster(List<Player> list)
     {
         _players = list;
@@ -42,8 +44,6 @@ public class Roster : IdEntity
     {
         return _playersPerRole?[role] ?? null;
     }
-
-    public int Count() => _players.Count;
 
     public double Average()
     {

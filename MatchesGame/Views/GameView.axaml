@@ -3,8 +3,7 @@
     <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
       <TextBlock HorizontalAlignment="Center" FontSize="30">Matches</TextBlock>
     </Border>
-    <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
-      <Grid HorizontalAlignment="Center">
+    <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0"><!-- <Grid HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="100"/>
           <ColumnDefinition Width="100"/>
@@ -37,7 +36,29 @@
           <Button HorizontalAlignment="Center">2</Button>
         </StackPanel>
         <TextBlock Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" VerticalAlignment="Center">-</TextBlock>
-      </Grid>
+      </Grid> -->
+      <StackPanel>
+        <Button Classes="MediumButton" Command="{Binding GenerateTeams}">Generate Teams</Button>
+        <TextBlock IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
+        <ItemsControl Items="{Binding GeneratedTeams}" IsVisible="{Binding !!GeneratedTeams.Count}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="400"/>
+                  <ColumnDefinition Width="400"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="60"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}"/>
+                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Roster.Count}"/>
+              </Grid>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+      </StackPanel>
     </Border>
   </DockPanel>
 </UserControl>

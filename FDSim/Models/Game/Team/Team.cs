@@ -20,7 +20,7 @@ public class Team : IdEntity
 
     public override string ToString()
     {
-        return $"{base.ToString()}_Team: {Name} ({City} {Nationality}) - Roster: {Roster?.Count() ?? 0}";
+        return $"{base.ToString()}_Team: {Name} ({City} {Nationality}) - Roster: {Roster?.Count ?? 0}";
     }
 
 }
