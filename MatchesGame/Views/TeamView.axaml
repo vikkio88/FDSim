@@ -2,16 +2,47 @@
   <DockPanel LastChildFill="True">
     <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
       <StackPanel Orientation="Horizontal" Spacing="5">
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="{Binding Name}"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="{Binding Team.Name}"/>
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Country}"/>
       </StackPanel>
     </Border>
-    <Border Height="30" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
+    <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
       <Button Command="{Binding Back}">Back</Button>
     </Border>
     <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
-      <Grid RowDefinitions="50" ColumnDefinitions="100">
-        <TextBlock HorizontalAlignment="Center" Text="Yo"/>
+      <Grid ShowGridLines="True">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="500"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="200"/>
+          <RowDefinition Height="500"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="2">
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Classes="H3 HCent VCent" Text="Roster Size"/>
+            <TextBlock Classes="HCent VCent" Text="{Binding Team.Roster.Count}"/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" Spacing="5">
+            <TextBlock Classes="H3 HCent VCent" Text="Roster Avg"/>
+            <TextBlock Classes="HCent VCent" Text="{Binding Team.Roster.Avg}"/>
+          </StackPanel>
+        </StackPanel>
+        <TextBlock IsVisible="{Binding !!!Team.Roster.Count}">No Players</TextBlock>
+        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" IsVisible="{Binding !!Team.Roster.Count}">
+          <ItemsControl x:Name="GameViewRoot" Items="{Binding Team.Roster.Players}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Height="25" Margin="2">
+                  <StackPanel Orientation="Horizontal" Spacing="4">
+                    <TextBlock Text="{Binding Name}"/>
+                    <TextBlock Text="{Binding Surname}"/>
+                  </StackPanel>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
       </Grid>
     </Border>
   </DockPanel>

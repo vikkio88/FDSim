@@ -10,8 +10,13 @@ public class Roster : IdEntity
 {
     // -1 means that needs to be calculated
     private double _avg = -1;
+    
+    // TODO: remove the Average function
+    public double Avg { get => Average(); }
 
     private List<Player> _players { get; init; }
+    public List<Player> Players { get => _players; }
+
     private Dictionary<String, Player>? _playersById;
     private Dictionary<Role, List<Player>>? _playersPerRole;
 
