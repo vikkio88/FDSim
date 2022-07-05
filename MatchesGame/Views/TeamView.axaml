@@ -1,11 +1,17 @@
 <UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="MatchesGame.Views.TeamView">
   <DockPanel LastChildFill="True">
     <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center" FontSize="30">Team 1</TextBlock>
+      <StackPanel Orientation="Horizontal" Spacing="5">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="{Binding Name}"/>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Country}"/>
+      </StackPanel>
+    </Border>
+    <Border Height="30" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
+      <Button Command="{Binding Back}">Back</Button>
     </Border>
     <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
       <Grid RowDefinitions="50" ColumnDefinitions="100">
-      
+        <TextBlock HorizontalAlignment="Center" Text="Yo"/>
       </Grid>
     </Border>
   </DockPanel>

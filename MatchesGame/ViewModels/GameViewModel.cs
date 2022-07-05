@@ -1,8 +1,8 @@
 namespace MatchesGame.ViewModels;
 
 using ReactiveUI;
+using System;
 using System.Reactive;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using FDSim.Models.Game.Team;
 using FDSim.Generators;
@@ -15,8 +15,10 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
 
     public string UrlPathSegment { get; } = "gameView";
 
-    public ObservableCollection<Team> GeneratedTeams { get; set; } = new();
+    public ObservableCollection<Team> GeneratedTeams { get; set; } = Services.TeamsDb.Instance.GeneratedTeams;
     public ReactiveCommand<Unit, Unit> GenerateTeams { get; set; }
+    public ReactiveCommand<string, Unit> RemoveTeam { get; set; }
+    public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
 
     public GameViewModel(IScreen screen)
     {
@@ -27,5 +29,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         );
         HostScreen = screen;
         GenerateTeams = ReactiveCommand.Create(() => GeneratedTeams.Add(_gEg.GetTeam()), generateEnabled);
+        RemoveTeam = ReactiveCommand.Create((string teamId) => Services.TeamsDb.Instance.RemoveById(teamId));
+        ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
     }
 }

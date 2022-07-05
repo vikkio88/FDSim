@@ -1,14 +1,18 @@
-using Avalonia;
-using Avalonia.Controls;
+namespace MatchesGame.Views;
+
 using Avalonia.Markup.Xaml;
 
-namespace MatchesGame.Views
+using Avalonia.ReactiveUI;
+using ReactiveUI;
+using MatchesGame.ViewModels;
+
+
+
+public partial class TeamView : ReactiveUserControl<TeamViewModel>
 {
-    public partial class TeamView : UserControl
+    public TeamView()
     {
-        public TeamView()
-        {
-            InitializeComponent();
-        }
+        this.WhenActivated(disposables => { });
+        AvaloniaXamlLoader.Load(this);
     }
 }

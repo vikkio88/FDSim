@@ -20,4 +20,20 @@ public static class NationalityHelper
             _ => "en_GB"
         };
     }
+
+    public static String GetName(Nationality nationality)
+    {
+        return nationality switch
+        {
+            Nationality.English => "England",
+            Nationality.German => "Germany",
+            Nationality.Italian => "Italy",
+            Nationality.Spanish => "Spain",
+            Nationality.French => "France",
+            Nationality.Dutch => "Netherlands",
+            Nationality.Polish => "Poland",
+            Nationality.Turkish => "Turkey",
+            _ => "Unknown"
+        };
+    }
 }

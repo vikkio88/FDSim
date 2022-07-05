@@ -40,24 +40,30 @@
       <StackPanel>
         <Button Classes="MediumButton" Command="{Binding GenerateTeams}">Generate Teams</Button>
         <TextBlock IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
-        <ItemsControl Items="{Binding GeneratedTeams}" IsVisible="{Binding !!GeneratedTeams.Count}">
+        <ItemsControl x:Name="GameViewRoot" Items="{Binding GeneratedTeams}" IsVisible="{Binding !!GeneratedTeams.Count}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="400"/>
-                  <ColumnDefinition Width="400"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="60"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}"/>
-                <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Roster.Count}"/>
-              </Grid>
+              <Border Height="70" BorderBrush="Black" BorderThickness="1" Margin="2">
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="400"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
+                  </Grid.ColumnDefinitions>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                  </Grid.RowDefinitions>
+                  <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}"/>
+                  <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Roster.Count}"/>
+                  
+                  <Button Grid.Row="0" Grid.Column="2" Command="{Binding #GameViewRoot.DataContext.ViewTeam}" CommandParameter="{Binding Id}">View</Button>
+                  <Button Grid.Row="0" Grid.Column="3" Command="{Binding #GameViewRoot.DataContext.RemoveTeam}" CommandParameter="{Binding Id}">Remove</Button>
+                </Grid>
+              </Border>
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
-        
       </StackPanel>
     </Border>
   </DockPanel>
