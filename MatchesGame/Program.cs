@@ -5,6 +5,8 @@ using Avalonia;
 using Avalonia.ReactiveUI;
 using Views;
 using ViewModels;
+using Projektanker.Icons.Avalonia;
+using Projektanker.Icons.Avalonia.FontAwesome;
 
 class Program
 {
@@ -23,10 +25,11 @@ class Program
         Splat.Locator.CurrentMutable.Register(() => new MainMenuView(), typeof(ReactiveUI.IViewFor<MainMenuViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new GameView(), typeof(ReactiveUI.IViewFor<GameViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new TeamView(), typeof(ReactiveUI.IViewFor<TeamViewModel>));
-        
+
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
             .UseReactiveUI()
+            .WithIcons(container => container.Register<FontAwesomeIconProvider>())
             .LogToTrace()
             .UseReactiveUI();
     }
