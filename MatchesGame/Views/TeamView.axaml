@@ -1,4 +1,4 @@
-<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="MatchesGame.Views.TeamView">
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia" xmlns:common="using:MatchesGame.Views.Common" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" x:Class="MatchesGame.Views.TeamView">
   <DockPanel LastChildFill="True">
     <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
       <StackPanel Orientation="Horizontal" Spacing="5">
@@ -9,9 +9,6 @@
     <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
       <StackPanel Orientation="Horizontal">
         <Button Command="{Binding Back}">Back</Button>
-        <i:Icon Value="fa fa-star" FontSize="40"/>
-        <i:Icon Value="fa fa-star" FontSize="40"/>
-        <i:Icon Value="fa fa-star-half" FontSize="40"/>
       </StackPanel>
     </Border>
     <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
@@ -31,7 +28,7 @@
           </StackPanel>
           <StackPanel Orientation="Horizontal" Spacing="5">
             <TextBlock Classes="H3 HCent VCent" Text="Roster Avg"/>
-            <TextBlock Classes="HCent VCent" Text="{Binding Team.Roster.Avg}"/>
+            <common:Stars DataContext="{Binding TeamAvg}"/>
           </StackPanel>
         </StackPanel>
         <TextBlock Grid.Row="1" Grid.Column="0" IsVisible="{Binding !!!Team.Roster.Count}">No Players</TextBlock>
@@ -67,7 +64,7 @@
           </StackPanel>
           <StackPanel Orientation="Horizontal" Spacing="5">
             <TextBlock Classes="H4 HCent VCent" Text="Skill"/>
-            <TextBlock Classes="HCent VCent" Text="{Binding SelectedPlayer.Skill}"/>
+            <common:Stars DataContext="{Binding SelectedPlayerSkills}"/>
           </StackPanel>
         </StackPanel>
       </Grid>

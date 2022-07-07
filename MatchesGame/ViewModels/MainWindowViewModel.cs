@@ -12,8 +12,10 @@ public class MainWindowViewModel : ReactiveObject, IScreen
     public MainWindowViewModel()
     {
         DispatcherTimer.RunOnce(
-            () => Router.Navigate.Execute(new MainMenuViewModel(this)),
-            System.TimeSpan.FromSeconds(4)
+            // () => Router.Navigate.Execute(new MainMenuViewModel(this)),
+            // System.TimeSpan.FromSeconds(4)
+            () => Router.Navigate.Execute(new GameViewModel(this)),
+            System.TimeSpan.FromMilliseconds(1)
         );
     }
 }
