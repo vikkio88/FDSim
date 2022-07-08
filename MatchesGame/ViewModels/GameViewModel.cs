@@ -19,17 +19,23 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> GenerateTeams { get; set; }
     public ReactiveCommand<string, Unit> RemoveTeam { get; set; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
+    public ReactiveCommand<Unit, IRoutableViewModel> StartLeague { get; set; }
 
     public GameViewModel(IScreen screen)
     {
         _gEg = new GameEntityGenerator(0);
         var generateEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
-            x => x < 5
+            x => x < 10
+        );
+        var startMatchesEnabled = this.WhenAnyValue(
+            x => x.GeneratedTeams.Count,
+            x => x > 0 && x % 2 == 0
         );
         HostScreen = screen;
         GenerateTeams = ReactiveCommand.Create(() => GeneratedTeams.Add(_gEg.GetTeam()), generateEnabled);
         RemoveTeam = ReactiveCommand.Create((string teamId) => Services.TeamsDb.Instance.RemoveById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
+        StartLeague = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen)), startMatchesEnabled);
     }
 }

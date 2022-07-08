@@ -38,7 +38,10 @@
         <TextBlock Grid.Row="2" Grid.Column="3" Margin="30,0,0,0" VerticalAlignment="Center">-</TextBlock>
       </Grid> -->
       <StackPanel>
-        <Button Classes="MediumButton" Command="{Binding GenerateTeams}">Generate Teams</Button>
+        <StackPanel>
+          <Button Classes="MediumButton" Command="{Binding GenerateTeams}">Generate Teams</Button>
+          <Button Classes="MediumButton" Command="{Binding StartLeague}">Start League</Button>
+        </StackPanel>
         <TextBlock IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
         <ItemsControl x:Name="GameViewRoot" Items="{Binding GeneratedTeams}" IsVisible="{Binding !!GeneratedTeams.Count}">
           <ItemsControl.ItemTemplate>
@@ -56,7 +59,6 @@
                   </Grid.RowDefinitions>
                   <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}"/>
                   <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Roster.Count}"/>
-                  
                   <Button Grid.Row="0" Grid.Column="2" Command="{Binding #GameViewRoot.DataContext.ViewTeam}" CommandParameter="{Binding Id}">View</Button>
                   <Button Grid.Row="0" Grid.Column="3" Command="{Binding #GameViewRoot.DataContext.RemoveTeam}" CommandParameter="{Binding Id}">Remove</Button>
                 </Grid>
