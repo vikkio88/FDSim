@@ -40,7 +40,7 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
         SelectPlayer = ReactiveCommand.Create((string playerId) =>
         {
 
-            SelectedPlayer = TeamsDb.Instance.GetById(TeamId).Roster?.GetById(playerId);
+            SelectedPlayer = TeamsDb.Instance.GetById(TeamId)?.Roster?.GetById(playerId);
             SelectedPlayerSkills = new(SelectedPlayer.Skill.Value);
         });
 

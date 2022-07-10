@@ -33,7 +33,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
             x => x > 0 && x % 2 == 0
         );
         HostScreen = screen;
-        GenerateTeams = ReactiveCommand.Create(() => GeneratedTeams.Add(_gEg.GetTeam()), generateEnabled);
+        GenerateTeams = ReactiveCommand.Create(() => Services.TeamsDb.Instance.Add(_gEg.GetTeam()), generateEnabled);
         RemoveTeam = ReactiveCommand.Create((string teamId) => Services.TeamsDb.Instance.RemoveById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
         StartLeague = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen)), startMatchesEnabled);

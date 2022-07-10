@@ -48,4 +48,5 @@ public class League : IdEntity
             Name = name ?? string.Empty
         };
     }
+
 }

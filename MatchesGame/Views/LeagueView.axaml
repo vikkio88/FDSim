@@ -1,8 +1,45 @@
-<UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="MatchesGame.Views.LeagueView">
-  League View
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters" x:Class="MatchesGame.Views.LeagueView">
+  <DockPanel LastChildFill="True">
+    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+      <TextBlock HorizontalAlignment="Center" FontSize="30">League</TextBlock>
+    </Border>
+    <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
+      <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+        <ItemsControl x:Name="LeagueViewRoot" Items="{Binding League.Rounds}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="Black" BorderThickness="1">
+                <StackPanel Orientation="Vertical" Spacing="5">
+                  <ItemsControl x:Name="RoundsViewRoot" Items="{Binding Matches}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Spacing="2" x:Name="SingleMatchRoot">
+                          <TextBlock>
+                            <TextBlock.Text>
+                              <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
+                                <Binding Path="HomeId"/>
+                                <Binding Path="DataContext.TeamNameMap" ElementName="LeagueVieswRoot"/>
+                              </MultiBinding>
+                            </TextBlock.Text>
+                          </TextBlock>
+                          <TextBlock>
+                            <TextBlock.Text>
+                              <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
+                                <Binding Path="AwayId"/>
+                                <Binding Path="DataContext.TeamNameMap" ElementName="LeagueViewRoot"/>
+                              </MultiBinding>
+                            </TextBlock.Text>
+                          </TextBlock>
+                        </StackPanel>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </ScrollViewer>
+    </Border>
+  </DockPanel>
 </UserControl>
