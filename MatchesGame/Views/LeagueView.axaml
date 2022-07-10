@@ -10,18 +10,20 @@
             <DataTemplate>
               <Border BorderBrush="Black" BorderThickness="1">
                 <StackPanel Orientation="Vertical" Spacing="5">
-                  <ItemsControl x:Name="RoundsViewRoot" Items="{Binding Matches}">
+                  <TextBlock Text="{Binding}"/>
+                  <ItemsControl Items="{Binding Matches}">
                     <ItemsControl.ItemTemplate>
                       <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Spacing="2" x:Name="SingleMatchRoot">
+                        <StackPanel Orientation="Horizontal" Spacing="2" Margin="2">
                           <TextBlock>
                             <TextBlock.Text>
                               <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
                                 <Binding Path="HomeId"/>
-                                <Binding Path="DataContext.TeamNameMap" ElementName="LeagueVieswRoot"/>
+                                <Binding Path="DataContext.TeamNameMap" ElementName="LeagueViewRoot"/>
                               </MultiBinding>
                             </TextBlock.Text>
                           </TextBlock>
+                          <TextBlock>vs</TextBlock>
                           <TextBlock>
                             <TextBlock.Text>
                               <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">

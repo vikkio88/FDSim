@@ -6,4 +6,9 @@ public class Round
     public bool Played { get; set; } = false;
 
     //@TODO might want to add a date?
+
+    public override string ToString()
+    {
+        return $"Round {Index + 1}";
+    }
 }
