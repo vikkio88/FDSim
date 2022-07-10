@@ -1,14 +1,14 @@
 <Application xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:MatchesGame"
-    xmlns:common="using:MatchesGame.Views.Common"
-    x:Class="MatchesGame.App">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:MatchesGame"
+             xmlns:common="using:MatchesGame.Views.Common"
+             x:Class="MatchesGame.App">
     <Application.DataTemplates>
-        <local:ViewLocator/>
+        <local:ViewLocator />
     </Application.DataTemplates>
     <Application.Styles>
-        <FluentTheme Mode="Light"/>
-        <StyleInclude Source="/Assets/Styles/Main.xaml"/>
-        <StyleInclude Source="/Views/Common/Stars.axaml"/>
+        <FluentTheme Mode="Light" />
+        <StyleInclude Source="/Assets/Styles/Main.xaml" />
+        <StyleInclude Source="/Views/Common/Stars.axaml" />
     </Application.Styles>
 </Application>
