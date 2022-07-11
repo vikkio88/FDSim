@@ -9,6 +9,12 @@ public class Dicer
     public int Seed { get => _seed; }
     private Faker _faker;
     public Faker Faker { get => _faker; }
+
+    public static Dicer Make(int? seed = null)
+    {
+        var rng = new Random();
+        return new(rng.Next());
+    }
     public Dicer(int seed)
     {
         _seed = seed;
@@ -20,7 +26,7 @@ public class Dicer
     {
         return Percentage() <= chance;
     }
-    
+
     public bool Chance(double chance)
     {
         return Percentage() <= chance;
@@ -29,5 +35,10 @@ public class Dicer
     public int Percentage()
     {
         return _faker.Random.Number(0, 100);
+    }
+
+    public int Int(int min = int.MinValue, int max = int.MaxValue)
+    {
+        return _faker.Random.Int(min, max);
     }
 }
