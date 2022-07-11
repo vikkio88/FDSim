@@ -22,7 +22,7 @@
         <ItemsControl x:Name="GameViewRoot" Items="{Binding GeneratedTeams}" IsVisible="{Binding !!GeneratedTeams.Count}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border Height="70" BorderBrush="Black" BorderThickness="1" Margin="2">
+              <Border Height="70" BorderBrush="Black" BorderThickness="1" Margin="2,2,0,0">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400" />
@@ -33,8 +33,8 @@
                   <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                   </Grid.RowDefinitions>
-                  <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" />
-                  <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Roster.Count}" />
+                  <TextBlock Grid.Row="0" Grid.Column="0" Classes="VCent" Text="{Binding Name}" />
+                  <TextBlock Grid.Row="0" Grid.Column="1" Classes="VCent" Text="{Binding Roster.Count}" />
                   <Button Grid.Row="0" Grid.Column="2" Command="{Binding #GameViewRoot.DataContext.ViewTeam}" CommandParameter="{Binding Id}">View</Button>
                   <Button Grid.Row="0" Grid.Column="3" Command="{Binding #GameViewRoot.DataContext.RemoveTeam}" CommandParameter="{Binding Id}">Remove</Button>
                 </Grid>

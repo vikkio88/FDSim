@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
              xmlns:common="using:MatchesGame.Views.Common"
+             xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
              mc:Ignorable="d"
              d:DesignWidth="800"
              d:DesignHeight="450"
@@ -15,11 +16,7 @@
         <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Country}" />
       </StackPanel>
     </Border>
-    <Border Height="50" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Bottom">
-      <StackPanel Orientation="Horizontal">
-        <Button Command="{Binding Back}">Back</Button>
-      </StackPanel>
-    </Border>
+    <shared:NavigationFooter DockPanel.Dock="Bottom" />
     <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
       <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>

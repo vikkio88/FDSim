@@ -18,7 +18,6 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         get => _seed;
         set => this.RaiseAndSetIfChanged(ref _seed, value);
     }
-
     public string UrlPathSegment { get; } = "gameView";
 
     public ObservableCollection<Team> GeneratedTeams { get; set; } = Services.TeamsDb.Instance.GeneratedTeams;
@@ -33,7 +32,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         _gEg = new GameEntityGenerator(Seed);
         var generateEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
-            x => x < 10
+            x => x < 19
         );
         var startMatchesEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
