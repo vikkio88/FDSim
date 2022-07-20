@@ -16,11 +16,19 @@ public class Match : IdEntity
     private MatchResult? _result;
     public MatchResult? Result { get => _result; }
 
+    public static Match Make(MatchPlaceholder match, Dictionary<string, Team> teamsMap)
+    {
+        // TODO: tryGet rather than []
+        var home = teamsMap[match.HomeId];
+        var away = teamsMap[match.AwayId];
+        return new Match { Id = match.Id, Home = home, Away = away };
+    }
+
     public static Match Make(Team home, Team away)
     {
         return new Match { Home = home, Away = away };
     }
-
+    
     public void Simulate(Dicer dicer)
     {
         if (isFinished) return;
@@ -76,6 +84,7 @@ public class Match : IdEntity
         _winnerId = goalHome >= goalAway ? Home.Id : Away.Id;
         _loserId = _winnerId == Home.Id ? Away.Id : Home.Id;
         _result = MatchResult.Make(goalHome, goalAway, homeLineup, awayLineup, dicer);
+        _result.MatchId = Id;
     }
 
     public override String ToString()

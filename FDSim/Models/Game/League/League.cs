@@ -5,6 +5,8 @@ public class League : IdEntity
     public string Name { get; set; } = string.Empty;
     public List<Round> Rounds { get; set; } = new();
 
+    private int _roundPointer = 0;
+
     public static League Make(List<string> teamIds, string? name = null)
     {
         var firstHalf = new List<Round>();
@@ -47,6 +49,11 @@ public class League : IdEntity
             Rounds = firstHalf,
             Name = name ?? string.Empty
         };
+    }
+
+    public Round GetNextRound()
+    {
+        return Rounds[_roundPointer];
     }
 
 }

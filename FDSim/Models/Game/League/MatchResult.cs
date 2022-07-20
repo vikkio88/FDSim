@@ -3,8 +3,9 @@ namespace FDSim.Models.Game.League;
 using FDSim.Generators;
 using FDSim.Models.Enums;
 using FDSim.Models.Game.Team;
-public class MatchResult
+public class MatchResult : IdEntity
 {
+    public string MatchId { get; set; } = string.Empty;
     public int GoalHome { get; init; } = 0;
     public int GoalAway { get; init; } = 0;
     public bool isDraw { get; init; } = false;
