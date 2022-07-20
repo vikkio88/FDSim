@@ -40,12 +40,12 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
         SelectPlayer = ReactiveCommand.Create((string playerId) =>
         {
 
-            SelectedPlayer = TeamsDb.Instance.GetById(TeamId)?.Roster?.GetById(playerId);
+            SelectedPlayer = GameDb.Instance.GetTeamById(TeamId)?.Roster?.GetById(playerId);
             SelectedPlayerSkills = new(SelectedPlayer.Skill.Value);
         });
 
         TeamId = teamId;
-        Team = Services.TeamsDb.Instance.GetById(TeamId);
+        Team = Services.GameDb.Instance.GetTeamById(TeamId);
         TeamAvg = new(Team.Roster.Avg);
         Country = $"({NationalityHelper.GetName(Team.Nationality)})";
     }

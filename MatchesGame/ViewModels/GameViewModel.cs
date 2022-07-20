@@ -20,7 +20,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
     }
     public string UrlPathSegment { get; } = "gameView";
 
-    public ObservableCollection<Team> GeneratedTeams { get; set; } = Services.TeamsDb.Instance.GeneratedTeams;
+    public ObservableCollection<Team> GeneratedTeams { get; set; } = Services.GameDb.Instance.GeneratedTeams;
     public ReactiveCommand<Unit, Unit> GenerateTeams { get; set; }
     public ReactiveCommand<string, Unit> RemoveTeam { get; set; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
@@ -39,13 +39,13 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
             x => x > 0 && x % 2 == 0
         );
         HostScreen = screen;
-        GenerateTeams = ReactiveCommand.Create(() => Services.TeamsDb.Instance.Add(_gEg.GetTeam()), generateEnabled);
+        GenerateTeams = ReactiveCommand.Create(() => Services.GameDb.Instance.AddTeam(_gEg.GetTeam()), generateEnabled);
         ChangeSeed = ReactiveCommand.Create(() =>
         {
             Seed = Dicer.Make().Int(0);
             _gEg = new(Seed);
         });
-        RemoveTeam = ReactiveCommand.Create((string teamId) => Services.TeamsDb.Instance.RemoveById(teamId));
+        RemoveTeam = ReactiveCommand.Create((string teamId) => Services.GameDb.Instance.RemoveTeamById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
         StartLeague = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen)), startMatchesEnabled);
     }
