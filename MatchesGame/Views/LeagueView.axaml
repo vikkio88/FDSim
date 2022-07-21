@@ -9,6 +9,7 @@
              x:Class="MatchesGame.Views.LeagueView">
   <DockPanel LastChildFill="True">
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
+    <Button Command="{Binding SimulateRound}" DockPanel.Dock="Bottom">Simulate Next Round</Button>
     <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
       <TextBlock HorizontalAlignment="Center" FontSize="30">League</TextBlock>
     </Border>

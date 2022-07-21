@@ -14,7 +14,7 @@
           <Border BorderBrush="Black" BorderThickness="1">
             <StackPanel Orientation="Vertical" Spacing="5">
               <TextBlock Text="{Binding}" />
-              <ItemsControl Items="{Binding Matches}">
+              <ItemsControl x:Name="RoundRoot" Items="{Binding Matches}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <StackPanel Orientation="Horizontal" Spacing="2" Margin="2">
@@ -35,6 +35,25 @@
                           </MultiBinding>
                         </TextBlock.Text>
                       </TextBlock>
+                      
+                      <StackPanel Orientation="Horizontal" Spacing="3">
+                        <StackPanel.IsVisible>
+                          <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
+                            <Binding Path="Id" />
+                            <Binding Path="DataContext.ResultMap" ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </StackPanel.IsVisible>
+                        <TextBlock>
+                          <TextBlock.Text>
+                            <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
+                              <Binding Path="Id" />
+                              <Binding Path="DataContext.ResultMap" ElementName="LeagueViewRoot" />
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+                        <Button Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}" CommandParameter="{Binding Id}">Details</Button>
+                      </StackPanel>
+
                     </StackPanel>
                   </DataTemplate>
                 </ItemsControl.ItemTemplate>

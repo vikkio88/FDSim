@@ -51,9 +51,16 @@ public class League : IdEntity
         };
     }
 
-    public Round GetNextRound()
+    public Round? GetNextRound()
     {
-        return Rounds[_roundPointer];
+        if (_roundPointer >= Rounds.Count)
+        {
+            return null;
+        }
+        
+        var currentRound = Rounds[_roundPointer];
+        _roundPointer++;
+        return currentRound;
     }
 
 }
