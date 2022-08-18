@@ -1,8 +1,5 @@
 ﻿namespace MatchesGame.ViewModels;
 
-using System;
-using System.Reactive;
-using System.Threading.Tasks;
 using ReactiveUI;
 using Avalonia.Threading;
 

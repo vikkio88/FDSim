@@ -30,7 +30,6 @@ class Program
 
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
-            .UseReactiveUI()
             .WithIcons(container => container.Register<FontAwesomeIconProvider>())
             .LogToTrace()
             .UseReactiveUI();
