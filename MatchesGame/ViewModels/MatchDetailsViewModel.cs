@@ -3,8 +3,9 @@ namespace MatchesGame.ViewModels;
 using ReactiveUI;
 using System.Reactive;
 using FDSim.Models.Game.League;
+using FDSim.Models.People;
 using MatchesGame.Services;
-
+using System.Collections.Generic;
 
 public class MatchDetailsViewModel : ReactiveObject, IRoutableViewModel
 {
@@ -12,6 +13,8 @@ public class MatchDetailsViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> Back { get; }
     public MatchResult MatchResult { get; set; }
     public Match Match { get; set; }
+    public Dictionary<string, Player> HomeRoster { get; init; }
+    public Dictionary<string, Player> AwayRoster { get; init; }
     public string UrlPathSegment { get; } = "matchDetailsView";
 
     public MatchDetailsViewModel(IScreen screen, string matchId)
@@ -20,5 +23,7 @@ public class MatchDetailsViewModel : ReactiveObject, IRoutableViewModel
         Back = HostScreen.Router.NavigateBack;
         MatchResult = GameDb.Instance.ResultMap[matchId];
         Match = GameDb.Instance.MatchesMap[matchId];
+        HomeRoster = Match.Home.Roster.IndexedPlayers;
+        AwayRoster = Match.Away.Roster.IndexedPlayers;
     }
 }
