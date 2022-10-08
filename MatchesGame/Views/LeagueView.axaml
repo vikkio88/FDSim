@@ -1,19 +1,26 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
-             xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
-             x:Class="MatchesGame.Views.LeagueView">
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="800"
+  d:DesignHeight="450"
+  xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
+  x:Class="MatchesGame.Views.LeagueView">
   <DockPanel LastChildFill="True">
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
-    <Button Command="{Binding SimulateRound}" DockPanel.Dock="Bottom">Simulate Next Round</Button>
-    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center" FontSize="30">League</TextBlock>
+    <Button Command="{Binding SimulateRound}"
+      DockPanel.Dock="Bottom">Simulate Next Round</Button>
+    <Border Height="40"
+      BorderBrush="Black"
+      BorderThickness="1"
+      DockPanel.Dock="Top">
+      <TextBlock HorizontalAlignment="Center"
+        FontSize="30">League</TextBlock>
     </Border>
-    <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
+    <Border BorderBrush="Black"
+      BorderThickness="1"
+      Margin="0,4,0,0">
       <shared:LeagueCalendarView />
     </Border>
   </DockPanel>

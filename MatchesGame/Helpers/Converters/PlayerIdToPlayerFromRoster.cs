@@ -9,6 +9,7 @@ public class PlayerIdToPlayerFromRoster : IMultiValueConverter
     public static readonly PlayerIdToPlayerFromRoster Instance = new PlayerIdToPlayerFromRoster();
     public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
     {
+        System.Console.WriteLine(values);
         if (
             values.Count == 2 &&
             values[0] is string id &&

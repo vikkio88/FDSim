@@ -1,23 +1,35 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             xmlns:common="using:MatchesGame.Views.Common"
-             xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
-             x:Class="MatchesGame.Views.TeamView">
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+  xmlns:common="using:MatchesGame.Views.Common"
+  xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
+  mc:Ignorable="d"
+  d:DesignWidth="800"
+  d:DesignHeight="450"
+  x:Class="MatchesGame.Views.TeamView">
   <DockPanel LastChildFill="True">
-    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <StackPanel Orientation="Horizontal" Spacing="5">
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" Text="{Binding Team.Name}" />
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Text="{Binding Country}" />
+    <Border Height="40"
+      BorderBrush="Black"
+      BorderThickness="1"
+      DockPanel.Dock="Top">
+      <StackPanel Orientation="Horizontal"
+        Spacing="5">
+        <TextBlock HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          FontSize="30"
+          Text="{Binding Team.Name}" />
+        <TextBlock HorizontalAlignment="Center"
+          VerticalAlignment="Center"
+          FontSize="20"
+          Text="{Binding Country}" />
       </StackPanel>
     </Border>
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
-    <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
+    <Border BorderBrush="Black"
+      BorderThickness="1"
+      Margin="0,4,0,0">
       <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="500" />
@@ -27,49 +39,81 @@
           <RowDefinition Height="200" />
           <RowDefinition Height="500" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Spacing="2">
-          <StackPanel Orientation="Horizontal" Spacing="5">
-            <TextBlock Classes="H3 HCent VCent" Text="Roster Size" />
-            <TextBlock Classes="HCent VCent" Text="{Binding Team.Roster.Count}" />
+        <StackPanel Grid.Row="0"
+          Grid.Column="0"
+          Orientation="Vertical"
+          Spacing="2">
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H3 HCent VCent"
+              Text="Roster Size" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding Team.Roster.Count}" />
           </StackPanel>
-          <StackPanel Orientation="Horizontal" Spacing="5">
-            <TextBlock Classes="H3 HCent VCent" Text="Roster Avg" />
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H3 HCent VCent"
+              Text="Roster Avg" />
             <common:Stars DataContext="{Binding TeamAvg}" />
           </StackPanel>
         </StackPanel>
-        <TextBlock Grid.Row="1" Grid.Column="0" IsVisible="{Binding !!!Team.Roster.Count}">No Players</TextBlock>
-        <ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto" IsVisible="{Binding !!Team.Roster.Count}">
-          <ItemsControl x:Name="TeamViewRoot" Items="{Binding Team.Roster.Players}">
+        <TextBlock Grid.Row="1"
+          Grid.Column="0"
+          IsVisible="{Binding !!!Team.Roster.Count}">No Players</TextBlock>
+        <ScrollViewer Grid.Row="1"
+          Grid.Column="0"
+          VerticalScrollBarVisibility="Auto"
+          IsVisible="{Binding !!Team.Roster.Count}">
+          <ItemsControl x:Name="TeamViewRoot"
+            Items="{Binding Team.Roster.Players}">
             <ItemsControl.ItemTemplate>
               <DataTemplate>
-                <Border Height="30" Margin="4">
-                  <StackPanel Orientation="Horizontal" Spacing="10">
+                <Border Height="30"
+                  Margin="4">
+                  <StackPanel Orientation="Horizontal"
+                    Spacing="10">
                     <TextBlock Text="{Binding Name}" />
                     <TextBlock Text="{Binding Surname}" />
                     <TextBlock Text="{Binding Role}" />
-                    <Button Command="{Binding #TeamViewRoot.DataContext.SelectPlayer}" CommandParameter="{Binding Id}">View</Button>
+                    <Button Command="{Binding #TeamViewRoot.DataContext.SelectPlayer}"
+                      CommandParameter="{Binding Id}">View</Button>
                   </StackPanel>
                 </Border>
               </DataTemplate>
             </ItemsControl.ItemTemplate>
           </ItemsControl>
         </ScrollViewer>
-        <StackPanel Grid.Row="1" Grid.Column="1" IsVisible="{Binding !!SelectedPlayer}" Margin="4">
-          <StackPanel Orientation="Horizontal" Spacing="10">
-            <TextBlock Classes="H4 HCent VCent" Text="Name" />
-            <TextBlock Classes="HCent VCent" Text="{Binding SelectedPlayer.Name}" />
-            <TextBlock Classes="HCent VCent" Text="{Binding SelectedPlayer.Surname}" />
+        <StackPanel Grid.Row="1"
+          Grid.Column="1"
+          IsVisible="{Binding !!SelectedPlayer}"
+          Margin="4">
+          <StackPanel Orientation="Horizontal"
+            Spacing="10">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Name" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Name}" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Surname}" />
           </StackPanel>
-          <StackPanel Orientation="Horizontal" Spacing="5">
-            <TextBlock Classes="H4 HCent VCent" Text="Nationality" />
-            <TextBlock Classes="HCent VCent" Text="{Binding SelectedPlayer.Nationality}" />
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Nationality" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Nationality}" />
           </StackPanel>
-          <StackPanel Orientation="Horizontal" Spacing="5">
-            <TextBlock Classes="H4 HCent VCent" Text="Role" />
-            <TextBlock Classes="HCent VCent" Text="{Binding SelectedPlayer.Role}" />
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Role" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Role}" />
           </StackPanel>
-          <StackPanel Orientation="Horizontal" Spacing="5">
-            <TextBlock Classes="H4 HCent VCent" Text="Skill" />
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Skill" />
             <common:Stars DataContext="{Binding SelectedPlayerSkills}" />
           </StackPanel>
         </StackPanel>

@@ -1,28 +1,42 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
-             x:Class="MatchesGame.Views.GameView">
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  d:DesignWidth="800"
+  d:DesignHeight="450"
+  x:Class="MatchesGame.Views.GameView">
   <DockPanel LastChildFill="True">
-    <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center" FontSize="30">Matches</TextBlock>
+    <Border Height="40"
+      BorderBrush="Black"
+      BorderThickness="1"
+      DockPanel.Dock="Top">
+      <TextBlock HorizontalAlignment="Center"
+        FontSize="30">Matches</TextBlock>
     </Border>
-    <Border BorderBrush="Black" BorderThickness="1" Margin="0,4,0,0">
+    <Border BorderBrush="Black"
+      BorderThickness="1"
+      Margin="0,4,0,0">
       <StackPanel>
         <StackPanel>
           <TextBlock Text="{Binding Seed}" />
-          <Button Classes="MediumButton" Command="{Binding GenerateTeams}">Generate Teams</Button>
-          <Button Classes="MediumButton" Command="{Binding ChangeSeed}">Change Seed</Button>
-          <Button Classes="MediumButton" Command="{Binding StartLeague}">Start League</Button>
+          <Button Classes="MediumButton"
+            Command="{Binding GenerateTeams}">Generate Teams</Button>
+          <Button Classes="MediumButton"
+            Command="{Binding ChangeSeed}">Change Seed</Button>
+          <Button Classes="MediumButton"
+            Command="{Binding StartLeague}">Start League</Button>
         </StackPanel>
         <TextBlock IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
-        <ItemsControl x:Name="GameViewRoot" Items="{Binding GeneratedTeams}" IsVisible="{Binding !!GeneratedTeams.Count}">
+        <ItemsControl x:Name="GameViewRoot"
+          Items="{Binding GeneratedTeams}"
+          IsVisible="{Binding !!GeneratedTeams.Count}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border Height="70" BorderBrush="Black" BorderThickness="1" Margin="2,2,0,0">
+              <Border Height="70"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Margin="2,2,0,0">
                 <Grid>
                   <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="400" />
@@ -33,10 +47,22 @@
                   <Grid.RowDefinitions>
                     <RowDefinition Height="60" />
                   </Grid.RowDefinitions>
-                  <TextBlock Grid.Row="0" Grid.Column="0" Classes="VCent" Text="{Binding Name}" />
-                  <TextBlock Grid.Row="0" Grid.Column="1" Classes="VCent" Text="{Binding Roster.Count}" />
-                  <Button Grid.Row="0" Grid.Column="2" Command="{Binding #GameViewRoot.DataContext.ViewTeam}" CommandParameter="{Binding Id}">View</Button>
-                  <Button Grid.Row="0" Grid.Column="3" Command="{Binding #GameViewRoot.DataContext.RemoveTeam}" CommandParameter="{Binding Id}">Remove</Button>
+                  <TextBlock Grid.Row="0"
+                    Grid.Column="0"
+                    Classes="VCent"
+                    Text="{Binding Name}" />
+                  <TextBlock Grid.Row="0"
+                    Grid.Column="1"
+                    Classes="VCent"
+                    Text="{Binding Roster.Count}" />
+                  <Button Grid.Row="0"
+                    Grid.Column="2"
+                    Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
+                    CommandParameter="{Binding Id}">View</Button>
+                  <Button Grid.Row="0"
+                    Grid.Column="3"
+                    Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
+                    CommandParameter="{Binding Id}">Remove</Button>
                 </Grid>
               </Border>
             </DataTemplate>
