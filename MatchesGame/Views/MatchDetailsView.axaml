@@ -1,66 +1,19 @@
-<UserControl
-    xmlns="https://github.com/avaloniaui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignWidth="800"
-    d:DesignHeight="450"
-    xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
-    x:Class="MatchesGame.Views.MatchDetailsView">
-  <DockPanel LastChildFill="True">
-    <shared:NavigationFooter DockPanel.Dock="Bottom" />
-    <Border
-        Height="40"
-        BorderBrush="Black"
-        BorderThickness="1"
-        DockPanel.Dock="Top">
-      <TextBlock
-          HorizontalAlignment="Center"
-          FontSize="30">Match Result</TextBlock>
-    </Border>
-    <Grid
-        Margin="0,15,0,0"
-        ColumnDefinitions="*,*,*"
-        RowDefinitions="*,5*">
-      <TextBlock
-          TextAlignment="Center"
-          Grid.Row="0"
-          Grid.Column="0"
-          Classes="H2"
-          Text="{Binding Match.Home.Name}" />
-      <StackPanel
-          VerticalAlignment="Top"
-          HorizontalAlignment="Center"
-          Grid.Row="0"
-          Grid.Column="1"
-          Orientation="Horizontal">
-        <TextBlock
-            Classes="H3 VCent"
-            Text="{Binding MatchResult.GoalHome}" />
-        <TextBlock
-            Classes="H2 VCent"
-            Text="-" />
-        <TextBlock
-            Classes="H3 VCent"
-            Text="{Binding MatchResult.GoalAway}" />
-      </StackPanel>
-      <TextBlock
-          TextAlignment="Center"
-          Grid.Row="0"
-          Grid.Column="2"
-          Classes="H2"
-          Text="{Binding Match.Away.Name}" />
-      <Border
-          Grid.Row="1"
-          Grid.Column="0"
-          BorderBrush="Black"
-          BorderThickness="3"></Border>
-      <Border
-          Grid.Row="1"
-          Grid.Column="3"
-          BorderBrush="Black"
-          BorderThickness="3"></Border>
-    </Grid>
-  </DockPanel>
+<UserControl xmlns="https://github.com/avaloniaui" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450" xmlns:shared="clr-namespace:MatchesGame.Views.Shared" x:Class="MatchesGame.Views.MatchDetailsView">
+    <DockPanel LastChildFill="True">
+        <shared:NavigationFooter DockPanel.Dock="Bottom"/>
+        <Border Height="40" BorderBrush="Black" BorderThickness="1" DockPanel.Dock="Top">
+            <TextBlock HorizontalAlignment="Center" FontSize="30">Match Result</TextBlock>
+        </Border>
+        <Grid Margin="0,15,0,0" ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*,5*">
+            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Classes="H2" TextAlignment="Center" Text="{Binding Match.Home.Name}"/>
+            <StackPanel Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2"  VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Classes="H3 VCent" Text="{Binding MatchResult.GoalHome}"/>
+                <TextBlock Classes="H2 VCent" Text="-"/>
+                <TextBlock Classes="H3 VCent" Text="{Binding MatchResult.GoalAway}"/>
+            </StackPanel>
+            <TextBlock Grid.Row="0" Grid.Column="4" Grid.ColumnSpan="2" TextAlignment="Center" Classes="H2" Text="{Binding Match.Away.Name}"/>
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3"></Border>
+            <Border Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="3"></Border>
+        </Grid>
+    </DockPanel>
 </UserControl>
