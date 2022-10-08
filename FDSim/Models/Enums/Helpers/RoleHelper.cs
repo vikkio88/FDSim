@@ -20,4 +20,16 @@ public static class RoleHelper
                 {Role.Striker, 0.0},
             };
     }
+
+    public static string ToString(Role role)
+    {
+        return role switch
+        {
+            Role.Goalkeeper => "GK",
+            Role.Defender => "DF",
+            Role.Midfielder => "MF",
+            Role.Striker => "ST",
+            _ => "N/A"
+        };
+    }
 }

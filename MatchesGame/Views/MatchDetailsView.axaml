@@ -56,7 +56,7 @@
                                 <TextBlock>
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{x:Static converters:PlayerIdToPlayerFromRoster.Instance}">
-                                            <Binding Path="Binding"/>
+                                            <Binding Path="."/>
                                             <Binding Path="DataContext.HomeRoster"
                                                 ElementName="MatchDetailsRoot"/>
                                         </MultiBinding>
@@ -77,8 +77,8 @@
                                 <TextBlock>
                                     <TextBlock.Text>
                                         <MultiBinding Converter="{x:Static converters:PlayerIdToPlayerFromRoster.Instance}">
-                                            <Binding Path="Binding"/>
-                                            <Binding Path="DataContext.HomeRoster"
+                                            <Binding Path="."/>
+                                            <Binding Path="DataContext.AwayRoster"
                                                 ElementName="MatchDetailsRoot"/>
                                         </MultiBinding>
                                     </TextBlock.Text>

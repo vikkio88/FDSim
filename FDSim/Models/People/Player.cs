@@ -3,7 +3,7 @@
 using FDSim.Models.Enums;
 public class Player : Person
 {
-    public string PrintName { get => $"{Name} ${Surname}"; }
+    public string PrintName { get => $"{Name} {Surname}"; }
     
     public PlayerStatus Status { get; set; }
     public Role Role { get; init; }
