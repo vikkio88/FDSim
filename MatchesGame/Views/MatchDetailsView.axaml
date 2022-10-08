@@ -48,7 +48,8 @@
                 Text="{Binding Match.Away.Name}"/>
             <StackPanel Grid.Row="1"
                 Grid.Column="0"
-                Grid.ColumnSpan="3">
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Center">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl Items="{Binding MatchResult.ScorersHomeIds}">
                         <ItemsControl.ItemTemplate>
@@ -69,7 +70,8 @@
             </StackPanel>
             <StackPanel Grid.Row="1"
                 Grid.Column="3"
-                Grid.ColumnSpan="3">
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Center">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <ItemsControl Items="{Binding MatchResult.ScorersAwayIds}">
                         <ItemsControl.ItemTemplate>

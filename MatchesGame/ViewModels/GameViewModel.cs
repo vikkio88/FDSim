@@ -1,7 +1,6 @@
 namespace MatchesGame.ViewModels;
 
 using ReactiveUI;
-using System;
 using System.Reactive;
 using System.Collections.ObjectModel;
 using FDSim.Models.Game.Team;
@@ -32,7 +31,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         _gEg = new GameEntityGenerator(Seed);
         var generateEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
-            x => x < 19
+            x => x < 18
         );
         var startMatchesEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
