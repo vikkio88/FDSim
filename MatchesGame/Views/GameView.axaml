@@ -38,8 +38,7 @@
           IsVisible="{Binding !!GeneratedTeams.Count}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border BorderBrush="Black"
-                BorderThickness="1"
+              <Border Classes="RowItem"
                 Margin="2,2,2,0">
                 <Grid ColumnDefinitions="*,*,*,*,*,*">
                   <Grid.RowDefinitions>
@@ -59,9 +58,11 @@
                     HorizontalAlignment="Right"
                     Grid.Row="0"
                     Grid.Column="5">
-                    <Button Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
+                    <Button Classes="SmallButton"
+                      Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
                       CommandParameter="{Binding Id}">View</Button>
-                    <Button Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
+                    <Button Classes="SmallButton"
+                      Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
                       CommandParameter="{Binding Id}">Remove</Button>
                   </StackPanel>
                 </Grid>
