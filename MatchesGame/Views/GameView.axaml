@@ -12,58 +12,63 @@
       BorderThickness="1"
       DockPanel.Dock="Top">
       <TextBlock HorizontalAlignment="Center"
-        FontSize="30">Matches</TextBlock>
+        FontSize="30">
+        Matches
+      </TextBlock>
     </Border>
     <Border BorderBrush="Black"
       BorderThickness="1"
       Margin="0,4,0,0">
       <StackPanel>
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+          HorizontalAlignment="Center">
           <Button Classes="MediumButton"
             Command="{Binding GenerateTeams}">Generate Teams</Button>
           <Button Classes="MediumButton"
             Command="{Binding StartLeague}">Start League</Button>
           <Button Classes="MediumButton"
-            Command="{Binding ChangeSeed}">Change Seed</Button>
-          <TextBlock Text="{Binding Seed}" />
+            Command="{Binding ChangeSeed}"
+            Content="{Binding SeedText}" />
         </StackPanel>
-        <TextBlock IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
-        <ScrollViewer VerticalScrollBarVisibility="Visible">
-          <ItemsControl x:Name="GameViewRoot"
-            Items="{Binding GeneratedTeams}"
-            IsVisible="{Binding !!GeneratedTeams.Count}">
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <Border BorderBrush="Black"
-                  BorderThickness="1"
-                  Margin="0,2,0,0">
-                  <Grid ColumnDefinitions="*,*,*,*,*,*">
-                    <Grid.RowDefinitions>
-                      <RowDefinition Height="30" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                      Grid.Column="0"
-                      Grid.ColumnSpan="3"
-                      Classes="VCent"
-                      Text="{Binding Name}" />
-                    <TextBlock Grid.Row="0"
-                      Grid.Column="3"
-                      Classes="VCent"
-                      Text="{Binding Roster.Count}" />
-                    <StackPanel Orientation="Horizontal"
-                      Grid.Row="0"
-                      Grid.Column="5">
-                      <Button Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
-                        CommandParameter="{Binding Id}">View</Button>
-                      <Button Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
-                        CommandParameter="{Binding Id}">Remove</Button>
-                    </StackPanel>
-                  </Grid>
-                </Border>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-        </ScrollViewer>
+        <TextBlock HorizontalAlignment="Center"
+          Classes="H2"
+          IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
+        <ItemsControl x:Name="GameViewRoot"
+          Items="{Binding GeneratedTeams}"
+          IsVisible="{Binding !!GeneratedTeams.Count}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border BorderBrush="Black"
+                BorderThickness="1"
+                Margin="2,2,2,0">
+                <Grid ColumnDefinitions="*,*,*,*,*,*">
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="30" />
+                  </Grid.RowDefinitions>
+                  <TextBlock Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="5"
+                    Classes="VCent"
+                    Text="{Binding Name}" />
+                  <TextBlock Grid.Row="0"
+                    Grid.Column="3"
+                    Classes="VCent"
+                    Text="{Binding Roster.Count}" />
+                  <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Grid.Row="0"
+                    Grid.Column="5">
+                    <Button Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
+                      CommandParameter="{Binding Id}">View</Button>
+                    <Button Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
+                      CommandParameter="{Binding Id}">Remove</Button>
+                  </StackPanel>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
       </StackPanel>
     </Border>
   </DockPanel>

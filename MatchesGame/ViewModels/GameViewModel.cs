@@ -12,10 +12,14 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
 
     public GameEntityGenerator _gEg;
     private int _seed = 0;
-    public int Seed
+    private string _seedText = "Change Seed";
+    public string SeedText
     {
-        get => _seed;
-        set => this.RaiseAndSetIfChanged(ref _seed, value);
+        get => _seedText;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _seedText, $"Seed: {value}");
+        }
     }
     public string UrlPathSegment { get; } = "gameView";
 
@@ -28,7 +32,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
 
     public GameViewModel(IScreen screen)
     {
-        _gEg = new GameEntityGenerator(Seed);
+        _gEg = new GameEntityGenerator(_seed);
         var generateEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
             x => x < 18
@@ -41,8 +45,9 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         GenerateTeams = ReactiveCommand.Create(() => Services.GameDb.Instance.AddTeam(_gEg.GetTeam()), generateEnabled);
         ChangeSeed = ReactiveCommand.Create(() =>
         {
-            Seed = Dicer.Make().Int(0);
-            _gEg = new(Seed);
+            _seed = Dicer.Make().Int(0);
+            SeedText = $"{_seed}";
+            _gEg = new(_seed);
         });
         RemoveTeam = ReactiveCommand.Create((string teamId) => Services.GameDb.Instance.RemoveTeamById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
