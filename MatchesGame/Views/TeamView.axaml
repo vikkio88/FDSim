@@ -70,7 +70,8 @@
               <DataTemplate>
                 <Border Height="30"
                   Classes="RowItem"
-                  Margin="4">
+                  Margin="5,2,5,0"
+                  Padding="2">
                   <Grid ColumnDefinitions="*,*,*,*,*,*">
                     <StackPanel Grid.Row="0"
                       Grid.Column="0"
@@ -95,7 +96,10 @@
                       Grid.Column="5">
                       <Button Classes="SmallButton"
                         Command="{Binding #TeamViewRoot.DataContext.SelectPlayer}"
-                        CommandParameter="{Binding Id}">View</Button>
+                        CommandParameter="{Binding Id}"
+                        Margin="0,0,2,0">
+                        <i:Icon Value="fa fa-right-to-bracket" />
+                      </Button>
                     </StackPanel>
                   </Grid>
                 </Border>
