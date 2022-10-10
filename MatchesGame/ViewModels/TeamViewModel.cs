@@ -6,26 +6,18 @@ using FDSim.Models.Game.Team;
 using FDSim.Models.People;
 using FDSim.Models.Enums.Helpers;
 using MatchesGame.Services;
-using MatchesGame.Views.Common;
 
 public class TeamViewModel : ReactiveObject, IRoutableViewModel
 {
 
     public string TeamId { get; } = string.Empty;
     public Team Team { get; }
-    public StarsContext TeamAvg { get; set; }
 
     private Player? _selectedPlayer = null;
     public Player? SelectedPlayer
     {
         get => _selectedPlayer;
         set => this.RaiseAndSetIfChanged(ref _selectedPlayer, value);
-    }
-    private StarsContext _selectedPlayerSkills;
-    public StarsContext SelectedPlayerSkills
-    {
-        get => _selectedPlayerSkills;
-        set => this.RaiseAndSetIfChanged(ref _selectedPlayerSkills, value);
     }
     public string Country { get; } = string.Empty;
     public IScreen HostScreen { get; }
@@ -41,12 +33,12 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
         {
 
             SelectedPlayer = GameDb.Instance.GetTeamById(TeamId)?.Roster?.GetById(playerId);
-            SelectedPlayerSkills = new(SelectedPlayer.Skill.Value);
         });
 
         TeamId = teamId;
         Team = Services.GameDb.Instance.GetTeamById(TeamId);
-        TeamAvg = new(Team.Roster.Avg);
+        // Maybe use this instead, can be reused for roles
+        // https://docs.avaloniaui.net/docs/data-binding/converting-binding-values#binding-converters
         Country = $"({NationalityHelper.GetName(Team.Nationality)})";
     }
 

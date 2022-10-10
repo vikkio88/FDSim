@@ -2,6 +2,8 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+  xmlns:common="using:MatchesGame.Views.Common"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
@@ -32,6 +34,7 @@
         </StackPanel>
         <TextBlock HorizontalAlignment="Center"
           Classes="H2"
+          Margin="0,10,0,0"
           IsVisible="{Binding !!!GeneratedTeams.Count}">No Teams</TextBlock>
         <ItemsControl x:Name="GameViewRoot"
           Items="{Binding GeneratedTeams}"
@@ -50,20 +53,38 @@
                     Margin="5"
                     Classes="VCent"
                     Text="{Binding Name}" />
-                  <TextBlock Grid.Row="0"
-                    Grid.Column="3"
-                    Classes="VCent"
-                    Text="{Binding Roster.Count}" />
+                  <StackPanel Orientation="Horizontal"
+                    Grid.Row="0"
+                    Grid.Column="3">
+                    <StackPanel Classes="InRowIcoValue">
+                      <i:Icon Value="fa fa-users" />
+                      <TextBlock Classes="VCent"
+                        Text="{Binding Roster.Count}" />
+                    </StackPanel>
+                    <!-- Might want to hide this or change it to stars -->
+                    <StackPanel Classes="InRowIcoValue">
+                      <i:Icon Value="fa fa-dumbbell" />
+                      <TextBlock Classes="VCent"
+                        Text="{Binding Roster.Avg, StringFormat={}{0:0.0}}" />
+                    </StackPanel>
+                    <StackPanel Classes="InRowIcoValue">
+                      <common:StarsAvg Value="{Binding Roster.Avg}"/>
+                    </StackPanel>
+                  </StackPanel>
                   <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     Grid.Row="0"
                     Grid.Column="5">
                     <Button Classes="SmallButton"
                       Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
-                      CommandParameter="{Binding Id}">View</Button>
+                      CommandParameter="{Binding Id}">
+                      <i:Icon Value="fa fa-info" />
+                    </Button>
                     <Button Classes="SmallButton"
                       Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
-                      CommandParameter="{Binding Id}">Remove</Button>
+                      CommandParameter="{Binding Id}">
+                      <i:Icon Value="fa fa-trash" />
+                    </Button>
                   </StackPanel>
                 </Grid>
               </Border>

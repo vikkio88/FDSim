@@ -54,7 +54,7 @@
             Spacing="5">
             <TextBlock Classes="H3 HCent VCent"
               Text="Roster Avg" />
-            <common:Stars DataContext="{Binding TeamAvg}" />
+            <common:StarsAvg Value="{Binding Team.Roster.Avg}" />
           </StackPanel>
         </StackPanel>
         <TextBlock Grid.Row="1"
@@ -138,7 +138,7 @@
             Spacing="5">
             <TextBlock Classes="H4 HCent VCent"
               Text="Skill" />
-            <common:Stars DataContext="{Binding SelectedPlayerSkills}" />
+            <common:StarsAvg Value="{Binding SelectedPlayer.Skill.Value}" />
           </StackPanel>
         </StackPanel>
       </Grid>

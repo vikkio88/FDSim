@@ -101,4 +101,12 @@
         <Setter Property="FontWeight"
             Value="Bold"/>
     </Style>
+    <Style Selector="StackPanel.InRowIcoValue">
+        <Setter Property="Orientation"
+            Value="Horizontal"/>
+        <Setter Property="Spacing"
+            Value="3"/>
+        <Setter Property="Margin"
+            Value="0,0,6,0"/>
+    </Style>
 </Styles>

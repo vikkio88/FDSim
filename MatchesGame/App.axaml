@@ -10,5 +10,6 @@
         <FluentTheme Mode="Light" />
         <StyleInclude Source="/Assets/Styles/Main.xaml" />
         <StyleInclude Source="/Views/Common/Stars.axaml" />
+        <StyleInclude Source="/Views/Common/StarsAvg.axaml" />
     </Application.Styles>
 </Application>
