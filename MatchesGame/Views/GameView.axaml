@@ -63,12 +63,7 @@
                     </StackPanel>
                     <!-- Might want to hide this or change it to stars -->
                     <StackPanel Classes="InRowIcoValue">
-                      <i:Icon Value="fa fa-dumbbell" />
-                      <TextBlock Classes="VCent"
-                        Text="{Binding Roster.Avg, StringFormat={}{0:0.0}}" />
-                    </StackPanel>
-                    <StackPanel Classes="InRowIcoValue">
-                      <common:StarsAvg Value="{Binding Roster.Avg}"/>
+                      <common:Stars Value="{Binding Roster.Avg}"/>
                     </StackPanel>
                   </StackPanel>
                   <StackPanel Orientation="Horizontal"
