@@ -36,4 +36,24 @@ public static class NationalityHelper
             _ => "Unknown"
         };
     }
+    public static String GetIsoCode(string nationality)
+    {
+        Enum.TryParse(nationality, out Nationality nationalityEnum);
+        return GetIsoCode(nationalityEnum);
+    }
+    public static String GetIsoCode(Nationality nationality)
+    {
+        return nationality switch
+        {
+            Nationality.English => "gb-eng",
+            Nationality.German => "de",
+            Nationality.Italian => "it",
+            Nationality.Spanish => "es",
+            Nationality.French => "fr",
+            Nationality.Dutch => "nl",
+            Nationality.Polish => "pl",
+            Nationality.Turkish => "tr",
+            _ => "xx",
+        };
+    }
 }

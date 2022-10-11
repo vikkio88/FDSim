@@ -4,15 +4,12 @@ using Avalonia.Controls.Primitives;
 namespace MatchesGame.Views.Common;
 public class Stars : TemplatedControl
 {
-
     public static readonly StyledProperty<string> ValueProperty = AvaloniaProperty.Register<Stars, string>(nameof(Value), "1");
     public string Value
     {
         get => GetValue(ValueProperty);
         set => SetValue(ValueProperty, value);
-
     }
-
     public static readonly DirectProperty<Stars, bool[]> FullStarsProperty = AvaloniaProperty.RegisterDirect<Stars, bool[]>(nameof(FullStars), o => o._fullStars, (o, v) => o._fullStars = v);
     private bool[] _fullStars = { false, false, false, false, false };
     public bool[] FullStars { get => _fullStars; set => SetAndRaise(FullStarsProperty, ref _fullStars, value); }

@@ -1,0 +1,52 @@
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:MatchesGame.Views.Common">
+    <StyleInclude Source="/Assets/Flags/Flags.axaml" />
+    <Styles.Resources>
+        <common:IsoToFlagConverter x:Key="isoToFlagConverter"/>
+    </Styles.Resources>
+    <Style Selector="common|Flag">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <WrapPanel>
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=de}"
+                        Content="{DynamicResource __de}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=es}"
+                        Content="{DynamicResource __es}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=fr}"
+                        Content="{DynamicResource __fr}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=gb-eng}"
+                        Content="{DynamicResource __gb_eng}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=it}"
+                        Content="{DynamicResource __it}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=nl}"
+                        Content="{DynamicResource __nl}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=pl}"
+                        Content="{DynamicResource __pl}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=tr}"
+                        Content="{DynamicResource __tr}" />
+                    <ContentControl Width="{TemplateBinding FontSize}"
+                        Height="{TemplateBinding FontSize}"
+                        IsVisible="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}, ConverterParameter=xx}"
+                        Content="{DynamicResource __xx}" />
+                </WrapPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

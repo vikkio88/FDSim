@@ -5,10 +5,16 @@
   xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
   xmlns:common="using:MatchesGame.Views.Common"
   xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
+  xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
   x:Class="MatchesGame.Views.TeamView">
+
+  <UserControl.Resources>
+    <converters:CountryStringConverter x:Key="countryStrConverter"/>
+  </UserControl.Resources>
+
   <DockPanel LastChildFill="True">
     <Border Height="40"
       BorderBrush="Black"
@@ -20,10 +26,6 @@
           VerticalAlignment="Center"
           FontSize="30"
           Text="{Binding Team.Name}" />
-        <TextBlock HorizontalAlignment="Center"
-          VerticalAlignment="Center"
-          FontSize="20"
-          Text="{Binding Country}" />
       </StackPanel>
     </Border>
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
@@ -39,24 +41,37 @@
           <RowDefinition Height="200" />
           <RowDefinition Height="500" />
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0"
-          Grid.Column="0"
-          Orientation="Vertical"
-          Spacing="2">
-          <StackPanel Orientation="Horizontal"
-            Spacing="5">
-            <TextBlock Classes="H3 HCent VCent"
-              Text="Roster Size" />
-            <TextBlock Classes="HCent VCent"
-              Text="{Binding Team.Roster.Count}" />
+        <!-- Team Info -->
+        <Border Padding="5"
+          Grid.Row="0"
+          Grid.Column="0">
+          <StackPanel Orientation="Vertical"
+            Spacing="2">
+            <StackPanel Orientation="Horizontal"
+              Spacing="5">
+              <TextBlock HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Text="{Binding Team.Nationality,Converter={StaticResource countryStrConverter} }" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+              Spacing="5">
+              <i:Icon Value="fa fa-users"
+                FontSize="20"/>
+              <TextBlock Classes="HCent VCent"
+                Text="{Binding Team.Roster.Count}" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+              Spacing="5">
+              <i:Icon Value="fa fa-dumbbell"
+                FontSize="20"/>
+              <common:Stars Value="{Binding Team.Roster.Avg}"
+                FontSize="16"/>
+            </StackPanel>
           </StackPanel>
-          <StackPanel Orientation="Horizontal"
-            Spacing="5">
-            <TextBlock Classes="H3 HCent VCent"
-              Text="Roster Avg" />
-            <common:Stars Value="{Binding Team.Roster.Avg}" />
-          </StackPanel>
-        </StackPanel>
+        </Border>
+        <!-- EO Team Info -->
+        <!-- Roster -->
         <TextBlock Grid.Row="1"
           Grid.Column="0"
           IsVisible="{Binding !!!Team.Roster.Count}">No Players</TextBlock>
@@ -107,6 +122,8 @@
             </ItemsControl.ItemTemplate>
           </ItemsControl>
         </ScrollViewer>
+        <!-- EO Roster -->
+        <!-- Selected Player Info -->
         <StackPanel Grid.Row="1"
           Grid.Column="1"
           IsVisible="{Binding !!SelectedPlayer}"
@@ -126,6 +143,7 @@
               Text="Nationality" />
             <TextBlock Classes="HCent VCent"
               Text="{Binding SelectedPlayer.Nationality}" />
+            <common:Flag Iso="{Binding SelectedPlayer.Nationality}" />
           </StackPanel>
           <StackPanel Orientation="Horizontal"
             Spacing="5">
@@ -141,6 +159,7 @@
             <common:Stars Value="{Binding SelectedPlayer.Skill.Value}" />
           </StackPanel>
         </StackPanel>
+        <!-- EO Selected Player Info -->
       </Grid>
     </Border>
   </DockPanel>

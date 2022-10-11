@@ -9,22 +9,22 @@
                 <StackPanel Orientation="Horizontal"
                     Spacing="2">
                     <i:Icon Value="fa fa-star"
-                        FontSize="10"
+                        FontSize="{TemplateBinding FontSize}"
                         IsVisible="{Binding FullStars[0], RelativeSource={RelativeSource TemplatedParent}}"/>
                     <i:Icon Value="fa fa-star"
-                        FontSize="10"
+                        FontSize="{TemplateBinding FontSize}"
                         IsVisible="{Binding FullStars[1], RelativeSource={RelativeSource TemplatedParent}}"/>
                     <i:Icon Value="fa fa-star"
-                        FontSize="10"
+                        FontSize="{TemplateBinding FontSize}"
                         IsVisible="{Binding FullStars[2], RelativeSource={RelativeSource TemplatedParent}}"/>
                     <i:Icon Value="fa fa-star"
-                        FontSize="10"
+                        FontSize="{TemplateBinding FontSize}"
                         IsVisible="{Binding FullStars[3], RelativeSource={RelativeSource TemplatedParent}}"/>
                     <i:Icon Value="fa fa-star"
-                        FontSize="10"
+                        FontSize="{TemplateBinding FontSize}"
                         IsVisible="{Binding FullStars[4], RelativeSource={RelativeSource TemplatedParent}}"/>
                     <i:Icon Value="fa fa-star-half"
-                        FontSize="10"
+                        FontSize="{TemplateBinding FontSize}"
                         IsVisible="{Binding HalfStar, RelativeSource={RelativeSource TemplatedParent}}"/>
                 </StackPanel>
             </ControlTemplate>

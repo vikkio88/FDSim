@@ -61,9 +61,9 @@
                       <TextBlock Classes="VCent"
                         Text="{Binding Roster.Count}" />
                     </StackPanel>
-                    <!-- Might want to hide this or change it to stars -->
                     <StackPanel Classes="InRowIcoValue">
-                      <common:Stars Value="{Binding Roster.Avg}"/>
+                      <common:Stars Value="{Binding Roster.Avg}"
+                        FontSize="10" />
                     </StackPanel>
                   </StackPanel>
                   <StackPanel Orientation="Horizontal"
