@@ -37,7 +37,7 @@ public static class NationalityHelper
         };
     }
 
-    public static Nationality FromNationString(string nation)
+    public static Nationality? FromNationString(string nation)
     {
         return nation switch
         {
@@ -49,8 +49,7 @@ public static class NationalityHelper
             "Netherlands" => Nationality.Dutch,
             "Poland" => Nationality.Polish,
             "Turkey" => Nationality.Turkish,
-            // might want to add Unkown instead of default
-            _ => Nationality.English,
+            _ => null,
         };
     }
 
