@@ -16,17 +16,19 @@
       Items="{Binding League.Rounds}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Border BorderBrush="Black"
-            BorderThickness="1"
-            Margin="0,3,0,0">
-            <StackPanel Orientation="Vertical"
-              Spacing="5">
-              <TextBlock Classes="H3"
-                Text="{Binding}" />
-              <ItemsControl x:Name="RoundRoot"
-                Items="{Binding Matches}">
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
+          <!-- Each Round  -->
+          <StackPanel Orientation="Vertical"
+            Spacing="5"
+            Margin="0,5,0,0">
+            <TextBlock Classes="H3"
+              Text="{Binding}" />
+            <ItemsControl x:Name="RoundRoot"
+              Items="{Binding Matches}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <!-- Single Match In round  -->
+                  <Border Classes="RowItem"
+                    Margin="2,2,2,0">
                     <Grid ColumnDefinitions="*,*,*,*,*,*">
                       <Grid.RowDefinitions>
                         <RowDefinition Height="25" />
@@ -35,7 +37,7 @@
                       <TextBlock Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        TextAlignment="Center">
+                        Classes="VCent HCent">
                         <TextBlock.Text>
                           <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
                             <Binding Path="HomeId" />
@@ -44,16 +46,52 @@
                           </MultiBinding>
                         </TextBlock.Text>
                       </TextBlock>
+
                       <!-- Separation between teams -->
-                      <TextBlock Grid.Row="0"
+                      <StackPanel Grid.Row="0"
                         Grid.Column="2"
-                        Grid.ColumnSpan="1"
-                        TextAlignment="Center">vs</TextBlock>
+                        Grid.ColumnSpan="1">
+
+                        <!-- Showing VS if match not played -->
+                        <TextBlock Classes="VCent HCent">
+                          <TextBlock.IsVisible>
+                            <MultiBinding Converter="{x:Static converters:MatchIdToUnPlayedBool.Instance}">
+                              <Binding Path="Id" />
+                              <Binding Path="DataContext.ResultMap"
+                                ElementName="LeagueViewRoot" />
+                            </MultiBinding>
+                          </TextBlock.IsVisible>
+                          <TextBlock.Text>vs</TextBlock.Text>
+                        </TextBlock>
+
+
+                        <!-- Showing Result if match played -->
+                        <TextBlock Classes="VCent HCent">
+                          <TextBlock.IsVisible>
+                            <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
+                              <Binding Path="Id" />
+                              <Binding Path="DataContext.ResultMap"
+                                ElementName="LeagueViewRoot" />
+                            </MultiBinding>
+                          </TextBlock.IsVisible>
+                          <TextBlock.Text>
+                            <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
+                              <Binding Path="Id" />
+                              <Binding Path="DataContext.ResultMap"
+                                ElementName="LeagueViewRoot" />
+                            </MultiBinding>
+                          </TextBlock.Text>
+                        </TextBlock>
+
+                      </StackPanel>
+
+
+
                       <!-- Away Team -->
                       <TextBlock Grid.Row="0"
                         Grid.Column="3"
                         Grid.ColumnSpan="2"
-                        TextAlignment="Center">
+                        Classes="VCent HCent">
                         <TextBlock.Text>
                           <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
                             <Binding Path="AwayId" />
@@ -62,11 +100,13 @@
                           </MultiBinding>
                         </TextBlock.Text>
                       </TextBlock>
-                      <!-- Results -->
+
+                      <!-- Actions Buttons -->
                       <StackPanel Orientation="Horizontal"
                         Grid.Row="0"
                         Grid.Column="6"
-                        Grid.ColumnSpan="1">
+                        Grid.ColumnSpan="1"
+                        HorizontalAlignment="Right">
                         <StackPanel.IsVisible>
                           <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
                             <Binding Path="Id" />
@@ -74,33 +114,24 @@
                               ElementName="LeagueViewRoot" />
                           </MultiBinding>
                         </StackPanel.IsVisible>
-                        <Grid ColumnDefinitions="*,*">
-                          <TextBlock Grid.Row="0"
-                            Grid.Column="0">
-                            <TextBlock.Text>
-                              <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
-                                <Binding Path="Id" />
-                                <Binding Path="DataContext.ResultMap"
-                                  ElementName="LeagueViewRoot" />
-                              </MultiBinding>
-                            </TextBlock.Text>
-                          </TextBlock>
-                          <Button Classes="SmallButton"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Margin="5,0,0,0"
-                            Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
-                            CommandParameter="{Binding Id}">
-                            <i:Icon Value="fa fa-info" />
-                          </Button>
-                        </Grid>
+                        <Button Classes="SmallButton"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Margin="0,0,5,0"
+                          Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
+                          CommandParameter="{Binding Id}">
+                          <i:Icon Value="fa fa-info" />
+                        </Button>
                       </StackPanel>
                     </Grid>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
-            </StackPanel>
-          </Border>
+                  </Border>
+                  <!-- EO Single Match in Round -->
+
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </StackPanel>
+          <!-- EO Each Round  -->
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
