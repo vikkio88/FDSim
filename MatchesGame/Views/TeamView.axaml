@@ -53,6 +53,9 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 Text="{Binding Team.Nationality,Converter={StaticResource countryStrConverter} }" />
+                <!-- Reusing Flag here crashes the app for some reason -->
+                <!-- I think most likely means that I cannot reuse those names everywhere as they should probably be unique for the view -->
+                <!-- <common:Flag Iso="{Binding Team.Nationality}" FontSize="20"/> -->
             </StackPanel>
             <StackPanel Orientation="Horizontal"
               Spacing="5">

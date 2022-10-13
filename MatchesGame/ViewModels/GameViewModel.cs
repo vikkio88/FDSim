@@ -5,6 +5,7 @@ using System.Reactive;
 using System.Collections.ObjectModel;
 using FDSim.Models.Game.Team;
 using FDSim.Generators;
+using Avalonia.Media;
 
 public class GameViewModel : ReactiveObject, IRoutableViewModel
 {
@@ -29,6 +30,8 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
     public ReactiveCommand<Unit, Unit> ChangeSeed { get; set; }
     public ReactiveCommand<Unit, IRoutableViewModel> StartLeague { get; set; }
+
+    public DrawingImage ImgSrc { get; init; }
 
     public GameViewModel(IScreen screen)
     {

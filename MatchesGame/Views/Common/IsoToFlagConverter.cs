@@ -1,8 +1,6 @@
 using System;
 using System.Globalization;
-using Avalonia;
 using Avalonia.Data.Converters;
-using FDSim.Models.Enums.Helpers;
 
 namespace MatchesGame.Views.Common;
 public class IsoToFlagConverter : IValueConverter
@@ -11,9 +9,9 @@ public class IsoToFlagConverter : IValueConverter
 
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is string nationality && parameter is string isoValue)
+        if (value is string nationality)
         {
-            return NationalityHelper.GetIsoCode(nationality) == isoValue;
+            return $"/Assets/Flags/{nationality}.svg";
         }
         return false;
     }
