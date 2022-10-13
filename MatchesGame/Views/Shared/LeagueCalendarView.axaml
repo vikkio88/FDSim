@@ -3,30 +3,39 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
+  xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
   x:Class="MatchesGame.Views.Shared.LeagueCalendarView">
   <ScrollViewer Grid.Row="1"
     Grid.Column="0"
-    VerticalScrollBarVisibility="Auto">
+    VerticalScrollBarVisibility="Auto"
+    HorizontalContentAlignment="Center">
     <ItemsControl x:Name="LeagueViewRoot"
       Items="{Binding League.Rounds}">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
           <Border BorderBrush="Black"
-            BorderThickness="1">
+            BorderThickness="1"
+            Margin="0,3,0,0">
             <StackPanel Orientation="Vertical"
               Spacing="5">
-              <TextBlock Text="{Binding}" />
+              <TextBlock Classes="H3"
+                Text="{Binding}" />
               <ItemsControl x:Name="RoundRoot"
                 Items="{Binding Matches}">
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
-                    <StackPanel Orientation="Horizontal"
-                      Spacing="2"
-                      Margin="2">
-                      <TextBlock>
+                    <Grid ColumnDefinitions="*,*,*,*,*,*">
+                      <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                      </Grid.RowDefinitions>
+                      <!-- Home Team -->
+                      <TextBlock Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        TextAlignment="Center">
                         <TextBlock.Text>
                           <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
                             <Binding Path="HomeId" />
@@ -35,8 +44,16 @@
                           </MultiBinding>
                         </TextBlock.Text>
                       </TextBlock>
-                      <TextBlock>vs</TextBlock>
-                      <TextBlock>
+                      <!-- Separation between teams -->
+                      <TextBlock Grid.Row="0"
+                        Grid.Column="2"
+                        Grid.ColumnSpan="1"
+                        TextAlignment="Center">vs</TextBlock>
+                      <!-- Away Team -->
+                      <TextBlock Grid.Row="0"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="2"
+                        TextAlignment="Center">
                         <TextBlock.Text>
                           <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
                             <Binding Path="AwayId" />
@@ -45,9 +62,11 @@
                           </MultiBinding>
                         </TextBlock.Text>
                       </TextBlock>
-
+                      <!-- Results -->
                       <StackPanel Orientation="Horizontal"
-                        Spacing="3">
+                        Grid.Row="0"
+                        Grid.Column="6"
+                        Grid.ColumnSpan="1">
                         <StackPanel.IsVisible>
                           <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
                             <Binding Path="Id" />
@@ -55,20 +74,28 @@
                               ElementName="LeagueViewRoot" />
                           </MultiBinding>
                         </StackPanel.IsVisible>
-                        <TextBlock>
-                          <TextBlock.Text>
-                            <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
-                              <Binding Path="Id" />
-                              <Binding Path="DataContext.ResultMap"
-                                ElementName="LeagueViewRoot" />
-                            </MultiBinding>
-                          </TextBlock.Text>
-                        </TextBlock>
-                        <Button Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
-                          CommandParameter="{Binding Id}">Details</Button>
+                        <Grid ColumnDefinitions="*,*">
+                          <TextBlock Grid.Row="0"
+                            Grid.Column="0">
+                            <TextBlock.Text>
+                              <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
+                                <Binding Path="Id" />
+                                <Binding Path="DataContext.ResultMap"
+                                  ElementName="LeagueViewRoot" />
+                              </MultiBinding>
+                            </TextBlock.Text>
+                          </TextBlock>
+                          <Button Classes="SmallButton"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="5,0,0,0"
+                            Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
+                            CommandParameter="{Binding Id}">
+                            <i:Icon Value="fa fa-info" />
+                          </Button>
+                        </Grid>
                       </StackPanel>
-
-                    </StackPanel>
+                    </Grid>
                   </DataTemplate>
                 </ItemsControl.ItemTemplate>
               </ItemsControl>

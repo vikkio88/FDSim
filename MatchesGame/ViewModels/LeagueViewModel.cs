@@ -9,7 +9,6 @@ using FDSim.Generators;
 using FDSim.Models.Game.Team;
 using FDSim.Models.Game.League;
 using MatchesGame.Services;
-using MatchesGame.ViewModels;
 
 
 
@@ -17,6 +16,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
     public League League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
+    public int SelectedTab { get; set; } = 0;
     public Dictionary<string, MatchResult> _resultMap = new();
     public Dictionary<string, MatchResult> ResultMap
     {

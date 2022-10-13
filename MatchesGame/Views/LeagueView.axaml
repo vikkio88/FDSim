@@ -9,8 +9,6 @@
   x:Class="MatchesGame.Views.LeagueView">
   <DockPanel LastChildFill="True">
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
-    <Button Command="{Binding SimulateRound}"
-      DockPanel.Dock="Bottom">Simulate Next Round</Button>
     <Border Height="40"
       BorderBrush="Black"
       BorderThickness="1"
@@ -21,7 +19,28 @@
     <Border BorderBrush="Black"
       BorderThickness="1"
       Margin="0,4,0,0">
-      <shared:LeagueCalendarView />
+      <TabControl SelectedIndex="{Binding SelectedTab}">
+        <TabItem>
+          <TabItem.Header>
+            <TextBlock VerticalAlignment="Center">Table</TextBlock>
+          </TabItem.Header>
+          <StackPanel>
+            <TextBlock Text="League Table"/>
+          </StackPanel>
+        </TabItem>
+        <TabItem>
+          <TabItem.Header>
+            <TextBlock VerticalAlignment="Center">Calendar</TextBlock>
+          </TabItem.Header>
+          <DockPanel LastChildFill="True">
+            <Button Command="{Binding SimulateRound}"
+              DockPanel.Dock="Bottom">
+              Simulate Next Round
+            </Button>
+            <shared:LeagueCalendarView />
+          </DockPanel>
+        </TabItem>
+      </TabControl>
     </Border>
   </DockPanel>
 </UserControl>
