@@ -11,7 +11,12 @@ public class IsoToFlagConverter : IValueConverter
     {
         if (value is string nationality)
         {
-            return $"/Assets/Flags/{nationality}.svg";
+            var src = new Avalonia.Svg.Skia.SvgSource();
+            using (var stream = System.IO.File.OpenRead($"Assets/Flags/{nationality}.svg"))
+            {
+                src.Load(stream);
+            }
+            return src;
         }
         return false;
     }
