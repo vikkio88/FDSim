@@ -1,4 +1,6 @@
+using System.Reactive.Linq;
 using Avalonia;
+using System;
 using Avalonia.Controls.Primitives;
 
 namespace MatchesGame.Views.Common;
@@ -16,10 +18,15 @@ public class Stars : TemplatedControl
     public static readonly DirectProperty<Stars, bool> HalfStarProperty = AvaloniaProperty.RegisterDirect<Stars, bool>(nameof(HalfStar), o => o._halfStar, (o, v) => o._halfStar = v);
     private bool _halfStar = false;
     public bool HalfStar { get => _halfStar; set => SetAndRaise(HalfStarProperty, ref _halfStar, value); }
-    protected override void OnApplyTemplate(TemplateAppliedEventArgs e)
-    {
-        base.OnApplyTemplate(e);
 
+    static Stars()
+    {
+        // This needs both Reactive.Linq and System
+        ValueProperty.Changed.Select(o => o.Sender).OfType<Stars>().Subscribe(s => s.OnValueChanged());
+    }
+
+    public void OnValueChanged()
+    {
         var (f, h) = StarsContext.FromString(Value);
         FullStars = f;
         HalfStar = h;
