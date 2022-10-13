@@ -4,10 +4,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
     xmlns:common="using:MatchesGame.Views.Common"
+    xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
     mc:Ignorable="d"
     d:DesignWidth="800"
     d:DesignHeight="450"
     x:Class="MatchesGame.Views.GameView">
+    <UserControl.Resources>
+        <converters:NationalityToIsoConverter x:Key="nationToIsoConverter"/>
+    </UserControl.Resources>
+
     <DockPanel LastChildFill="True">
         <Border Height="40"
             BorderBrush="Black"
@@ -35,6 +40,16 @@
                     <Button Classes="MediumButton"
                         Command="{Binding ChangeSeed}"
                         Content="{Binding SeedText}" />
+                    <ComboBox FontSize="20"
+                        MinWidth="200"
+                        Items="{Binding Nations}"
+                        SelectedItem="{Binding SelectedNation}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" />
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
                 </StackPanel>
 
                 <TextBlock HorizontalAlignment="Center"
@@ -43,6 +58,11 @@
                     IsVisible="{Binding !!!GeneratedTeams.Count}">
                     No Teams
                 </TextBlock>
+                <TextBlock HorizontalAlignment="Center"
+                    Classes="H4"
+                    Margin="0,5,0,5"
+                    IsVisible="{Binding !!GeneratedTeams.Count}"
+                    Text="{Binding GeneratedTeams.Count, StringFormat='{}{0} Team(s)'}" />
                 <ItemsControl x:Name="GameViewRoot"
                     Items="{Binding GeneratedTeams}"
                     IsVisible="{Binding !!GeneratedTeams.Count}">
@@ -63,6 +83,8 @@
                                     <StackPanel Orientation="Horizontal"
                                         Grid.Row="0"
                                         Grid.Column="3">
+                                        <common:Flag Iso="{Binding Nationality, Converter={StaticResource nationToIsoConverter}}"
+                                            Margin="0,0,3,0"/>
                                         <StackPanel Classes="InRowIcoValue">
                                             <i:Icon Value="fa fa-users" />
                                             <TextBlock Classes="VCent"

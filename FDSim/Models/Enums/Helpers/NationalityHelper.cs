@@ -36,6 +36,38 @@ public static class NationalityHelper
             _ => "Unknown"
         };
     }
+
+    public static Nationality FromNationString(string nation)
+    {
+        return nation switch
+        {
+            "England" => Nationality.English,
+            "Germany" => Nationality.German,
+            "Italy" => Nationality.Italian,
+            "Spain" => Nationality.Spanish,
+            "France" => Nationality.French,
+            "Netherlands" => Nationality.Dutch,
+            "Poland" => Nationality.Polish,
+            "Turkey" => Nationality.Turkish,
+            // might want to add Unkown instead of default
+            _ => Nationality.English,
+        };
+    }
+
+    public static List<string> GetNations()
+    {
+        return new()
+        {
+            "England",
+            "Germany",
+            "Italy",
+            "Spain",
+            "France",
+            "Netherlands",
+            "Poland",
+            "Turkey",
+        };
+    }
     public static String GetIsoCode(string nationality)
     {
         Enum.TryParse(nationality, out Nationality nationalityEnum);
