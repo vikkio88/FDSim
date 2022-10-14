@@ -9,6 +9,13 @@
   d:DesignWidth="800"
   d:DesignHeight="450"
   x:Class="MatchesGame.Views.Shared.LeagueCalendarView">
+  <UserControl.Resources>
+    <converters:TeamIdToNameMap x:Key="TeamIdToNameMap" />
+    <converters:MatchIdToUnPlayedBool x:Key="MatchIdToUnPlayedBool" />
+    <converters:MatchIdToPlayedBool x:Key="MatchIdToPlayedBool" />
+    <converters:MatchIdToResultMap x:Key="MatchIdToResultMap" />
+  </UserControl.Resources>
+
   <ScrollViewer Grid.Row="1"
     Grid.Column="0"
     VerticalScrollBarVisibility="Auto"
@@ -40,7 +47,7 @@
                         Grid.ColumnSpan="2"
                         Classes="VCent HCent">
                         <TextBlock.Text>
-                          <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
+                          <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
                             <Binding Path="HomeId" />
                             <Binding Path="DataContext.TeamNameMap"
                               ElementName="LeagueViewRoot" />
@@ -58,7 +65,7 @@
                         <!-- Showing VS if match not played -->
                         <TextBlock Classes="VCent HCent">
                           <TextBlock.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:MatchIdToUnPlayedBool.Instance}">
+                            <MultiBinding Converter="{StaticResource MatchIdToUnPlayedBool}">
                               <Binding Path="Id" />
                               <Binding Path="DataContext.ResultMap"
                                 ElementName="LeagueViewRoot" />
@@ -73,14 +80,14 @@
                           Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
                           CommandParameter="{Binding Id}">
                           <common:Link.IsVisible>
-                            <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
+                            <MultiBinding Converter="{StaticResource MatchIdToPlayedBool}">
                               <Binding Path="Id" />
                               <Binding Path="DataContext.ResultMap"
                                 ElementName="LeagueViewRoot" />
                             </MultiBinding>
                           </common:Link.IsVisible>
                           <common:Link.Label>
-                            <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
+                            <MultiBinding Converter="{StaticResource MatchIdToResultMap}">
                               <Binding Path="Id" />
                               <Binding Path="DataContext.ResultMap"
                                 ElementName="LeagueViewRoot" />
@@ -98,7 +105,7 @@
                         Grid.ColumnSpan="2"
                         Classes="VCent HCent">
                         <TextBlock.Text>
-                          <MultiBinding Converter="{x:Static converters:TeamIdToNameMap.Instance}">
+                          <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
                             <Binding Path="AwayId" />
                             <Binding Path="DataContext.TeamNameMap"
                               ElementName="LeagueViewRoot" />

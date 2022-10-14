@@ -10,6 +10,10 @@
     xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
     xmlns:common="using:MatchesGame.Views.Common"
     x:Class="MatchesGame.Views.MatchDetailsView">
+    <UserControl.Resources>
+        <converters:PlayerIdToPlayerFromRoster x:Key="PlayerIdToPlayerFromRoster" />
+    </UserControl.Resources>
+    
     <DockPanel LastChildFill="True">
         <shared:NavigationFooter DockPanel.Dock="Bottom"/>
         <Border Height="40"
@@ -64,7 +68,7 @@
                                     <i:Icon Value="fa fa-futbol" />
                                     <TextBlock>
                                         <TextBlock.Text>
-                                            <MultiBinding Converter="{x:Static converters:PlayerIdToPlayerFromRoster.Instance}">
+                                            <MultiBinding Converter="{StaticResource PlayerIdToPlayerFromRoster}">
                                                 <Binding Path="."/>
                                                 <Binding Path="DataContext.HomeRoster"
                                                     ElementName="MatchDetailsRoot"/>
@@ -91,7 +95,7 @@
                                     <i:Icon Value="fa fa-futbol" />
                                     <TextBlock>
                                         <TextBlock.Text>
-                                            <MultiBinding Converter="{x:Static converters:PlayerIdToPlayerFromRoster.Instance}">
+                                            <MultiBinding Converter="{StaticResource PlayerIdToPlayerFromRoster}">
                                                 <Binding Path="."/>
                                                 <Binding Path="DataContext.AwayRoster"
                                                     ElementName="MatchDetailsRoot"/>
