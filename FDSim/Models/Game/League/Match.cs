@@ -14,7 +14,11 @@ public class Match : IdEntity
     public String LoserId { get => _loserId; }
     public bool isFinished { get => _result is not null; }
     private MatchResult? _result;
-    public MatchResult? Result { get => _result; }
+    public MatchResult? Result
+    {
+        get => _result;
+        init => _result = value;
+    }
 
     public static Match Make(MatchPlaceholder match, Dictionary<string, Team> teamsMap)
     {
@@ -28,7 +32,7 @@ public class Match : IdEntity
     {
         return new Match { Home = home, Away = away };
     }
-    
+
     public void Simulate(Dicer dicer)
     {
         if (isFinished) return;

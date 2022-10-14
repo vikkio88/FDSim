@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.IO;
 using Avalonia.Data.Converters;
 using Avalonia.Svg.Skia;
 
@@ -13,8 +14,9 @@ public class IsoToFlagConverter : IValueConverter
         if (value is string nationality)
         {
             var src = new SvgSource();
-            //        if (File.Exists(path)) otherwise maybe return empty
-            using (var stream = System.IO.File.OpenRead($"Assets/Flags/{nationality}.svg"))
+            var filePath = $"Assets/Flags/{nationality}.svg";
+            if (!File.Exists(filePath)) return false;
+            using (var stream = File.OpenRead(filePath))
             {
                 src.Load(stream);
             }

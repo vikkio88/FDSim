@@ -16,6 +16,16 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
     public League League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
+
+    private List<TableRow> _leagueTable;
+    public List<TableRow> LeagueTable
+    {
+        get => _leagueTable;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _leagueTable, value);
+        }
+    }
     public int SelectedTab { get; set; } = 0;
     public Dictionary<string, MatchResult> _resultMap = new();
     public Dictionary<string, MatchResult> ResultMap
@@ -39,6 +49,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         HostScreen = screen;
         Back = HostScreen.Router.NavigateBack;
         League = League.Make(GameDb.Instance.GeneratedTeams.Select(t => t.Id).ToList());
+        LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
         ViewMatchResult = ReactiveCommand.CreateFromObservable((string matchId) => HostScreen.Router.Navigate.Execute(new MatchDetailsViewModel(HostScreen, matchId)));
         SimulateRound = ReactiveCommand.Create(() =>
@@ -53,6 +64,9 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
                 match.Simulate(Dicer.Make());
                 results.Add(match.Id, match.Result);
             }
+            League.Table.Update(matches);
+            LeagueTable = League.Table.OrderedTable;
+
             round.Played = true;
             ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
             League = League;

@@ -4,6 +4,7 @@ public class League : IdEntity
 {
     public string Name { get; set; } = string.Empty;
     public List<Round> Rounds { get; set; } = new();
+    public Table Table { get; set; }
 
     private int _roundPointer = 0;
 
@@ -47,7 +48,8 @@ public class League : IdEntity
         return new League()
         {
             Rounds = firstHalf,
-            Name = name ?? string.Empty
+            Name = name ?? string.Empty,
+            Table = new Table(teamIds),
         };
     }
 
@@ -57,7 +59,7 @@ public class League : IdEntity
         {
             return null;
         }
-        
+
         var currentRound = Rounds[_roundPointer];
         _roundPointer++;
         return currentRound;
