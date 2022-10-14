@@ -9,7 +9,6 @@
   d:DesignHeight="450"
   xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
   x:Class="MatchesGame.Views.LeagueView">
-
   <UserControl.Resources>
     <converters:TeamIdToNameMap x:Key="TeamIdToNameMap" />
     <converters:TableGoalsToTableString x:Key="TableGoalsToTableString" />
