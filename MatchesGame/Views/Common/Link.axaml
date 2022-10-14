@@ -7,6 +7,10 @@
         <Setter Property="Foreground"
             Value="#3496eb"/>
     </Style>
+    <Style Selector="common|Link > TextBlock:pointerover">
+        <Setter Property="TextDecorations"
+            Value="Underline"/>
+    </Style>
     <Style Selector="common|Link.H1">
         <Setter Property="FontSize"
             Value="25"/>
