@@ -7,6 +7,7 @@
     d:DesignHeight="450"
     xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
     xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
+    xmlns:common="using:MatchesGame.Views.Common"
     x:Class="MatchesGame.Views.MatchDetailsView">
     <DockPanel LastChildFill="True">
         <shared:NavigationFooter DockPanel.Dock="Bottom"/>
@@ -21,12 +22,13 @@
             ColumnDefinitions="*,*,*,*,*,*"
             RowDefinitions="*,5*"
             x:Name="MatchDetailsRoot">
-            <TextBlock Grid.Row="0"
+            <common:Link Grid.Row="0"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Classes="H2"
-                TextAlignment="Center"
-                Text="{Binding Match.Home.Name}"/>
+                Classes="H2 HCent"
+                Label="{Binding Match.Home.Name}"
+                Command="{Binding ViewTeam}"
+                CommandParameter="{Binding Match.Home.Id}"/>
             <StackPanel Grid.Row="0"
                 Grid.Column="2"
                 Grid.ColumnSpan="2"
@@ -40,12 +42,13 @@
                 <TextBlock Classes="H3 VCent"
                     Text="{Binding MatchResult.GoalAway}"/>
             </StackPanel>
-            <TextBlock Grid.Row="0"
+            <common:Link Grid.Row="0"
                 Grid.Column="4"
                 Grid.ColumnSpan="2"
-                TextAlignment="Center"
-                Classes="H2"
-                Text="{Binding Match.Away.Name}"/>
+                Classes="H2 HCent"
+                Label="{Binding Match.Away.Name}"
+                Command="{Binding ViewTeam}"
+                CommandParameter="{Binding Match.Away.Id}"/>
             <StackPanel Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
