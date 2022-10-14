@@ -10,7 +10,11 @@ public class Table
     {
         get => _table.OrderByDescending(x => x.Value.Points)
         .ThenByDescending(x => x.Value.GoalsDiff)
-        .Select(x => x.Value).ToList();
+        .Select((x, i) =>
+        {
+            x.Value.Position = i + 1;
+            return x.Value;
+        }).ToList();
     }
     public Table(List<string> teamIds)
     {
@@ -74,6 +78,7 @@ public class Table
 
 public class TableRow
 {
+    public int? Position { get; set; } = null;
     public string TeamId { get; set; } = string.Empty;
     public int Points { get; set; } = 0;
     public int Played { get; set; } = 0;
