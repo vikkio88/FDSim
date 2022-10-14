@@ -61,21 +61,16 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
             if (round is null) return;
 
             CanSimulate = false;
-
-            var results = new Dictionary<string, MatchResult>();
             var matches = GameDb.Instance.MakeMatches(round);
-            foreach (var match in matches)
-            {
-                match.Simulate(Dicer.Make());
-                results.Add(match.Id, match.Result);
-            }
+            var results = Match.SimulateMany(matches);
             League.Table.Update(matches);
             LeagueTable = League.Table.OrderedTable;
-
             round.Played = true;
             ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
             League = League;
+
             CanSimulate = true;
+
         }, canSimulate);
 
     }
