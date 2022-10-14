@@ -3,6 +3,7 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
+  xmlns:common="using:MatchesGame.Views.Common"
   xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
   mc:Ignorable="d"
   d:DesignWidth="800"
@@ -29,7 +30,7 @@
                   <!-- Single Match In round  -->
                   <Border Classes="RowItem"
                     Margin="2,2,2,0">
-                    <Grid ColumnDefinitions="*,*,*,*,*,*">
+                    <Grid ColumnDefinitions="*,*,*,*,*">
                       <Grid.RowDefinitions>
                         <RowDefinition Height="25" />
                       </Grid.RowDefinitions>
@@ -50,7 +51,9 @@
                       <!-- Separation between teams -->
                       <StackPanel Grid.Row="0"
                         Grid.Column="2"
-                        Grid.ColumnSpan="1">
+                        Grid.ColumnSpan="1"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center">
 
                         <!-- Showing VS if match not played -->
                         <TextBlock Classes="VCent HCent">
@@ -66,22 +69,24 @@
 
 
                         <!-- Showing Result if match played -->
-                        <TextBlock Classes="VCent HCent">
-                          <TextBlock.IsVisible>
+                        <common:Link Classes="VCent HCent"
+                          Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
+                          CommandParameter="{Binding Id}">
+                          <common:Link.IsVisible>
                             <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
                               <Binding Path="Id" />
                               <Binding Path="DataContext.ResultMap"
                                 ElementName="LeagueViewRoot" />
                             </MultiBinding>
-                          </TextBlock.IsVisible>
-                          <TextBlock.Text>
+                          </common:Link.IsVisible>
+                          <common:Link.Label>
                             <MultiBinding Converter="{x:Static converters:MatchIdToResultMap.Instance}">
                               <Binding Path="Id" />
                               <Binding Path="DataContext.ResultMap"
                                 ElementName="LeagueViewRoot" />
                             </MultiBinding>
-                          </TextBlock.Text>
-                        </TextBlock>
+                          </common:Link.Label>
+                        </common:Link>
 
                       </StackPanel>
 
@@ -100,29 +105,6 @@
                           </MultiBinding>
                         </TextBlock.Text>
                       </TextBlock>
-
-                      <!-- Actions Buttons -->
-                      <StackPanel Orientation="Horizontal"
-                        Grid.Row="0"
-                        Grid.Column="6"
-                        Grid.ColumnSpan="1"
-                        HorizontalAlignment="Right">
-                        <StackPanel.IsVisible>
-                          <MultiBinding Converter="{x:Static converters:MatchIdToPlayedBool.Instance}">
-                            <Binding Path="Id" />
-                            <Binding Path="DataContext.ResultMap"
-                              ElementName="LeagueViewRoot" />
-                          </MultiBinding>
-                        </StackPanel.IsVisible>
-                        <Button Classes="SmallButton"
-                          Grid.Row="0"
-                          Grid.Column="1"
-                          Margin="0,0,5,0"
-                          Command="{Binding #LeagueViewRoot.DataContext.ViewMatchResult}"
-                          CommandParameter="{Binding Id}">
-                          <i:Icon Value="fa fa-info" />
-                        </Button>
-                      </StackPanel>
                     </Grid>
                   </Border>
                   <!-- EO Single Match in Round -->
