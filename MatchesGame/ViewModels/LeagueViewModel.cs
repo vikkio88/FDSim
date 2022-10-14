@@ -39,6 +39,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
     }
     public Dictionary<string, Team> TeamNameMap { get; }
     public ReactiveCommand<Unit, Unit> Back { get; }
+
+    public bool CanSimulate { get; set; } = true;
     public ReactiveCommand<Unit, Unit> SimulateRound { get; }
 
     public ReactiveCommand<string, IRoutableViewModel> ViewMatchResult { get; set; }
@@ -52,10 +54,13 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
         ViewMatchResult = ReactiveCommand.CreateFromObservable((string matchId) => HostScreen.Router.Navigate.Execute(new MatchDetailsViewModel(HostScreen, matchId)));
+        var canSimulate = this.WhenAnyValue(l => l.CanSimulate);
         SimulateRound = ReactiveCommand.Create(() =>
         {
             var round = League.GetNextRound();
             if (round is null) return;
+
+            CanSimulate = false;
 
             var results = new Dictionary<string, MatchResult>();
             var matches = GameDb.Instance.MakeMatches(round);
@@ -70,7 +75,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
             round.Played = true;
             ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
             League = League;
-        });
+            CanSimulate = true;
+        }, canSimulate);
 
     }
 }
