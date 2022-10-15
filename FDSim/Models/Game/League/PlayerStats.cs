@@ -22,6 +22,13 @@ public class PlayerStats
         _stats = new();
     }
 
+    public void Update(List<Match> matches)
+    {
+        foreach (var match in matches)
+        {
+            Update(match);
+        }
+    }
     public void Update(Match match)
     {
         var result = match.Result;

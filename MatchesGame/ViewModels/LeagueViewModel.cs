@@ -75,7 +75,6 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
             var matches = GameDb.Instance.MakeMatches(round);
             var results = Match.SimulateMany(matches);
             League.Table.Update(matches);
-            // implement this
             League.Stats.Update(matches);
             Scorers = League.Stats.OrderedScorers;
             LeagueTable = League.Table.OrderedTable;

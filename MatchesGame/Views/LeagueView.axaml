@@ -12,6 +12,7 @@
   <UserControl.Resources>
     <converters:TeamIdToNameMap x:Key="TeamIdToNameMap" />
     <converters:TableGoalsToTableString x:Key="TableGoalsToTableString" />
+    <converters:PlayerIdTeamIdToNameMap x:Key="PlayerIdTeamIdToNameMap" />
   </UserControl.Resources>
 
   <DockPanel LastChildFill="True">
@@ -91,12 +92,31 @@
                 <DataGridTextColumn Header="#"
                   IsReadOnly="True"
                   Binding="{Binding Position}" />
+                  <!-- Player name -->
                 <DataGridTextColumn Header="Player"
-                  IsReadOnly="True"
-                  Binding="{Binding PlayerId}" />
+                  IsReadOnly="True">
+                  <DataGridTextColumn.Binding>
+                    <MultiBinding Converter="{StaticResource PlayerIdTeamIdToNameMap}">
+                      <Binding Path="PlayerId" />
+                      <Binding Path="TeamId" />
+                      <Binding Path="DataContext.TeamNameMap"
+                        ElementName="LeagueViewRoot" />
+                    </MultiBinding>
+                  </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                
+                <!-- Team name -->
                 <DataGridTextColumn Header="Team"
-                  IsReadOnly="True"
-                  Binding="{Binding TeamId}" />
+                  IsReadOnly="True">
+                  <DataGridTextColumn.Binding>
+                    <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                      <Binding Path="TeamId" />
+                      <Binding Path="DataContext.TeamNameMap"
+                        ElementName="LeagueViewRoot" />
+                    </MultiBinding>
+                  </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+
                 <DataGridTextColumn Header="Played"
                   IsReadOnly="True"
                   Binding="{Binding Played}" />
