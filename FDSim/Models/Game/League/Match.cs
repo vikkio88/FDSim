@@ -33,12 +33,12 @@ public class Match : IdEntity
         return new Match { Home = home, Away = away };
     }
 
-    public static Dictionary<string, MatchResult> SimulateMany(List<Match> matches)
+    public static Dictionary<string, MatchResult> SimulateMany(List<Match> matches, Dicer? dicer = null)
     {
         var results = new Dictionary<string, MatchResult>();
         foreach (var match in matches)
         {
-            match.Simulate(Dicer.Make());
+            match.Simulate(dicer ?? Dicer.Make());
             results.Add(match.Id, match.Result);
         }
 
