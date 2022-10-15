@@ -26,6 +26,17 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
             this.RaiseAndSetIfChanged(ref _leagueTable, value);
         }
     }
+
+    private List<StatRow> _scorers;
+    public List<StatRow> Scorers
+    {
+        get => _scorers;
+        set
+        {
+            this.RaiseAndSetIfChanged(ref _scorers, value);
+        }
+    }
+
     public int SelectedTab { get; set; } = 0;
     public Dictionary<string, MatchResult> _resultMap = new();
     public Dictionary<string, MatchResult> ResultMap
@@ -64,6 +75,9 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
             var matches = GameDb.Instance.MakeMatches(round);
             var results = Match.SimulateMany(matches);
             League.Table.Update(matches);
+            // implement this
+            League.Stats.Update(matches);
+            Scorers = League.Stats.OrderedScorers;
             LeagueTable = League.Table.OrderedTable;
             round.Played = true;
             ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);

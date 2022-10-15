@@ -25,6 +25,7 @@
     </Border>
     <Border Margin="0,4,0,0">
       <TabControl SelectedIndex="{Binding SelectedTab}">
+        <!-- TAB for League Table -->
         <TabItem>
           <TabItem.Header>
             <TextBlock VerticalAlignment="Center">Table</TextBlock>
@@ -76,6 +77,38 @@
             </DataGrid>
           </StackPanel>
         </TabItem>
+
+        <!-- TAB for Scorers -->
+        <TabItem>
+          <TabItem.Header>
+            <TextBlock VerticalAlignment="Center">Scorers</TextBlock>
+          </TabItem.Header>
+          <DockPanel LastChildFill="True">
+            <DataGrid Items="{Binding Scorers}"
+              Margin="0,5,0,0"
+              AutoGenerateColumns="False">
+              <DataGrid.Columns>
+                <DataGridTextColumn Header="#"
+                  IsReadOnly="True"
+                  Binding="{Binding Position}" />
+                <DataGridTextColumn Header="Player"
+                  IsReadOnly="True"
+                  Binding="{Binding PlayerId}" />
+                <DataGridTextColumn Header="Team"
+                  IsReadOnly="True"
+                  Binding="{Binding TeamId}" />
+                <DataGridTextColumn Header="Played"
+                  IsReadOnly="True"
+                  Binding="{Binding Played}" />
+                <DataGridTextColumn Header="Goals"
+                  IsReadOnly="True"
+                  Binding="{Binding Goals}" />
+              </DataGrid.Columns>
+            </DataGrid>
+          </DockPanel>
+        </TabItem>
+
+        <!-- TAB for Calendar -->
         <TabItem>
           <TabItem.Header>
             <TextBlock VerticalAlignment="Center">Calendar</TextBlock>
