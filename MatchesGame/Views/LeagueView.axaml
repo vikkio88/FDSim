@@ -4,10 +4,10 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
   xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
+  xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
-  xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
   x:Class="MatchesGame.Views.LeagueView">
   <UserControl.Resources>
     <converters:TeamIdToNameMap x:Key="TeamIdToNameMap" />

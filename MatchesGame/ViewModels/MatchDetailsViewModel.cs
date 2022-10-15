@@ -16,6 +16,7 @@ public class MatchDetailsViewModel : ReactiveObject, IRoutableViewModel
     public Dictionary<string, Player> HomeRoster { get; init; }
     public Dictionary<string, Player> AwayRoster { get; init; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
+    public ReactiveCommand<string, IRoutableViewModel> ViewPlayer { get; set; }
     public string UrlPathSegment { get; } = "matchDetailsView";
 
     public MatchDetailsViewModel(IScreen screen, string matchId)
@@ -27,6 +28,15 @@ public class MatchDetailsViewModel : ReactiveObject, IRoutableViewModel
         HomeRoster = Match.Home.Roster.IndexedPlayers;
         AwayRoster = Match.Away.Roster.IndexedPlayers;
 
-        ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
+        ViewTeam = ReactiveCommand.CreateFromObservable(
+            (string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId))
+        );
+
+        ViewPlayer = ReactiveCommand.CreateFromObservable(
+            (string combinedId) =>
+            {
+                return HostScreen.Router.Navigate.Execute(new PlayerDetailsViewModel(HostScreen, combinedId));
+            }
+        );
     }
 }

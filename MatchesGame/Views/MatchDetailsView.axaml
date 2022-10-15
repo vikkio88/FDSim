@@ -12,8 +12,9 @@
     x:Class="MatchesGame.Views.MatchDetailsView">
     <UserControl.Resources>
         <converters:PlayerIdToPlayerFromRoster x:Key="PlayerIdToPlayerFromRoster" />
+        <converters:CombineTeamPlayerIds x:Key="CombineTeamPlayerIds" />
     </UserControl.Resources>
-    
+
     <DockPanel LastChildFill="True">
         <shared:NavigationFooter DockPanel.Dock="Bottom"/>
         <Border Height="40"
@@ -66,15 +67,22 @@
                                     Orientation="Horizontal"
                                     Margin="0,0,0,5">
                                     <i:Icon Value="fa fa-futbol" />
-                                    <TextBlock>
-                                        <TextBlock.Text>
+                                    <common:Link Command="{Binding #MatchDetailsRoot.DataContext.ViewPlayer}">
+                                        <common:Link.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource CombineTeamPlayerIds}">
+                                                <Binding Path="."/>
+                                                <Binding Path="DataContext.Match.Home.Id"
+                                                    ElementName="MatchDetailsRoot"/>
+                                            </MultiBinding>
+                                        </common:Link.CommandParameter>
+                                        <common:Link.Label>
                                             <MultiBinding Converter="{StaticResource PlayerIdToPlayerFromRoster}">
                                                 <Binding Path="."/>
                                                 <Binding Path="DataContext.HomeRoster"
                                                     ElementName="MatchDetailsRoot"/>
                                             </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
+                                        </common:Link.Label>
+                                    </common:Link>
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

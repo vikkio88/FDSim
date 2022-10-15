@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+  xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
+  xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
+  mc:Ignorable="d"
+  d:DesignWidth="800"
+  d:DesignHeight="450"
+  x:Class="MatchesGame.Views.PlayerDetailsView">
+  <DockPanel LastChildFill="True">
+    <Border Height="40"
+      BorderBrush="Black"
+      BorderThickness="1"
+      DockPanel.Dock="Top">
+      <TextBlock HorizontalAlignment="Center"
+        FontSize="30">Player Details</TextBlock>
+    </Border>
+    <!-- Bottom navigation -->
+    <shared:NavigationFooter DockPanel.Dock="Bottom" />
+
+    <StackPanel Margin="10"
+      VerticalAlignment="Center">
+      <TextBlock Text="{Binding TeamId}"/>
+      <TextBlock Text="{Binding PlayerId}"/>
+    </StackPanel>
+  </DockPanel>
+</UserControl>
