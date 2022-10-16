@@ -9,16 +9,17 @@ using FDSim.Generators;
 using FDSim.Models.Game.Team;
 using FDSim.Models.Game.League;
 using MatchesGame.Services;
-
-
+using Avalonia.Threading;
+using System.Threading;
+using System.Threading.Tasks;
 
 public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
-    public League League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
+    public League? League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
 
-    private List<TableRow> _leagueTable;
-    public List<TableRow> LeagueTable
+    private List<TableRow>? _leagueTable = null;
+    public List<TableRow>? LeagueTable
     {
         get => _leagueTable;
         set
@@ -27,8 +28,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
-    private List<StatRow> _scorers;
-    public List<StatRow> Scorers
+    private List<StatRow>? _scorers = null;
+    public List<StatRow>? Scorers
     {
         get => _scorers;
         set
@@ -51,7 +52,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
     public Dictionary<string, Team> TeamNameMap { get; }
     public ReactiveCommand<Unit, Unit> Back { get; }
 
-    public bool CanSimulate { get; set; } = true;
+    public bool _canSimulate = true;
+    public bool CanSimulate { get => _canSimulate; set => this.RaiseAndSetIfChanged(ref _canSimulate, value); }
     public ReactiveCommand<Unit, Unit> SimulateRound { get; }
 
     public ReactiveCommand<string, IRoutableViewModel> ViewMatchResult { get; set; }
@@ -66,23 +68,35 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         TeamNameMap = GameDb.Instance.TeamsMap;
         ViewMatchResult = ReactiveCommand.CreateFromObservable((string matchId) => HostScreen.Router.Navigate.Execute(new MatchDetailsViewModel(HostScreen, matchId)));
         var canSimulate = this.WhenAnyValue(l => l.CanSimulate);
-        SimulateRound = ReactiveCommand.Create(() =>
+
+
+
+        SimulateRound = ReactiveCommand.CreateFromTask(() =>
         {
             var round = League.GetNextRound();
-            if (round is null) return;
+            if (round is null) return Task.CompletedTask;
+
 
             CanSimulate = false;
-            var matches = GameDb.Instance.MakeMatches(round);
-            var results = Match.SimulateMany(matches);
-            League.Table.Update(matches);
-            League.Stats.Update(matches);
-            Scorers = League.Stats.OrderedScorers;
-            LeagueTable = League.Table.OrderedTable;
-            round.Played = true;
-            ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
-            League = League;
 
-            CanSimulate = true;
+
+            Dispatcher.UIThread.InvokeAsync(async () =>
+            {
+                // Fake delay to see how it handles async
+                await Task.Delay(2000);
+                var matches = GameDb.Instance.MakeMatches(round);
+                var results = Match.SimulateMany(matches);
+                League.Table.Update(matches);
+                League.Stats.Update(matches);
+                round.Played = true;
+                League = League;
+                ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
+                Scorers = League.Stats.OrderedScorers;
+                LeagueTable = League.Table.OrderedTable;
+                CanSimulate = true;
+            }, DispatcherPriority.Background);
+
+            return Task.CompletedTask;
 
         }, canSimulate);
 
