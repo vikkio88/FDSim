@@ -3,12 +3,19 @@
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+  xmlns:common="using:MatchesGame.Views.Common"
   xmlns:converters="clr-namespace:MatchesGame.Helpers.Converters"
   xmlns:shared="clr-namespace:MatchesGame.Views.Shared"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
   x:Class="MatchesGame.Views.PlayerDetailsView">
+
+  <UserControl.Resources>
+    <converters:CountryStringConverter x:Key="CountryStrConverter"/>
+    <converters:NationalityToIsoConverter x:Key="NationToIsoConverter"/>
+  </UserControl.Resources>
+
   <DockPanel LastChildFill="True">
     <Border Height="40"
       BorderBrush="Black"
@@ -20,10 +27,136 @@
     <!-- Bottom navigation -->
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
 
-    <StackPanel Margin="10"
-      VerticalAlignment="Center">
-      <TextBlock Text="{Binding Player.PrintName}"/>
-      <TextBlock Text="{Binding Team.Name}"/>
-    </StackPanel>
+    <Grid Margin="0,15,0,0"
+      ColumnDefinitions="*,*,*,*"
+      RowDefinitions="*,1.1*,1.1*">
+      <!-- This can be used to add a profile pic -->
+      <StackPanel Grid.Row="0"
+        Grid.Column="0"
+        Background="Black"></StackPanel>
+      <!-- Player Info box -->
+      <Grid Grid.Row="0"
+        Grid.Column="1"
+        Grid.ColumnSpan="3"
+        ColumnDefinitions="*,*"
+        RowDefinitions="1.2*,*,*,*"
+        Margin="10,0,0,0">
+        <!-- Name and Player Info -->
+        <TextBlock Classes="H2"
+          Grid.Row="0"
+          Grid.Column="0"
+          Text="{Binding Player.PrintName}"/>
+        <TextBlock Classes="H3"
+          Grid.Row="1"
+          Grid.Column="0"
+          Text="{Binding Player.Age}"/>
+        <StackPanel Grid.Row="2"
+          Grid.Column="0"
+          Orientation="Horizontal"
+          Spacing="5">
+          <TextBlock Text="{Binding Player.Role}"/>
+          <common:Stars FontSize="20"
+            Value="{Binding Player.Skill.Value}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3"
+          Grid.Column="0"
+          Orientation="Horizontal"
+          Spacing="5">
+          <TextBlock Text="{Binding Player.Nationality}" />
+          <common:Flag FontSize="20"
+            Iso="{Binding Player.Nationality, Converter={StaticResource NationToIsoConverter}}" />
+        </StackPanel>
+        <!-- Right panel for team/contract info -->
+        <StackPanel Grid.Row="0"
+          Grid.Column="1"
+          Grid.RowSpan="4">
+          <TextBlock Classes="H3"
+            TextDecorations="Underline"
+            Text="Contract Info"
+            Margin="0,0,0,5"/>
+          <TextBlock Classes="H3"
+            Text="{Binding Team.Name}" />
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              FontSize="20"
+              Text="{Binding Team.Nationality, Converter={StaticResource CountryStrConverter}}" />
+            <common:Flag Iso="{Binding Team.Nationality, Converter={StaticResource NationToIsoConverter}}"
+              FontSize="20"/>
+          </StackPanel>
+        </StackPanel>
+      </Grid>
+      <!-- Current Season stats -->
+      <Grid Grid.Row="1"
+        Grid.Column="0"
+        Grid.ColumnSpan="4"
+        Margin="2,2,0,0"
+        ColumnDefinitions="*"
+        RowDefinitions="*,1.5*">
+        <TextBlock Classes="H3"
+          TextDecorations="Underline"
+          Grid.Row="0"
+          Grid.Column="0"
+          Text="Current Season Stats"/>
+
+          <!-- For some reason this wont work will try again later -->
+        <!-- <TextBlock IsVisible="{Binding !!!Stats}"
+          Grid.Row="1"
+          Grid.Column="0"
+          Margin="30,20,0,0"
+          Text="No stats yet this season..."/> -->
+
+        <Grid IsVisible="{Binding !!Stats}"
+          Grid.Row="1"
+          Grid.Column="0"
+          ColumnDefinitions="*,*,*"
+          RowDefinitions="*,*">
+          <TextBlock Classes="H4"
+            Grid.Row="0"
+            Grid.Column="0"
+            Text="Played"
+            TextAlignment="Center"/>
+          <TextBlock Classes="H4"
+            Grid.Row="0"
+            Grid.Column="1"
+            Text="Goals"
+            TextAlignment="Center"/>
+          <TextBlock Classes="H4"
+            Grid.Row="0"
+            Grid.Column="2"
+            Text="Avg Rating"
+            TextAlignment="Center"/>
+
+          <TextBlock Classes="H2"
+            Grid.Row="1"
+            Grid.Column="0"
+            Text="{Binding Stats.Played}"
+            TextAlignment="Center"/>
+          <TextBlock Classes="H2"
+            Grid.Row="1"
+            Grid.Column="1"
+            Text="{Binding Stats.Goals}"
+            TextAlignment="Center"/>
+          <TextBlock Classes="H2"
+            Grid.Row="1"
+            Grid.Column="2"
+            Text="-"
+            TextAlignment="Center"/>
+        </Grid>
+
+      </Grid>
+      <!-- Historical Stats  -->
+      <StackPanel Grid.Row="2"
+        Grid.Column="0"
+        Grid.ColumnSpan="4"
+        Margin="2,2,0,0">
+        <TextBlock Classes="H3"
+          TextDecorations="Underline"
+          Text="History"/>
+        <TextBlock Margin="30,20,0,0">No history available</TextBlock>
+      </StackPanel>
+
+    </Grid>
   </DockPanel>
 </UserControl>
