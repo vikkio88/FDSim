@@ -12,8 +12,8 @@
   x:Class="MatchesGame.Views.TeamView">
 
   <UserControl.Resources>
-    <converters:CountryStringConverter x:Key="countryStrConverter"/>
-    <converters:NationalityToIsoConverter x:Key="nationToIsoConverter"/>
+    <converters:CountryStringConverter x:Key="CountryStrConverter"/>
+    <converters:NationalityToIsoConverter x:Key="NationToIsoConverter"/>
   </UserControl.Resources>
 
   <DockPanel LastChildFill="True">
@@ -53,8 +53,8 @@
               <TextBlock HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 FontSize="20"
-                Text="{Binding Team.Nationality, Converter={StaticResource countryStrConverter}}" />
-                <common:Flag Iso="{Binding Team.Nationality, Converter={StaticResource nationToIsoConverter}}" FontSize="20"/>
+                Text="{Binding Team.Nationality, Converter={StaticResource CountryStrConverter}}" />
+                <common:Flag Iso="{Binding Team.Nationality, Converter={StaticResource NationToIsoConverter}}" FontSize="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
               Spacing="5">
@@ -145,7 +145,7 @@
               Text="Nationality" />
             <TextBlock Classes="HCent VCent"
               Text="{Binding SelectedPlayer.Nationality}" />
-            <common:Flag Iso="{Binding SelectedPlayer.Nationality, Converter={StaticResource nationToIsoConverter}}" />
+            <common:Flag Iso="{Binding SelectedPlayer.Nationality, Converter={StaticResource NationToIsoConverter}}" />
           </StackPanel>
           <StackPanel Orientation="Horizontal"
             Spacing="5">
