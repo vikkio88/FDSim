@@ -11,7 +11,7 @@ public class GameDb : Singleton<GameDb>
     public ObservableCollection<Team> GeneratedTeams { get; set; } = new();
     public Dictionary<string, Team> TeamsMap { get; set; } = new();
     public Dictionary<string, Match> MatchesMap { get; set; } = new();
-    public League League { get; set; }
+    public League? League { get; set; }
     public Dictionary<string, MatchResult> ResultMap { get; set; } = new();
 
     public Match MakeMatch(MatchPlaceholder match) => Match.Make(match, TeamsMap);
