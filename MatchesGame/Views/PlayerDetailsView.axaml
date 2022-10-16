@@ -22,8 +22,8 @@
 
     <StackPanel Margin="10"
       VerticalAlignment="Center">
-      <TextBlock Text="{Binding TeamId}"/>
-      <TextBlock Text="{Binding PlayerId}"/>
+      <TextBlock Text="{Binding Player.PrintName}"/>
+      <TextBlock Text="{Binding Team.Name}"/>
     </StackPanel>
   </DockPanel>
 </UserControl>

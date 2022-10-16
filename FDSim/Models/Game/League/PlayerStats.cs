@@ -22,6 +22,11 @@ public class PlayerStats
         _stats = new();
     }
 
+    public StatRow? GetForPlayer(string playerId)
+    {
+        return _stats[playerId] ?? null;
+    }
+
     public void Update(List<Match> matches)
     {
         foreach (var match in matches)

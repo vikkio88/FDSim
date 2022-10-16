@@ -51,6 +51,14 @@ public class GameDb : Singleton<GameDb>
         return TeamsMap[teamId]?.Roster?.GetById(playerId);
     }
 
+    public (Team?, Player?) GetPlayerAndTeamById(string teamId, string playerId)
+    {
+        var team = TeamsMap.ContainsKey(teamId) ? TeamsMap[teamId] : null;
+        var player = team?.Roster?.GetById(playerId);
+
+        return (team, player);
+    }
+
     public void RemoveTeamById(string teamId)
     {
         var t = GetTeamById(teamId);

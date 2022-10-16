@@ -11,8 +11,8 @@ public class CombineTeamPlayerIds : IMultiValueConverter
     {
         if (
             values.Count == 2 &&
-            values[0] is string teamId &&
-            values[1] is string playerId)
+            values[0] is string playerId &&
+            values[1] is string teamId)
         {
             return $"{teamId}.{playerId}";
         }
