@@ -24,7 +24,7 @@ public class PeopleMoneyRange
             _ => _dicer.Faker.Random.Number(1, 200)
         };
 
-        return new(baseVal * (isCoach ? 100.0 : 1000.0));
+        return new(baseVal * (isCoach ? 250.0 : 1000.0));
     }
 
     // Might want to add a way to change slighlty if is old player

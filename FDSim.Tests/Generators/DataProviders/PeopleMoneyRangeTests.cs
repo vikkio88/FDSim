@@ -27,7 +27,7 @@ public class PeopleMoneyRangeTests
         {
             Money.MakeM(90),
             Money.MakeM(90),
-            Money.MakeM(90),
+            Money.MakeM(80),
             Money.MakeM(50),
             Money.MakeK(200),
             Money.MakeK(200),

@@ -57,8 +57,12 @@ public class GameEntityGenerator
         var contractR = new ContractRange(_dicer);
         foreach (var p in t.Roster.Players)
         {
-            t.Roster.SetContract(p.Id, contractR.GetContract(p));
+            t.Roster.SetContract(p.Id, contractR.GetContract(p, t.Id));
         }
+
+        // 30% chance of a foreign Coach
+        t.Coach = _pGen.GetCoach(forcedNationality: _dicer.Chance(30) ? _dicer.Faker.PickRandom<Nationality>() : nationality);
+        t.Coach.Contract = contractR.GetContract(t.Coach, t.Id);
 
         // add finances
         // add youth and training facilities

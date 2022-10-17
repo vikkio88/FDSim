@@ -78,6 +78,21 @@
               <TextBlock Text="{Binding Team.Reputation.Value}"
                 FontSize="16"/>
             </StackPanel>
+            
+            <StackPanel Orientation="Horizontal"
+              Spacing="5">
+              <i:Icon Value="fa fa-user"
+                FontSize="20"/>
+              <TextBlock Text="{Binding Team.Coach.PrintName}"
+                FontSize="16"/>
+                <TextBlock Text="{Binding Team.Coach.Age}"
+                FontSize="16"/>
+                <TextBlock Text="{Binding Team.Coach.Skill.Value}"
+                FontSize="16"/>
+                <TextBlock Text="{Binding Team.Coach.Contract.Pay}"
+                FontSize="16"/>
+            </StackPanel>
+
           </StackPanel>
         </Border>
         <!-- EO Team Info -->

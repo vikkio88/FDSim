@@ -8,4 +8,5 @@ public class Contract
     public int Remaining { get; set; } = MAX_YEARS;
     public Money Pay { get; set; } = new(0);
     public string PersonId { get; set; } = string.Empty;
+    public string TeamId { get; set; } = string.Empty;
 }

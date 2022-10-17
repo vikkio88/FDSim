@@ -13,14 +13,16 @@ public class ContractRange
         _dicer = dicer;
     }
 
-    public Contract GetContract(Player player)
+    public Contract GetContract(Person player, string teamId)
     {
         var years = _dicer.Faker.Random.Number(1, Contract.MAX_YEARS);
         return new()
         {
             Years = years,
             Remaining = _dicer.Faker.Random.Number(1, years),
-            Pay = GetPay(player.IdealWage)
+            Pay = GetPay(player.IdealWage),
+            PersonId = player.Id,
+            TeamId = teamId
         };
     }
 

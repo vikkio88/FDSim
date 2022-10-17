@@ -7,6 +7,7 @@ public abstract class Person : IdEntity
 {
     public String Name { get; init; }
     public String Surname { get; init; }
+    public string PrintName { get => $"{Name} {Surname}"; }
     public int Age { get; set; }
 
     public Money IdealWage { get; set; }
