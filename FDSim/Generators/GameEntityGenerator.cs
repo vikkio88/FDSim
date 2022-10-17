@@ -53,6 +53,17 @@ public class GameEntityGenerator
             t.Roster?.AddPlayer(champion);
         }
 
+        t.Reputation = (new ReputationRange(_dicer)).GetReputation(new(t.Roster.Avg));
+        var contractR = new ContractRange(_dicer);
+        foreach (var p in t.Roster.Players)
+        {
+            t.Roster.SetContract(p.Id, contractR.GetContract(p));
+        }
+
+        // add finances
+        // add youth and training facilities
+
+
         return t;
     }
 }

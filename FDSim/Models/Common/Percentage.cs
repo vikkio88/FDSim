@@ -3,6 +3,10 @@ public class Perc : IComparable<Perc>
 {
     private int _value = 0;
     public int Value { get => _value; set { _value = Math.Max(0, Math.Min(value, 100)); } }
+    public Perc(double value)
+    {
+        Value = (int)Math.Ceiling(value);
+    }
     public Perc(int value)
     {
         Value = value;

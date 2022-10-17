@@ -12,6 +12,13 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
     public string TeamId { get; } = string.Empty;
     public Team Team { get; }
 
+    private Contract? _contract = null;
+    public Contract? Contract
+    {
+        get => _contract;
+        set => this.RaiseAndSetIfChanged(ref _contract, value);
+    }
+
     private Player? _selectedPlayer = null;
     public Player? SelectedPlayer
     {
@@ -29,7 +36,9 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
         Back = HostScreen.Router.NavigateBack;
         SelectPlayer = ReactiveCommand.Create((string playerId) =>
         {
-            SelectedPlayer = GameDb.Instance.GetTeamById(TeamId)?.Roster?.GetById(playerId);
+            var team = GameDb.Instance.GetTeamById(TeamId);
+            SelectedPlayer = team?.Roster?.GetById(playerId);
+            Contract = team?.Roster?.GetContract(playerId);
         });
 
         TeamId = teamId;

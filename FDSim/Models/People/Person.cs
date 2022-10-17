@@ -9,7 +9,9 @@ public abstract class Person : IdEntity
     public String Surname { get; init; }
     public int Age { get; set; }
 
+    public Money IdealWage { get; set; }
     public Perc Skill { get; set; } = new(0);
+    public Perc Reputation { get; set; } = new(0);
 
     public Nationality Nationality { get; init; }
 

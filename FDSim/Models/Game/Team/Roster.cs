@@ -18,6 +18,7 @@ public class Roster : IdEntity
     public List<Player> Players { get => _players; }
 
     private Dictionary<String, Player>? _playersById;
+    private Dictionary<String, Contract?>? _contracts;
     public Dictionary<String, Player>? IndexedPlayers { get => _playersById; }
     private Dictionary<Role, List<Player>>? _playersPerRole;
 
@@ -37,12 +38,29 @@ public class Roster : IdEntity
             {Role.Midfielder, new()},
             {Role.Striker, new()},
         };
+
         _playersById = new();
+        var oldContracts = _contracts is not null ? _contracts : null;
+        _contracts = new();
 
         foreach (var p in _players)
         {
             _playersPerRole[p.Role].Add(p);
             _playersById[p.Id] = p;
+            _contracts[p.Id] = (oldContracts?.ContainsKey(p.Id) ?? false) ? oldContracts[p.Id] : null;
+        }
+    }
+
+    public Contract? GetContract(string playerId)
+    {
+        return _contracts?.GetValueOrDefault(playerId, null) ?? null;
+    }
+
+    public void SetContract(string playerId, Contract contract)
+    {
+        if (_contracts is not null)
+        {
+            _contracts[playerId] = contract;
         }
     }
 
@@ -61,10 +79,16 @@ public class Roster : IdEntity
         return _avg;
     }
 
-    public void AddPlayer(Player player)
+    public void AddPlayer(Player player, Contract? contract = null)
     {
         _players.Add(player);
+        if (contract is not null)
+        {
+            SetContract(player.Id, contract);
+        }
+
         _avg = -1;
+        IndexPlayers();
     }
 
     public Player? GetById(String id)

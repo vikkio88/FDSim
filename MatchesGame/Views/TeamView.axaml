@@ -54,7 +54,8 @@
                 VerticalAlignment="Center"
                 FontSize="20"
                 Text="{Binding Team.Nationality, Converter={StaticResource CountryStrConverter}}" />
-                <common:Flag Iso="{Binding Team.Nationality, Converter={StaticResource NationToIsoConverter}}" FontSize="20"/>
+              <common:Flag Iso="{Binding Team.Nationality, Converter={StaticResource NationToIsoConverter}}"
+                FontSize="20"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal"
               Spacing="5">
@@ -68,6 +69,13 @@
               <i:Icon Value="fa fa-dumbbell"
                 FontSize="20"/>
               <common:Stars Value="{Binding Team.Roster.Avg}"
+                FontSize="16"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal"
+              Spacing="5">
+              <i:Icon Value="fa fa-newspaper"
+                FontSize="20"/>
+              <TextBlock Text="{Binding Team.Reputation.Value}"
                 FontSize="16"/>
             </StackPanel>
           </StackPanel>
@@ -153,6 +161,41 @@
               Text="Role" />
             <TextBlock Classes="HCent VCent"
               Text="{Binding SelectedPlayer.Role}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Ideal Wage" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.IdealWage}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Wage" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding Contract.Pay}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Value" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Value}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Reputation" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Reputation.Value}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5">
+            <TextBlock Classes="H4 HCent VCent"
+              Text="Skill #" />
+            <TextBlock Classes="HCent VCent"
+              Text="{Binding SelectedPlayer.Skill.Value}" />
           </StackPanel>
           <StackPanel Orientation="Horizontal"
             Spacing="5">
