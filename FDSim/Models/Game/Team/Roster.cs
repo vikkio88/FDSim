@@ -19,6 +19,7 @@ public class Roster : IdEntity
 
     private Dictionary<String, Player>? _playersById;
     private Dictionary<String, Contract?>? _contracts;
+    public Dictionary<String, Contract?>? Contracts { get => _contracts; }
     public Dictionary<String, Player>? IndexedPlayers { get => _playersById; }
     private Dictionary<Role, List<Player>>? _playersPerRole;
 

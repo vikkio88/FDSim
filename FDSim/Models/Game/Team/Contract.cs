@@ -9,4 +9,9 @@ public class Contract
     public Money Pay { get; set; } = new(0);
     public string PersonId { get; set; } = string.Empty;
     public string TeamId { get; set; } = string.Empty;
+
+    public override string ToString()
+    {
+        return $"{Remaining}/{Years} years {Pay} /y";
+    }
 }
