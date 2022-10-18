@@ -111,8 +111,8 @@
     </Style>
 
     <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
-        <Setter Property="Fill" Value="#d3d3d3" />
-        <Setter Property="Opacity" Value=".9" />
+        <Setter Property="Fill" Value="Transparent" />
+        <Setter Property="Opacity" Value="1" />
     </Style>
     
 
