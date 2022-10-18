@@ -109,4 +109,15 @@
         <Setter Property="Margin"
             Value="0,0,6,0"/>
     </Style>
+
+    <Style Selector="DataGridRow:selected /template/ Rectangle#BackgroundRectangle">
+        <Setter Property="Fill" Value="#d3d3d3" />
+        <Setter Property="Opacity" Value=".9" />
+    </Style>
+    
+
+    <Style Selector="DataGrid:focus DataGridCell:current /template/ Grid#FocusVisual">
+        <Setter Property="IsVisible"
+            Value="False" />
+    </Style>
 </Styles>
