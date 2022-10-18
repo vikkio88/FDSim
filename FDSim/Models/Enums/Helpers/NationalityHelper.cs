@@ -9,7 +9,7 @@ public static class NationalityHelper
     {
         return nationality switch
         {
-            Nationality.English => "en_GB",
+            Nationality.English => "en",
             Nationality.German => "de",
             Nationality.Italian => "it",
             Nationality.Spanish => "es",
@@ -17,7 +17,7 @@ public static class NationalityHelper
             Nationality.Dutch => "nl",
             Nationality.Polish => "pl",
             Nationality.Turkish => "tr",
-            _ => "en_GB"
+            _ => "en"
         };
     }
 
