@@ -37,6 +37,8 @@ public enum TransactionType
     Merchandise,
     Facilities,
     Misc,
+    Investor,
+    Sponsor,
 
     Other,
 }
@@ -77,5 +79,11 @@ public class Transaction
     {
         Amount = new(sum.Value),
         Type = TransactionType.Merchandise,
+    };
+    
+    public static Transaction MakeSponsor(Money sum) => new()
+    {
+        Amount = new(sum.Value),
+        Type = TransactionType.Sponsor,
     };
 }

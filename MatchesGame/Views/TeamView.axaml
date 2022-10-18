@@ -96,6 +96,14 @@
           </StackPanel>
         </Border>
         <!-- EO Team Info -->
+        <StackPanel Grid.Row="0"
+          Grid.Column="1">
+          <TextBlock Text="{Binding Team.Finances.Transfer}" />
+          <TextBlock Text="{Binding Team.Finances.Wage}" />
+          <TextBlock Text="{Binding Team.Finances.Income}" />
+          <TextBlock Text="{Binding Team.Finances.Expenses}" />
+          <TextBlock Text="{Binding Team.Finances.Balance}" />
+        </StackPanel>
         <!-- Roster -->
         <TextBlock Grid.Row="1"
           Grid.Column="0"
