@@ -10,10 +10,23 @@ public class FinancesTests
         var f = new Finances();
         Assert.NotStrictEqual(new Money(0.0), f.Balance);
 
-        f = new Finances() { Expenses = new(1_000_000), Income = new(10_000_000) };
+        var transactions = Transaction.MakeList();
+        transactions.Add(Transaction.MakeMiscExpenses(new(1_000_000)));
+        transactions.Add(Transaction.MakeMiscIncome(new(10_000_000)));
+
+        f = new Finances() { Transactions = transactions };
+        Assert.Equal(-1_000_000, f.Expenses.Value);
+        Assert.Equal(10_000_000, f.Income.Value);
         Assert.NotStrictEqual(new Money(9_000_000), f.Balance);
 
-        f = new Finances() { Expenses = new(100_000_000), Income = new(10_000_000) };
+        transactions = Transaction.MakeList();
+        transactions.Add(Transaction.MakeMiscExpenses(new(100_000_000)));
+        transactions.Add(Transaction.MakeMiscIncome(new(10_000_000)));
+        f = new Finances() { Transactions = transactions };
+
+        f = new Finances() { Transactions = transactions };
+        Assert.Equal(-100_000_000, f.Expenses.Value);
+        Assert.Equal(10_000_000, f.Income.Value);
         Assert.NotStrictEqual(new Money(-90_000_000), f.Balance);
     }
 
