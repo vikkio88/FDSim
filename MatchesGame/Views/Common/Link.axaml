@@ -46,7 +46,10 @@
             Value="#3483eb" />
         <Setter Property="Template">
             <ControlTemplate>
-                <TextBlock Text="{TemplateBinding Label}" />
+                <!-- Might want make Alignments props -->
+                <TextBlock Text="{TemplateBinding Label}"
+                    VerticalAlignment="Center"
+                    TextAlignment="{TemplateBinding TextAlignment}" />
             </ControlTemplate>
         </Setter>
     </Style>

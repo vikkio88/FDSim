@@ -13,6 +13,12 @@ public class Link : TemplatedControl
         get => GetValue(LabelProperty);
         set => SetValue(LabelProperty, value);
     }
+    public static readonly StyledProperty<string> TextAlignmentProperty = AvaloniaProperty.Register<Link, string>(nameof(TextAlignment));
+    public string TextAlignment
+    {
+        get => GetValue(TextAlignmentProperty);
+        set => SetValue(TextAlignmentProperty, value);
+    }
 
     public static readonly DirectProperty<Link, ICommand?> CommandProperty =
             AvaloniaProperty.RegisterDirect<Link, ICommand?>(nameof(Command),

@@ -5,12 +5,10 @@ using ReactiveUI;
 using System.Linq;
 using System.Collections.Generic;
 using System.Reactive;
-using FDSim.Generators;
 using FDSim.Models.Game.Team;
 using FDSim.Models.Game.League;
 using MatchesGame.Services;
 using Avalonia.Threading;
-using System.Threading;
 using System.Threading.Tasks;
 
 public class LeagueViewModel : ReactiveObject, IRoutableViewModel
@@ -56,7 +54,9 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
     public bool CanSimulate { get => _canSimulate; set => this.RaiseAndSetIfChanged(ref _canSimulate, value); }
     public ReactiveCommand<Unit, Unit> SimulateRound { get; }
 
-    public ReactiveCommand<string, IRoutableViewModel> ViewMatchResult { get; set; }
+    public ReactiveCommand<string, IRoutableViewModel> ViewMatchResult { get; init; }
+    public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; init; }
+    public ReactiveCommand<string, IRoutableViewModel> ViewPlayer { get; init; }
     public string UrlPathSegment { get; } = "leagueView";
 
     public LeagueViewModel(IScreen screen)
@@ -67,23 +67,21 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
         ViewMatchResult = ReactiveCommand.CreateFromObservable((string matchId) => HostScreen.Router.Navigate.Execute(new MatchDetailsViewModel(HostScreen, matchId)));
+        ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
+        ViewPlayer = ReactiveCommand.CreateFromObservable(
+            (string combinedId) => HostScreen.Router.Navigate.Execute(new PlayerDetailsViewModel(HostScreen, combinedId))
+        );
         var canSimulate = this.WhenAnyValue(l => l.CanSimulate);
-
-
-
         SimulateRound = ReactiveCommand.CreateFromTask(() =>
         {
             var round = League.GetNextRound();
             if (round is null) return Task.CompletedTask;
 
-
             CanSimulate = false;
-
-
             Dispatcher.UIThread.InvokeAsync(async () =>
             {
                 // Fake delay to see how it handles async
-                await Task.Delay(2000);
+                await Task.Delay(500);
                 var matches = GameDb.Instance.MakeMatches(round);
                 var results = Match.SimulateMany(matches);
                 League.Table.Update(matches);
