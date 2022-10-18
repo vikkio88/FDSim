@@ -14,6 +14,10 @@ public class GameEntityGenerator
     private int _seed;
     private IIdGenerator _idGen;
     private PeopleGenerator _pGen;
+    private ReputationRange _reputationR;
+    private ContractRange _contractR;
+    private FinancesProvider _financesP;
+    private FacilitiesProvider _facilitiesP;
     private Dicer _dicer;
 
     public GameEntityGenerator(int seed, IIdGenerator? idGen = null, Dicer? dicer = null)
@@ -23,6 +27,10 @@ public class GameEntityGenerator
         Randomizer.Seed = new Random(_seed);
         _pGen = new PeopleGenerator(_seed, _idGen);
         _dicer = dicer ?? new Dicer(seed);
+        _reputationR = new ReputationRange(_dicer);
+        _contractR = new ContractRange(_dicer);
+        _financesP = new FinancesProvider(_dicer);
+        _facilitiesP = new FacilitiesProvider(_dicer);
     }
 
     public Team GetTeam(Nationality? forcedNationality = null)
@@ -53,20 +61,26 @@ public class GameEntityGenerator
             t.Roster?.AddPlayer(champion);
         }
 
-        t.Reputation = (new ReputationRange(_dicer)).GetReputation(new(t.Roster.Avg));
-        var contractR = new ContractRange(_dicer);
+
+        t.Reputation = _reputationR.GetReputation(new(t.Roster.Avg));
         foreach (var p in t.Roster.Players)
         {
-            t.Roster.SetContract(p.Id, contractR.GetContract(p, t.Id));
+            t.Roster.SetContract(p.Id, _contractR.GetContract(p, t.Id));
         }
 
         // 30% chance of a foreign Coach
         t.Coach = _pGen.GetCoach(forcedNationality: _dicer.Chance(30) ? _dicer.Faker.PickRandom<Nationality>() : nationality);
-        t.Coach.Contract = contractR.GetContract(t.Coach, t.Id);
+        t.Coach.Contract = _contractR.GetContract(t.Coach, t.Id);
 
         // add finances
+
+        t.Finances = _financesP.GetFinances(t);
         // add youth and training facilities
 
+
+        var (training, youth) = _facilitiesP.GetFacilities(t);
+        t.TrainingFacilities = training;
+        t.YouthAcademy = youth;
 
         return t;
     }
