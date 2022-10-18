@@ -1,7 +1,7 @@
 namespace FDSim.Models.Game.League;
 public class PlayerStats
 {
-    const int MAX_SCORERS = 10;
+    const int MAX_SCORERS = 30;
     public Dictionary<string, StatRow> _stats;
     public Dictionary<string, StatRow> Stats { get => _stats; }
 
@@ -24,6 +24,7 @@ public class PlayerStats
 
     public StatRow? GetForPlayer(string playerId)
     {
+        if (!_stats.ContainsKey(playerId)) return null;
         return _stats[playerId] ?? null;
     }
 
