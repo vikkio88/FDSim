@@ -78,18 +78,18 @@
               <TextBlock Text="{Binding Team.Reputation.Value}"
                 FontSize="16"/>
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal"
               Spacing="5">
               <i:Icon Value="fa fa-user"
                 FontSize="20"/>
               <TextBlock Text="{Binding Team.Coach.PrintName}"
                 FontSize="16"/>
-                <TextBlock Text="{Binding Team.Coach.Age}"
+              <TextBlock Text="{Binding Team.Coach.Age}"
                 FontSize="16"/>
-                <TextBlock Text="{Binding Team.Coach.Skill.Value}"
+              <TextBlock Text="{Binding Team.Coach.Skill.Value}"
                 FontSize="16"/>
-                <TextBlock Text="{Binding Team.Coach.Contract.Pay}"
+              <TextBlock Text="{Binding Team.Coach.Contract.Pay}"
                 FontSize="16"/>
             </StackPanel>
 
@@ -118,9 +118,9 @@
                       Grid.ColumnSpan="3"
                       Orientation="Horizontal"
                       VerticalAlignment="Center">
-                      <TextBlock Text="{Binding Name}" />
-                      <TextBlock Text="{Binding Surname}"
-                        Margin="3,0,0,0"/>
+                      <common:Link Label="{Binding PrintName}"
+                        Command="{Binding #TeamViewRoot.DataContext.ViewPlayer}"
+                        CommandParameter="{Binding Id}"/>
                       <TextBlock Text="{Binding Age, StringFormat='({0})'}"
                         Margin="3,0,0,0"/>
                     </StackPanel>
