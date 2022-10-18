@@ -15,9 +15,11 @@ public class PlayerDetailsViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> Back { get; }
 
     public Team? Team { get; init; }
+    public Contract? Contract { get; init; }
     public Player? Player { get; init; }
 
     public StatRow? Stats { get; set; }
+    public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; }
 
     public PlayerDetailsViewModel(IScreen screen, string combinedId)
     {
@@ -27,9 +29,14 @@ public class PlayerDetailsViewModel : ReactiveObject, IRoutableViewModel
         var teamId = ids[0];
         var playerId = ids[1];
 
-        var values = GameDb.Instance.GetPlayerAndTeamById(teamId, playerId);
-        Team = values.Item1;
-        Player = values.Item2;
+        ViewTeam = ReactiveCommand.CreateFromObservable(
+            (string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId))
+        );
+
+        var (team, player) = GameDb.Instance.GetPlayerAndTeamById(teamId, playerId);
+        Team = team;
+        Player = player;
+        Contract = Team?.Roster?.GetContract(playerId) ?? null;
         Stats = GameDb.Instance?.League?.Stats?.GetForPlayer(playerId) ?? null;
 
     }

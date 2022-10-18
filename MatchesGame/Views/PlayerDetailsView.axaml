@@ -33,7 +33,11 @@
       <!-- This can be used to add a profile pic -->
       <StackPanel Grid.Row="0"
         Grid.Column="0"
-        Background="Black"></StackPanel>
+        VerticalAlignment="Center"
+        HorizontalAlignment="Center">
+        <i:Icon Value="fa fa-user"
+          FontSize="40"/>
+      </StackPanel>
       <!-- Player Info box -->
       <Grid Grid.Row="0"
         Grid.Column="1"
@@ -42,48 +46,59 @@
         RowDefinitions="1.2*,*,*,*"
         Margin="10,0,0,0">
         <!-- Name and Player Info -->
-        <TextBlock Classes="H2"
-          Grid.Row="0"
+        <StackPanel Grid.Row="0"
           Grid.Column="0"
-          Text="{Binding Player.PrintName}"/>
-        <TextBlock Classes="H3"
-          Grid.Row="1"
-          Grid.Column="0"
-          Text="{Binding Player.Age}"/>
-        <StackPanel Grid.Row="2"
-          Grid.Column="0"
-          Orientation="Horizontal"
-          Spacing="5">
-          <TextBlock Text="{Binding Player.Role}"/>
-          <common:Stars FontSize="20"
-            Value="{Binding Player.Skill.Value}" />
-        </StackPanel>
-        <StackPanel Grid.Row="3"
-          Grid.Column="0"
-          Orientation="Horizontal"
-          Spacing="5">
-          <TextBlock Text="{Binding Player.Nationality}" />
-          <common:Flag FontSize="20"
-            Iso="{Binding Player.Nationality, Converter={StaticResource NationToIsoConverter}}" />
+          Grid.RowSpan="4">
+          <TextBlock Classes="H1"
+            Text="{Binding Player.PrintName}"/>
+          <TextBlock Classes="H3"
+            Text="{Binding Player.Age}"/>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left">
+            <TextBlock FontSize="20"
+              Text="{Binding Player.Role}"/>
+            <common:Stars FontSize="20"
+              Value="{Binding Player.Skill.Value}" />
+          </StackPanel>
+          <StackPanel Orientation="Horizontal"
+            Spacing="5"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Left">
+            <common:Flag FontSize="20"
+              Iso="{Binding Player.Nationality, Converter={StaticResource NationToIsoConverter}}" />
+            <TextBlock Text="{Binding Player.Nationality}" />
+          </StackPanel>
         </StackPanel>
         <!-- Right panel for team/contract info -->
         <StackPanel Grid.Row="0"
           Grid.Column="1"
           Grid.RowSpan="4">
-          <TextBlock Classes="H3"
+          <TextBlock Classes="H4"
             TextDecorations="Underline"
             Text="Contract Info"
             Margin="0,0,0,5"/>
-          <TextBlock Classes="H3"
-            Text="{Binding Team.Name}" />
+          <common:Link Classes="H3"
+            Label="{Binding Team.Name}"
+            Command="{Binding ViewTeam}"
+            CommandParameter="{Binding Team.Id}"/>
           <StackPanel Orientation="Horizontal"
             Spacing="5">
+            <common:Flag FontSize="20"
+              Iso="{Binding Team.Nationality, Converter={StaticResource NationToIsoConverter}}" />
             <TextBlock HorizontalAlignment="Center"
               VerticalAlignment="Center"
-              FontSize="20"
+              FontSize="16"
               Text="{Binding Team.Nationality, Converter={StaticResource CountryStrConverter}}" />
-            <common:Flag Iso="{Binding Team.Nationality, Converter={StaticResource NationToIsoConverter}}"
+          </StackPanel>
+          <StackPanel Orientation="Horizontal">
+            <i:Icon Value="fa fa-file-alt"
               FontSize="20"/>
+            <TextBlock HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              FontSize="16"
+              Text="{Binding Contract}" />
           </StackPanel>
         </StackPanel>
       </Grid>
@@ -100,12 +115,8 @@
           Grid.Column="0"
           Text="Current Season Stats"/>
 
-          <!-- For some reason this wont work will try again later -->
-        <!-- <TextBlock IsVisible="{Binding !!!Stats}"
-          Grid.Row="1"
-          Grid.Column="0"
-          Margin="30,20,0,0"
-          Text="No stats yet this season..."/> -->
+        <!-- For some reason this wont work will try again later -->
+        <!-- <TextBlock IsVisible="{Binding !!!Stats}" Grid.Row="1" Grid.Column="0" Margin="30,20,0,0" Text="No stats yet this season..."/> -->
 
         <Grid IsVisible="{Binding !!Stats}"
           Grid.Row="1"
