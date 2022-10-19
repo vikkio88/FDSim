@@ -14,6 +14,16 @@ public abstract class Person : IdEntity
     public Perc Skill { get; set; } = new(0);
     public Perc Reputation { get; set; } = new(0);
 
+    public int ApproxSkill
+    {
+        get
+        {
+            int APPROX = 10;
+            int rem = Skill.Value % APPROX;
+            return Skill.Value - rem;
+        }
+    }
+
     public Nationality Nationality { get; init; }
 
     public Person()
