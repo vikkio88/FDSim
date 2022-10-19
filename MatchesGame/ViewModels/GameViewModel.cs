@@ -8,6 +8,7 @@ using FDSim.Generators;
 using FDSim.Models.Enums;
 using FDSim.Models.Enums.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 
 public class GameViewModel : ReactiveObject, IRoutableViewModel
 {
@@ -63,19 +64,29 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<Unit, Unit> ChangeSeed { get; set; }
     public ReactiveCommand<Unit, IRoutableViewModel> StartLeague { get; set; }
 
+    const int MAX_TEAMS = 18;
+
     public GameViewModel(IScreen screen)
     {
         _gEg = new GameEntityGenerator(_seed);
         var generateEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
-            x => x < 18
+            x => x < MAX_TEAMS
         );
         var startMatchesEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
             x => x > 0 && x % 2 == 0
         );
         HostScreen = screen;
-        GenerateTeams = ReactiveCommand.Create(() => Services.GameDb.Instance.AddTeam(_gEg.GetTeam(_teamNationality)), generateEnabled);
+        GenerateTeams = ReactiveCommand.Create(() =>
+        {
+            var teamsToGenerate = MAX_TEAMS - Services.GameDb.Instance.GeneratedTeams.Count;
+            foreach (var _ in Enumerable.Range(0, teamsToGenerate))
+            {
+                Services.GameDb.Instance.AddTeam(_gEg.GetTeam(_teamNationality));
+            }
+
+        }, generateEnabled);
         ChangeSeed = ReactiveCommand.Create(() =>
         {
             _seed = Dicer.Make().Int(0);
