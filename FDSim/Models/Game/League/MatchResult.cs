@@ -3,6 +3,8 @@ namespace FDSim.Models.Game.League;
 using FDSim.Generators;
 using FDSim.Models.Enums;
 using FDSim.Models.Game.Team;
+using FDSim.Models.People;
+
 public class MatchResult : IdEntity
 {
     public string MatchId { get; set; } = string.Empty;
@@ -22,26 +24,13 @@ public class MatchResult : IdEntity
         var scorersAwayIds = new List<string>();
         foreach (var i in Enumerable.Range(0, goalHome))
         {
-            var scorer = dicer.Percentage() switch
-            {
-                > 90 => dicer.Faker.PickRandom(homeLineup.Starters.FindAll(p => p.Role == Role.Defender)),
-                <= 80 => dicer.Faker.PickRandom(homeLineup.Starters.FindAll(p => p.Role == Role.Striker)),
-                > 80 => dicer.Faker.PickRandom(homeLineup.Starters.FindAll(p => p.Role == Role.Midfielder)),
-            };
-
+            var scorer = GetScorer(homeLineup, dicer);
             scorersHomeIds.Add(scorer.Id);
         }
 
         foreach (var i in Enumerable.Range(0, goalAway))
         {
-
-            var scorer = dicer.Percentage() switch
-            {
-                > 90 => dicer.Faker.PickRandom(awayLineup.Starters.FindAll(p => p.Role == Role.Defender)),
-                <= 80 => dicer.Faker.PickRandom(awayLineup.Starters.FindAll(p => p.Role == Role.Striker)),
-                > 80 => dicer.Faker.PickRandom(awayLineup.Starters.FindAll(p => p.Role == Role.Midfielder)),
-            };
-
+            var scorer = GetScorer(awayLineup, dicer);
             scorersAwayIds.Add(scorer.Id);
         }
 
@@ -55,6 +44,18 @@ public class MatchResult : IdEntity
             // maybe here need the bench too??
             HomeLineup = homeLineup.Starters.Select(p => p.Id).ToList(),
             AwayLineup = awayLineup.Starters.Select(p => p.Id).ToList(),
+        };
+    }
+
+    private static Player GetScorer(Lineup lineup, Dicer dicer)
+    {
+        var sts = lineup.Starters.FindAll(p => p.Role == Role.Striker);
+        var nonGK = lineup.Starters.FindAll(p => p.Role != Role.Goalkeeper);
+        return dicer.Percentage() switch
+        {
+            > 90 => dicer.Faker.PickRandom(nonGK),
+            <= 80 => dicer.Faker.PickRandom(sts.Count > 0 ? sts : nonGK),
+            _ => dicer.Faker.PickRandom(nonGK),
         };
     }
 
