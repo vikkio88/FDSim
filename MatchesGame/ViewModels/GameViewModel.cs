@@ -25,6 +25,13 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
+    private string? _playerTeamId = null;
+    public string? PlayerTeamId
+    {
+        get => _playerTeamId;
+        set => this.RaiseAndSetIfChanged(ref _playerTeamId, value);
+    }
+
     public List<string> Nations
     {
         get
@@ -50,6 +57,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
 
     public ObservableCollection<Team> GeneratedTeams { get; set; } = Services.GameDb.Instance.GeneratedTeams;
     public ReactiveCommand<Unit, Unit> GenerateTeams { get; set; }
+    public ReactiveCommand<string?, Unit> SelectTeam { get; set; }
     public ReactiveCommand<string, Unit> RemoveTeam { get; set; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
     public ReactiveCommand<Unit, Unit> ChangeSeed { get; set; }
@@ -74,6 +82,12 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
             SeedText = $"{_seed}";
             _gEg = new(_seed);
         });
+        SelectTeam = ReactiveCommand.Create((string? teamId) =>
+        {
+            Services.GameDb.Instance.PlayerTeamId = teamId;
+            PlayerTeamId = teamId;
+        });
+
         RemoveTeam = ReactiveCommand.Create((string teamId) => Services.GameDb.Instance.RemoveTeamById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
         StartLeague = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen)), startMatchesEnabled);

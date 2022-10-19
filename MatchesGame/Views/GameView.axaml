@@ -10,7 +10,8 @@
     d:DesignHeight="450"
     x:Class="MatchesGame.Views.GameView">
     <UserControl.Resources>
-        <converters:NationalityToIsoConverter x:Key="nationToIsoConverter"/>
+        <converters:NationalityToIsoConverter x:Key="NationToIsoConverter"/>
+        <converters:IsPlayersTeam x:Key="IsPlayersTeam"/>
     </UserControl.Resources>
 
     <DockPanel LastChildFill="True">
@@ -74,16 +75,44 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30" />
                                     </Grid.RowDefinitions>
+
+                                    <!-- EO Team Name / Players Team -->
                                     <TextBlock Grid.Row="0"
                                         Grid.Column="0"
                                         Grid.ColumnSpan="3"
                                         Margin="5"
-                                        Classes="VCent"
-                                        Text="{Binding Name}" />
+                                        Text="{Binding Name}"
+                                        Classes="VCent PlayersTeam">
+                                        <TextBlock.IsVisible>
+                                            <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                ConverterParameter="True">
+                                                <Binding Path="Id" />
+                                                <Binding Path="DataContext.PlayerTeamId"
+                                                    ElementName="GameViewRoot" />
+                                            </MultiBinding>
+                                        </TextBlock.IsVisible>
+                                    </TextBlock>
+                                    <TextBlock Grid.Row="0"
+                                        Grid.Column="0"
+                                        Grid.ColumnSpan="3"
+                                        Margin="5"
+                                        Text="{Binding Name}"
+                                        Classes="VCent">
+                                        <TextBlock.IsVisible>
+                                            <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                ConverterParameter="False">
+                                                <Binding Path="Id" />
+                                                <Binding Path="DataContext.PlayerTeamId"
+                                                    ElementName="GameViewRoot" />
+                                            </MultiBinding>
+                                        </TextBlock.IsVisible>
+                                    </TextBlock>
+                                    <!-- EO Team Name / Players Team -->
+
                                     <StackPanel Orientation="Horizontal"
                                         Grid.Row="0"
                                         Grid.Column="3">
-                                        <common:Flag Iso="{Binding Nationality, Converter={StaticResource nationToIsoConverter}}"
+                                        <common:Flag Iso="{Binding Nationality, Converter={StaticResource NationToIsoConverter}}"
                                             Margin="0,0,3,0"/>
                                         <StackPanel Classes="InRowIcoValue">
                                             <i:Icon Value="fa fa-users" />
@@ -99,6 +128,34 @@
                                         HorizontalAlignment="Right"
                                         Grid.Row="0"
                                         Grid.Column="5">
+                                        <Button Classes="SmallButton"
+                                            Command="{Binding #GameViewRoot.DataContext.SelectTeam}"
+                                            CommandParameter="{Binding Id}">
+                                            <i:Icon Value="fa fa-user-plus" />
+                                            <Button.IsVisible>
+                                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                    ConverterParameter="False">
+                                                    <Binding Path="Id" />
+                                                    <Binding Path="DataContext.PlayerTeamId"
+                                                        ElementName="GameViewRoot" />
+                                                </MultiBinding>
+                                            </Button.IsVisible>
+                                        </Button>
+
+                                        <Button Classes="SmallButton"
+                                            Command="{Binding #GameViewRoot.DataContext.SelectTeam}"
+                                            CommandParameter="{Binding null}">
+                                            <i:Icon Value="fa fa-user-minus" />
+                                            <Button.IsVisible>
+                                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                    ConverterParameter="True">
+                                                    <Binding Path="Id" />
+                                                    <Binding Path="DataContext.PlayerTeamId"
+                                                        ElementName="GameViewRoot" />
+                                                </MultiBinding>
+                                            </Button.IsVisible>
+                                        </Button>
+
                                         <Button Classes="SmallButton"
                                             Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
                                             CommandParameter="{Binding Id}">
