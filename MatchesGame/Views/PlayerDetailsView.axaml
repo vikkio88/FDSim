@@ -33,10 +33,9 @@
       <!-- This can be used to add a profile pic -->
       <StackPanel Grid.Row="0"
         Grid.Column="0"
-        VerticalAlignment="Center"
         HorizontalAlignment="Center">
         <i:Icon Value="fa fa-user"
-          FontSize="40"/>
+          FontSize="45"/>
       </StackPanel>
       <!-- Player Info box -->
       <Grid Grid.Row="0"
@@ -116,7 +115,11 @@
           Text="Current Season Stats"/>
 
         <!-- For some reason this wont work will try again later -->
-        <!-- <TextBlock IsVisible="{Binding !!!Stats}" Grid.Row="1" Grid.Column="0" Margin="30,20,0,0" Text="No stats yet this season..."/> -->
+        <TextBlock IsVisible="{Binding !!!Stats}"
+          Grid.Row="1"
+          Grid.Column="0"
+          Margin="30,20,0,0"
+          Text="No stats yet this season."/>
 
         <Grid IsVisible="{Binding !!Stats}"
           Grid.Row="1"

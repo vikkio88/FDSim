@@ -36,6 +36,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
+    public string? PlayerTeamId { get; }
     public int SelectedTab { get; set; } = 0;
     public Dictionary<string, MatchResult> _resultMap = new();
     public Dictionary<string, MatchResult> ResultMap
@@ -66,6 +67,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         League = League.Make(GameDb.Instance.GeneratedTeams.Select(t => t.Id).ToList());
         LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
+        PlayerTeamId = GameDb.Instance.PlayerTeamId;
         ViewMatchResult = ReactiveCommand.CreateFromObservable((string matchId) => HostScreen.Router.Navigate.Execute(new MatchDetailsViewModel(HostScreen, matchId)));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
         ViewPlayer = ReactiveCommand.CreateFromObservable(

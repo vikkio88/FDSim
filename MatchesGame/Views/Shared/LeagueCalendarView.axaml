@@ -14,6 +14,7 @@
     <converters:MatchIdToUnPlayedBool x:Key="MatchIdToUnPlayedBool" />
     <converters:MatchIdToPlayedBool x:Key="MatchIdToPlayedBool" />
     <converters:MatchIdToResultMap x:Key="MatchIdToResultMap" />
+    <converters:IsPlayersTeam x:Key="IsPlayersTeam" />
   </UserControl.Resources>
 
   <ScrollViewer Grid.Row="1"
@@ -45,6 +46,26 @@
                       <TextBlock Grid.Row="0"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
+                        Classes="VCent HCent PlayersTeam">
+                        <TextBlock.Text>
+                          <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                            <Binding Path="HomeId" />
+                            <Binding Path="DataContext.TeamNameMap"
+                              ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </TextBlock.Text>
+                        <TextBlock.IsVisible>
+                          <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                            ConverterParameter="True">
+                            <Binding Path="HomeId" />
+                            <Binding Path="DataContext.PlayerTeamId"
+                              ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </TextBlock.IsVisible>
+                      </TextBlock>
+                      <TextBlock Grid.Row="0"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
                         Classes="VCent HCent">
                         <TextBlock.Text>
                           <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
@@ -53,7 +74,16 @@
                               ElementName="LeagueViewRoot" />
                           </MultiBinding>
                         </TextBlock.Text>
+                        <TextBlock.IsVisible>
+                          <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                            ConverterParameter="False">
+                            <Binding Path="HomeId" />
+                            <Binding Path="DataContext.PlayerTeamId"
+                              ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </TextBlock.IsVisible>
                       </TextBlock>
+                      <!-- EO Home Team -->
 
                       <!-- Separation between teams -->
                       <StackPanel Grid.Row="0"
@@ -94,12 +124,31 @@
                             </MultiBinding>
                           </common:Link.Label>
                         </common:Link>
-
                       </StackPanel>
 
 
 
                       <!-- Away Team -->
+                      <TextBlock Grid.Row="0"
+                        Grid.Column="3"
+                        Grid.ColumnSpan="2"
+                        Classes="VCent HCent PlayersTeam">
+                        <TextBlock.Text>
+                          <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                            <Binding Path="AwayId" />
+                            <Binding Path="DataContext.TeamNameMap"
+                              ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </TextBlock.Text>
+                        <TextBlock.IsVisible>
+                          <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                            ConverterParameter="True">
+                            <Binding Path="AwayId" />
+                            <Binding Path="DataContext.PlayerTeamId"
+                              ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </TextBlock.IsVisible>
+                      </TextBlock>
                       <TextBlock Grid.Row="0"
                         Grid.Column="3"
                         Grid.ColumnSpan="2"
@@ -111,7 +160,16 @@
                               ElementName="LeagueViewRoot" />
                           </MultiBinding>
                         </TextBlock.Text>
+                        <TextBlock.IsVisible>
+                          <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                            ConverterParameter="False">
+                            <Binding Path="AwayId" />
+                            <Binding Path="DataContext.PlayerTeamId"
+                              ElementName="LeagueViewRoot" />
+                          </MultiBinding>
+                        </TextBlock.IsVisible>
                       </TextBlock>
+                      <!-- EO Away Team -->
                     </Grid>
                   </Border>
                   <!-- EO Single Match in Round -->
