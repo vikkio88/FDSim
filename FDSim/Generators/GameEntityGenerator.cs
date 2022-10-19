@@ -73,11 +73,8 @@ public class GameEntityGenerator
         t.Coach.Contract = _contractR.GetContract(t.Coach, t.Id);
 
         // add finances
-
         t.Finances = _financesP.GetFinances(t);
         // add youth and training facilities
-
-
         var (training, youth) = _facilitiesP.GetFacilities(t);
         t.TrainingFacilities = training;
         t.YouthAcademy = youth;
