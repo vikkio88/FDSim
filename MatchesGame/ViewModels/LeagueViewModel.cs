@@ -80,20 +80,29 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
             if (round is null) return Task.CompletedTask;
 
             CanSimulate = false;
-            Dispatcher.UIThread.InvokeAsync(async () =>
+            Dispatcher.UIThread.InvokeAsync(() =>
             {
-                // Fake delay to see how it handles async
-                await Task.Delay(500);
                 var matches = GameDb.Instance.MakeMatches(round);
-                var results = Match.SimulateMany(matches);
-                League.Table.Update(matches);
-                League.Stats.Update(matches);
-                round.Played = true;
-                League = League;
-                ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
-                Scorers = League.Stats.OrderedScorers;
-                LeagueTable = League.Table.OrderedTable;
-                CanSimulate = true;
+                try
+                {
+
+                    var results = Match.SimulateMany(matches);
+                    League.Table.Update(matches);
+                    League.Stats.Update(matches);
+                    round.Played = true;
+                    League = League;
+                    ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
+                    Scorers = League.Stats.OrderedScorers;
+                    LeagueTable = League.Table.OrderedTable;
+                }
+                catch
+                {
+                    System.Console.WriteLine($"Error while simulating");
+                }
+                finally
+                {
+                    CanSimulate = true;
+                }
             }, DispatcherPriority.Background);
 
             return Task.CompletedTask;
