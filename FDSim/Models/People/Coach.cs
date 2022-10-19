@@ -6,7 +6,7 @@ using FDSim.Models.Game.Team;
 public class Coach : Person
 {
     public Contract? Contract { get; set; } = null;
-    public Formation Module;
+    public Formation Module { get; set; }
     public Status Status { get; set; }
     public Coach() : base() { Module = Formation._442; Status = new Status(); }
     public Coach(String name, String surname, int age, Formation module, Status? status = null)
