@@ -10,6 +10,7 @@ using DRd = Dictionary<Enums.Role, double>;
 public class Lineup : IdEntity
 {
     const int NUMBER_OF_SUBS = 2;
+    public Formation Module { get; init; }
     public List<Player> Starters { get; init; }
     public List<Player> Bench { get; init; }
     public DRi RolesAssigned { get; init; }
@@ -67,6 +68,7 @@ public class Lineup : IdEntity
 
         return new Lineup
         {
+            Module = formation,
             Starters = starters,
             Bench = bench,
             RolesAssigned = rolesAssigned,
