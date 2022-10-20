@@ -104,6 +104,8 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         StartLeague = ReactiveCommand.CreateFromObservable(() =>
         {
             Services.GameDb.Instance.HasGameStarted = true;
+            Services.GameDb.Instance.StartingYear = System.DateTime.Now.Year;
+            Services.GameDb.Instance.CurrentYear = System.DateTime.Now.Year;
             return HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen));
         }, startMatchesEnabled);
     }

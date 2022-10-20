@@ -6,11 +6,15 @@ using MatchesGame.Abstracts;
 using FDSim.Models.People;
 using FDSim.Models.Game.Team;
 using FDSim.Models.Game.League;
+using System;
+
 public class GameDb : Singleton<GameDb>
 {
+    public int StartingYear { get; set; } = DateTime.Now.Year;
+    public int CurrentYear { get; set; } = DateTime.Now.Year;
     public bool HasGameStarted { get; set; } = false;
     public string? PlayerTeamId { get; set; } = null;
-    
+
     public ObservableCollection<Team> GeneratedTeams { get; set; } = new();
     public Dictionary<string, Team> TeamsMap { get; set; } = new();
     public Dictionary<string, Match> MatchesMap { get; set; } = new();
