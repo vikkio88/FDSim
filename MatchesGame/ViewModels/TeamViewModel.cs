@@ -6,12 +6,14 @@ using FDSim.Models.Game.Team;
 using FDSim.Models.People;
 using FDSim.Models.Enums.Helpers;
 using MatchesGame.Services;
+using FDSim.Models.Game.League;
 
 public class TeamViewModel : ReactiveObject, IRoutableViewModel
 {
     public string TeamId { get; } = string.Empty;
     public Team Team { get; }
     public Lineup Lineup { get; }
+    public TableRow Stats { get; }
     public bool IsPlayersTeam { get; }
     public IScreen HostScreen { get; }
     public string UrlPathSegment { get; } = "teamView";

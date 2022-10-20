@@ -24,13 +24,10 @@
       BorderBrush="Black"
       BorderThickness="1"
       DockPanel.Dock="Top">
-      <StackPanel Orientation="Horizontal"
-        Spacing="5">
-        <TextBlock HorizontalAlignment="Center"
-          VerticalAlignment="Center"
-          FontSize="30"
-          Text="{Binding Team.Name}" />
-      </StackPanel>
+      <TextBlock HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        FontSize="30"
+        Text="{Binding Team.Name}" />
     </Border>
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
 
@@ -242,7 +239,8 @@
       <StackPanel Grid.Row="1"
         Grid.Column="2"
         Grid.RowSpan="2">
-        <TextBlock Text="Stats" />
+        <TextBlock Classes="SectionHead"
+          Text="Stats" />
       </StackPanel>
 
       <!-- History -->
