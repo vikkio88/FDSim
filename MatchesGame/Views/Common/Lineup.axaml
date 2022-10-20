@@ -7,142 +7,97 @@
         <converters:FormationStringConverter x:Key="FormationStringConverter"/>
         <converters:RoleStringConverter x:Key="RoleStringConverter"/>
     </Styles.Resources>
+    <Style Selector="common|Lineup StackPanel.LineRow">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
+        <Setter Property="Orientation"
+            Value="Horizontal" />
+        <Setter Property="Spacing"
+            Value="40" />
+    </Style>
+    <Style Selector="common|Lineup ItemsRepeater.LineRow">
+        <Setter Property="VerticalAlignment"
+            Value="Center" />
+        <Setter Property="HorizontalAlignment"
+            Value="Center" />
+    </Style>
+
     <Style Selector="common|Lineup">
         <Setter Property="Template">
             <ControlTemplate>
-                <DockPanel LastChildFill="True">
-                    <TextBlock Text="{Binding Value.Module, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FormationStringConverter}}}"
-                        DockPanel.Dock="Top" />
-                    <Grid ColumnDefinitions="*,*,*,*,*"
+                <DockPanel LastChildFill="True"
+                    x:Name="LineupRoot">
+                    <!-- the fact that I give the same x:name to more things could be a problem maybe -->
+                    <TextBlock DockPanel.Dock="Top"
+                        Text="{Binding Value.Module, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FormationStringConverter}}}" />
+                    <Grid ColumnDefinitions="*"
                         RowDefinitions="*,*,*,*">
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="0"
-                            Grid.Column="0">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="0"
-                            Grid.Column="1">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
+                        <!-- Strikers -->
+                        <ItemsRepeater Grid.Row="0"
+                            Grid.Column="0"
+                            Classes="LineRow"
+                            Items="{Binding ST, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Spacing="40"
+                                    Orientation="Horizontal" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <i:Icon Value="fa fa-user"
+                                        ToolTip.Tip="{Binding PrintName}"/>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="0"
-                            Grid.Column="2">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
+                        <!-- Midfielders -->
+                        <ItemsRepeater Grid.Row="1"
+                            Grid.Column="0"
+                            Classes="LineRow"
+                            Items="{Binding MF, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Spacing="40"
+                                    Orientation="Horizontal" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <i:Icon Value="fa fa-user"
+                                        ToolTip.Tip="{Binding PrintName}"/>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="0"
-                            Grid.Column="3">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="0"
-                            Grid.Column="4">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
+                        <!-- Defenders -->
+                        <ItemsRepeater Grid.Row="2"
+                            Grid.Column="0"
+                            Classes="LineRow"
+                            Items="{Binding DF, RelativeSource={RelativeSource TemplatedParent}}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Spacing="40"
+                                    Orientation="Horizontal" />
+                            </ItemsRepeater.Layout>
+                            <ItemsRepeater.ItemTemplate>
+                                <DataTemplate>
+                                    <i:Icon Value="fa fa-user"
+                                        ToolTip.Tip="{Binding PrintName}"/>
+                                </DataTemplate>
+                            </ItemsRepeater.ItemTemplate>
+                        </ItemsRepeater>
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"
-                            Grid.Column="0">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"
-                            Grid.Column="1">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"
-                            Grid.Column="2">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"
-                            Grid.Column="3">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="1"
-                            Grid.Column="4">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
+                        <!-- Goalkeeper -->
+                        <StackPanel Grid.Row="3"
+                            Grid.Column="0"
+                            Classes="LineRow">
+                            <i:Icon Value="fa fa-user"
+                                ToolTip.Tip="{Binding GK.PrintName, RelativeSource={RelativeSource TemplatedParent}}"/>
                         </StackPanel>
 
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="2"
-                            Grid.Column="0">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="2"
-                            Grid.Column="1">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
+                        <!-- Maybe can add bench here -->
 
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="2"
-                            Grid.Column="2">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="2"
-                            Grid.Column="3">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="2"
-                            Grid.Column="4">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
-                        <StackPanel VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            Grid.Row="3"
-                            Grid.Column="2">
-                            <TextBlock ToolTip.Tip="Mario Biondo"
-                                Text="P" />
-
-                        </StackPanel>
                     </Grid>
                 </DockPanel>
             </ControlTemplate>

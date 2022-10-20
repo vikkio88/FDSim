@@ -1,6 +1,6 @@
+using System;
 using System.Reactive.Linq;
 using Avalonia;
-using System;
 using Avalonia.Controls.Primitives;
 
 namespace MatchesGame.Views.Common;
