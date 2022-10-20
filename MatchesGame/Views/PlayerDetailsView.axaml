@@ -22,7 +22,9 @@
       BorderThickness="1"
       DockPanel.Dock="Top">
       <TextBlock HorizontalAlignment="Center"
-        FontSize="30">Player Details</TextBlock>
+        VerticalAlignment="Center"
+        FontSize="30"
+        Text="{Binding Player.PrintName}" />
     </Border>
     <!-- Bottom navigation -->
     <shared:NavigationFooter DockPanel.Dock="Bottom" />
@@ -48,15 +50,17 @@
         <StackPanel Grid.Row="0"
           Grid.Column="0"
           Grid.RowSpan="4">
-          <TextBlock Classes="H1"
-            Text="{Binding Player.PrintName}"/>
-          <TextBlock Classes="H3"
-            Text="{Binding Player.Age}"/>
+          <StackPanel Classes="ValueLabel">
+            <TextBlock Classes="H3"
+              Text="{Binding Player.Age}"/>
+            <TextBlock Classes="H3"
+              Text="{Binding BirthYear, StringFormat='({0})'}" />
+          </StackPanel>
           <StackPanel Orientation="Horizontal"
             Spacing="5"
             VerticalAlignment="Center"
             HorizontalAlignment="Left">
-            <TextBlock FontSize="20"
+            <TextBlock Classes="H2"
               Text="{Binding Player.Role}"/>
             <common:Stars FontSize="20"
               Value="{Binding Player.Skill.Value}" />
@@ -114,14 +118,13 @@
           Grid.Column="0"
           Text="Current Season Stats"/>
 
-        <!-- For some reason this wont work will try again later -->
-        <TextBlock IsVisible="{Binding !!!Stats}"
+        <TextBlock IsVisible="{Binding Stats, Converter={x:Static ObjectConverters.IsNull}}"
           Grid.Row="1"
           Grid.Column="0"
           Margin="30,20,0,0"
           Text="No stats yet this season."/>
 
-        <Grid IsVisible="{Binding !!Stats}"
+        <Grid IsVisible="{Binding Stats, Converter={x:Static ObjectConverters.IsNotNull}}"
           Grid.Row="1"
           Grid.Column="0"
           ColumnDefinitions="*,*,*"

@@ -14,6 +14,7 @@ public class PlayerDetailsViewModel : ReactiveObject, IRoutableViewModel
     public string UrlPathSegment { get; } = "PlayerDetails";
     public ReactiveCommand<Unit, Unit> Back { get; }
 
+    public int BirthYear { get; }
     public Team? Team { get; init; }
     public Contract? Contract { get; init; }
     public Player? Player { get; init; }
@@ -36,8 +37,8 @@ public class PlayerDetailsViewModel : ReactiveObject, IRoutableViewModel
         var (team, player) = GameDb.Instance.GetPlayerAndTeamById(teamId, playerId);
         Team = team;
         Player = player;
+        BirthYear = GameDb.Instance.CurrentYear - (Player?.Age ?? 0);
         Contract = Team?.Roster?.GetContract(playerId) ?? null;
         Stats = GameDb.Instance?.League?.Stats?.GetForPlayer(playerId) ?? null;
-
     }
 }
