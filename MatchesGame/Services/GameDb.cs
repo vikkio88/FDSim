@@ -8,9 +8,9 @@ using FDSim.Models.Game.Team;
 using FDSim.Models.Game.League;
 public class GameDb : Singleton<GameDb>
 {
-
-    // Temp test to highlight user team everywhere
+    public bool HasGameStarted { get; set; } = false;
     public string? PlayerTeamId { get; set; } = null;
+    
     public ObservableCollection<Team> GeneratedTeams { get; set; } = new();
     public Dictionary<string, Team> TeamsMap { get; set; } = new();
     public Dictionary<string, Match> MatchesMap { get; set; } = new();

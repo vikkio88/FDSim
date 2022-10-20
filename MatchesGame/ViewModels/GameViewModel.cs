@@ -101,6 +101,10 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
 
         RemoveTeam = ReactiveCommand.Create((string teamId) => Services.GameDb.Instance.RemoveTeamById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
-        StartLeague = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen)), startMatchesEnabled);
+        StartLeague = ReactiveCommand.CreateFromObservable(() =>
+        {
+            Services.GameDb.Instance.HasGameStarted = true;
+            return HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen));
+        }, startMatchesEnabled);
     }
 }

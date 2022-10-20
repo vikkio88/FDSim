@@ -83,7 +83,11 @@
           <StackPanel Classes="ValueLabel">
             <i:Icon Value="fa fa-ranking-star"
               FontSize="20"/>
-            <common:Stars Value="{Binding Team.Roster.Avg}"
+            <common:Stars IsVisible="{Binding !IsPlayersTeam}"
+              Value="{Binding Team.Roster.Avg}"
+              FontSize="16"/>
+            <TextBlock IsVisible="{Binding IsPlayersTeam}"
+              Text="{Binding Team.Roster.Avg, StringFormat='{}{0:0.00}'}"
               FontSize="16"/>
           </StackPanel>
         </StackPanel>
@@ -115,14 +119,22 @@
         <StackPanel Classes="ValueLabel">
           <i:Icon Value="fa fa-dumbbell"
             FontSize="15"/>
-          <common:Stars Value="{Binding Team.TrainingFacilities.Value}"
+          <common:Stars IsVisible="{Binding !IsPlayersTeam}"
+            Value="{Binding Team.TrainingFacilities.Value}"
             FontSize="12"/>
+          <TextBlock IsVisible="{Binding IsPlayersTeam}"
+            Text="{Binding Team.TrainingFacilities.Value}"
+            FontSize="12" />
         </StackPanel>
         <StackPanel Classes="ValueLabel">
           <i:Icon Value="fa fa-school-flag"
             FontSize="15"/>
-          <common:Stars Value="{Binding Team.YouthAcademy.Value}"
+          <common:Stars IsVisible="{Binding !IsPlayersTeam}"
+            Value="{Binding Team.YouthAcademy.Value}"
             FontSize="12"/>
+          <TextBlock IsVisible="{Binding IsPlayersTeam}"
+            Text="{Binding Team.YouthAcademy.Value}"
+            FontSize="12" />
         </StackPanel>
       </StackPanel>
 
@@ -139,11 +151,17 @@
         </StackPanel>
         <StackPanel Classes="ValueLabel">
           <i:Icon Value="fa fa-ranking-star"/>
-          <common:Stars Value="{Binding Team.Coach.Skill.Value}"/>
+          <common:Stars IsVisible="{Binding !IsPlayersTeam}"
+            Value="{Binding Team.Coach.Skill.Value}"/>
+          <TextBlock IsVisible="{Binding IsPlayersTeam}"
+            Text="{Binding Team.Coach.Skill.Value}" />
         </StackPanel>
         <StackPanel Classes="ValueLabel">
           <i:Icon Value="fa fa-newspaper"/>
-          <common:Stars Value="{Binding Team.Coach.Reputation.Value}" />
+          <common:Stars IsVisible="{Binding !IsPlayersTeam}"
+            Value="{Binding Team.Coach.Reputation.Value}" />
+          <TextBlock IsVisible="{Binding IsPlayersTeam}"
+            Text="{Binding Team.Coach.Reputation.Value}" />
         </StackPanel>
         <StackPanel Classes="ValueLabel">
           <i:Icon Value="fa fa-file-alt"/>
@@ -185,9 +203,16 @@
 
 
             <DataGridTextColumn Header="Skill"
+              IsVisible="{Binding !#TeamViewRoot.DataContext.IsPlayersTeam}"
               FontSize="11"
               IsReadOnly="True"
               Binding="{Binding ApproxSkill, StringFormat='~{0}'}" />
+
+            <DataGridTextColumn Header="Skill"
+              IsVisible="{Binding #TeamViewRoot.DataContext.IsPlayersTeam}"
+              FontSize="11"
+              IsReadOnly="True"
+              Binding="{Binding Skill.Value}" />
 
             <DataGridTextColumn Header="Role"
               FontSize="11"
@@ -201,11 +226,17 @@
 
 
       <!-- Usual Lineup -->
-      <StackPanel Grid.Row="1"
+      <DockPanel Grid.Row="1"
         Grid.Column="1"
-        Grid.RowSpan="2">
-        <TextBlock Text="Lineup" />
-      </StackPanel>
+        Grid.RowSpan="2"
+        LastChildFill="True">
+        <TextBlock Classes="SectionHead"
+          Text="Lineup"
+          DockPanel.Dock="Top"
+          Margin="0,5,0,3"/>
+        <common:Lineup Margin="5,0,5,0"
+          Value="{Binding Lineup}" />
+      </DockPanel>
 
       <!-- Stats Season -->
       <StackPanel Grid.Row="1"
@@ -215,13 +246,11 @@
       </StackPanel>
 
       <!-- History -->
-      <Border Grid.Row="3"
+      <StackPanel Grid.Row="3"
         Grid.Column="1"
-        Grid.ColumnSpan="2"
-        BorderBrush="Black"
-        BorderThickness="1">
+        Grid.ColumnSpan="2">
         <TextBlock Text="History" />
-      </Border>
+      </StackPanel>
     </Grid>
 
 

@@ -21,6 +21,6 @@ public class RoleStringConverter : IValueConverter
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        throw new NotSupportedException();
+        return string.Empty;
     }
 }
