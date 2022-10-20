@@ -1,0 +1,151 @@
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+    xmlns:converters="using:MatchesGame.Helpers.Converters"
+    xmlns:common="using:MatchesGame.Views.Common">
+    <Styles.Resources>
+        <converters:FormationStringConverter x:Key="FormationStringConverter"/>
+        <converters:RoleStringConverter x:Key="RoleStringConverter"/>
+    </Styles.Resources>
+    <Style Selector="common|Lineup">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <DockPanel LastChildFill="True">
+                    <TextBlock Text="{Binding Value.Module, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FormationStringConverter}}}"
+                        DockPanel.Dock="Top" />
+                    <Grid ColumnDefinitions="*,*,*,*,*"
+                        RowDefinitions="*,*,*,*">
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="0"
+                            Grid.Column="0">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="0"
+                            Grid.Column="1">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="0"
+                            Grid.Column="2">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="0"
+                            Grid.Column="3">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="0"
+                            Grid.Column="4">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Grid.Column="0">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Grid.Column="1">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Grid.Column="2">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Grid.Column="3">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="1"
+                            Grid.Column="4">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="2"
+                            Grid.Column="0">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="2"
+                            Grid.Column="1">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="2"
+                            Grid.Column="2">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="2"
+                            Grid.Column="3">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="2"
+                            Grid.Column="4">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                        <StackPanel VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Grid.Row="3"
+                            Grid.Column="2">
+                            <TextBlock ToolTip.Tip="Mario Biondo"
+                                Text="P" />
+
+                        </StackPanel>
+                    </Grid>
+                </DockPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
