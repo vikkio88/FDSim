@@ -178,12 +178,17 @@
           AutoGenerateColumns="False">
           <DataGrid.Columns>
 
+            <DataGridTextColumn Header="Role"
+              FontSize="11"
+              IsReadOnly="True"
+              Binding="{Binding Role, Converter={StaticResource RoleStringConverter}}" />
+
             <!-- Player name/link -->
             <DataGridTemplateColumn Header="Player"
               IsReadOnly="True">
               <DataGridTemplateColumn.CellTemplate>
                 <DataTemplate DataType="peopleModels:Player">
-                  <common:Link Command="{Binding #TeamViewRoot.DataContext.ViewPlayer}"
+                  <common:Link Command="{Binding #TeamViewRoot.DataContext.ViewRosterPlayer}"
                     Margin="5,0,5,0"
                     CommandParameter="{Binding Id}"
                     Label="{Binding PrintName}"
@@ -211,12 +216,6 @@
               IsReadOnly="True"
               Binding="{Binding Skill.Value}" />
 
-            <DataGridTextColumn Header="Role"
-              FontSize="11"
-              IsReadOnly="True"
-              Binding="{Binding Role, Converter={StaticResource RoleStringConverter}}" />
-
-
           </DataGrid.Columns>
         </DataGrid>
       </Grid>
@@ -232,7 +231,8 @@
           DockPanel.Dock="Top"
           Margin="0,5,0,3"/>
         <common:Lineup Margin="5,0,5,0"
-          Value="{Binding Lineup}" />
+          Value="{Binding Lineup}"
+          OnPlayerClick="{Binding ViewPlayer}" />
       </DockPanel>
 
       <!-- Stats Season -->
