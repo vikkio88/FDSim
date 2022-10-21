@@ -1,3 +1,5 @@
+using FDSim.Models.People;
+
 namespace FDSim.Models.Game.League;
 public class PlayerStats
 {
@@ -45,25 +47,25 @@ public class PlayerStats
         var awayLineup = result?.AwayLineup ?? new();
         var awayScorers = result?.ScorersAwayIds ?? new();
 
-        Update(homeLineup, homeScorers, match.Home.Id);
-        Update(awayLineup, awayScorers, match.Away.Id);
+        Update(homeLineup.Starters, homeScorers, match.Home.Id);
+        Update(awayLineup.Starters, awayScorers, match.Away.Id);
     }
 
-    public void Update(List<string> lineup, List<string>? scorersIds, string? teamId = null)
+    public void Update(List<Player> lineup, List<string>? scorersIds, string? teamId = null)
     {
         foreach (var p in lineup)
         {
-            if (_stats.ContainsKey(p))
+            if (_stats.ContainsKey(p.Id))
             {
-                _stats[p].Played += 1;
+                _stats[p.Id].Played += 1;
                 // this might be pointless if I index players by themselves
-                _stats[p].TeamId = teamId;
+                _stats[p.Id].TeamId = teamId;
                 continue;
             }
             // maybe lineup will also have ratings here
             // _statsp[p.Id].Rating calculate
 
-            _stats.Add(p, new() { PlayerId = p, Played = 1, TeamId = teamId });
+            _stats.Add(p.Id, new() { PlayerId = p.Id, Played = 1, TeamId = teamId });
 
         }
 
