@@ -91,7 +91,24 @@ public class PeopleGenerator
         .RuleFor(p => p.Role, f => forcedRole ?? f.PickRandom<Role>());
     }
 
-    public List<Player> GetPlayers(int amount = 10, Nationality? mainNationality = null, int foreignPlayers = 0)
+    public List<Player> GetPlayers(int amount = 10, Nationality? mainNationality = null, int foreignPlayers = 0, Role? forcedRole = null)
+    {
+        var list = new List<Player>();
+        var nationalPlayers = amount - foreignPlayers;
+        foreach (int _ in Enumerable.Range(0, nationalPlayers))
+        {
+            list.Add(GetPlayer(forcedNationality: mainNationality, forcedRole: forcedRole));
+        }
+
+        foreach (int _ in Enumerable.Range(0, foreignPlayers))
+        {
+            list.Add(GetPlayer(forcedRole: forcedRole));
+        }
+
+        return list;
+
+    }
+    public List<Player> GetBaseRoster(int amount = 10, Nationality? mainNationality = null, int foreignPlayers = 0)
     {
         var list = new List<Player>();
         foreach (int _ in Enumerable.Range(0, amount))
