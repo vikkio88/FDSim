@@ -10,6 +10,7 @@ using DRd = Dictionary<Enums.Role, double>;
 public class Lineup : IdEntity
 {
     const int NUMBER_OF_SUBS = 2;
+    public string TeamId { get; init; }
     public Formation Module { get; init; }
     public List<Player> Starters { get; init; }
     public List<Player> Bench { get; init; }
@@ -21,7 +22,7 @@ public class Lineup : IdEntity
     public double AvgCondition { get; init; } = 0;
 
 
-    public static Lineup Make(Dictionary<Role, List<Player>> players, Formation formation)
+    public static Lineup Make(Dictionary<Role, List<Player>> players, Formation formation, string teamId)
     {
         var rolesNeeded = FormationHelper.GetRolesNeeded(formation);
         var starters = new List<Player>();
@@ -68,6 +69,7 @@ public class Lineup : IdEntity
 
         return new Lineup
         {
+            TeamId = teamId,
             Module = formation,
             Starters = starters,
             Bench = bench,
