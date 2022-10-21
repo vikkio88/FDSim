@@ -26,7 +26,7 @@
         </Border>
         <Grid Margin="0,15,0,0"
             ColumnDefinitions="*,*,*,*,*,*"
-            RowDefinitions="*,5*"
+            RowDefinitions="*,3*,3*"
             x:Name="MatchDetailsRoot">
             <common:Link Grid.Row="0"
                 Grid.Column="0"
@@ -123,6 +123,27 @@
                     </ItemsControl>
                 </ScrollViewer>
             </StackPanel>
+
+            <Grid Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="6"
+                ColumnDefinitions="*,*"
+                RowDefinitions="*">
+                <DockPanel Grid.Row="0"
+                    Grid.Column="0"
+                    LastChildFill="True">
+                    <common:Lineup Margin="5,0,5,0"
+                        Value="{Binding MatchResult.HomeLineup}"
+                        OnPlayerClick="{Binding ViewPlayer}" />
+                </DockPanel>
+                <DockPanel Grid.Row="0"
+                    Grid.Column="1"
+                    LastChildFill="True">
+                    <common:Lineup Margin="5,0,5,0"
+                        Value="{Binding MatchResult.AwayLineup}"
+                        OnPlayerClick="{Binding ViewPlayer}" />
+                </DockPanel>
+            </Grid>
         </Grid>
     </DockPanel>
 </UserControl>
