@@ -31,6 +31,8 @@
                     x:Name="LineupRoot">
                     <!-- the fact that I give the same x:name to more things could be a problem maybe -->
                     <TextBlock DockPanel.Dock="Top"
+                        HorizontalAlignment="Center"
+                        Margin="0,0,0,10"
                         Text="{Binding Value.Module, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource FormationStringConverter}}}" />
                     <Grid ColumnDefinitions="*"
                         RowDefinitions="*,*,*,*">
@@ -40,13 +42,18 @@
                             Classes="LineRow"
                             Items="{Binding ST, RelativeSource={RelativeSource TemplatedParent}}">
                             <ItemsRepeater.Layout>
-                                <StackLayout Spacing="40"
+                                <StackLayout Spacing="20"
                                     Orientation="Horizontal" />
                             </ItemsRepeater.Layout>
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
-                                    <i:Icon Value="fa fa-user"
-                                        ToolTip.Tip="{Binding PrintName}"/>
+                                    <StackPanel ToolTip.Tip="{Binding Player.PrintName}">
+                                        <i:Icon Value="fa fa-user" />
+                                        <common:Link Label="{Binding Player.ShortName}"
+                                            FontSize="10"
+                                            Command="{Binding OnClick}"
+                                            CommandParameter="{Binding Player.Id}" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
@@ -57,13 +64,18 @@
                             Classes="LineRow"
                             Items="{Binding MF, RelativeSource={RelativeSource TemplatedParent}}">
                             <ItemsRepeater.Layout>
-                                <StackLayout Spacing="40"
+                                <StackLayout Spacing="20"
                                     Orientation="Horizontal" />
                             </ItemsRepeater.Layout>
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
-                                    <i:Icon Value="fa fa-user"
-                                        ToolTip.Tip="{Binding PrintName}"/>
+                                    <StackPanel ToolTip.Tip="{Binding Player.PrintName}">
+                                        <i:Icon Value="fa fa-user" />
+                                        <common:Link Label="{Binding Player.ShortName}"
+                                            FontSize="10"
+                                            Command="{Binding OnClick}"
+                                            CommandParameter="{Binding Player.Id}" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
@@ -75,24 +87,32 @@
                             Classes="LineRow"
                             Items="{Binding DF, RelativeSource={RelativeSource TemplatedParent}}">
                             <ItemsRepeater.Layout>
-                                <StackLayout Spacing="40"
+                                <StackLayout Spacing="20"
                                     Orientation="Horizontal" />
                             </ItemsRepeater.Layout>
                             <ItemsRepeater.ItemTemplate>
                                 <DataTemplate>
-                                    <i:Icon Value="fa fa-user"
-                                        ToolTip.Tip="{Binding PrintName}"/>
+                                    <StackPanel ToolTip.Tip="{Binding Player.PrintName}">
+                                        <i:Icon Value="fa fa-user" />
+                                        <common:Link Label="{Binding Player.ShortName}"
+                                            FontSize="10"
+                                            Command="{Binding OnClick}"
+                                            CommandParameter="{Binding Player.Id}" />
+                                    </StackPanel>
                                 </DataTemplate>
                             </ItemsRepeater.ItemTemplate>
                         </ItemsRepeater>
-
-
                         <!-- Goalkeeper -->
                         <StackPanel Grid.Row="3"
                             Grid.Column="0"
                             Classes="LineRow">
-                            <i:Icon Value="fa fa-user"
-                                ToolTip.Tip="{Binding GK.PrintName, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <StackPanel ToolTip.Tip="{Binding GK.PrintName, RelativeSource={RelativeSource TemplatedParent}}">
+                                <i:Icon Value="fa fa-user" />
+                                <common:Link Label="{Binding GK.ShortName, RelativeSource={RelativeSource TemplatedParent}}"
+                                    FontSize="10"
+                                    Command="{Binding OnPlayerClickInternal, RelativeSource={RelativeSource TemplatedParent}}"
+                                    CommandParameter="{Binding GK.Id, RelativeSource={RelativeSource TemplatedParent}}" />
+                            </StackPanel>
                         </StackPanel>
 
 
