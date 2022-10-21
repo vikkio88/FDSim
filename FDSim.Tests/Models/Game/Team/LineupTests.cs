@@ -19,7 +19,7 @@ public class LineupTests
         new Player("a", "b", 1, 10, Role.Striker),
         new Player("a", "b", 1, 10, Role.Goalkeeper),
         };
-        Roster r = new(list);
+        Roster r = new(list, "someTeamId");
         var lineup = r.GetLineup(Formation._442);
 
         Assert.Equal(0, lineup.RolesMissing[Role.Goalkeeper]);
@@ -34,12 +34,12 @@ public class LineupTests
         Assert.Equal(1, lineup.RolesAssigned[Role.Striker]);
 
         Assert.Equal(1, lineup.Bench.Count);
-        
+
         Assert.Equal(10, lineup.AvgSkillPerRole[Role.Goalkeeper]);
         Assert.Equal(10, lineup.AvgSkillPerRole[Role.Defender]);
         Assert.Equal(10, lineup.AvgSkillPerRole[Role.Midfielder]);
         Assert.Equal(10, lineup.AvgSkillPerRole[Role.Striker]);
-        
+
         var adjustedSkill = lineup.gtAdjustedAvgSkillPerRole();
         Assert.Equal(10, adjustedSkill[Role.Goalkeeper]);
         Assert.Equal(2.5, adjustedSkill[Role.Defender]);

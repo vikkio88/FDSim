@@ -17,11 +17,11 @@ public class RosterTests
             new Player("a", "b", 1, 10, Role.Striker),
         };
 
-        var roster = new Roster(players);
+        var roster = new Roster(players, "someTeamId");
         Assert.Equal(2, roster.GetByRole(Role.Defender)?.Count ?? 0);
         Assert.Equal(1, roster.GetByRole(Role.Midfielder)?.Count ?? 0);
     }
-    
+
     [Fact]
     public void RosterPlayerIndexingTestWithNull()
     {
@@ -32,7 +32,7 @@ public class RosterTests
             new Player("a", "b", 1, 10, Role.Striker),
         };
 
-        var roster = new Roster(players);
+        var roster = new Roster(players, "someTeamId");
         Assert.Equal(0, roster.GetByRole(Role.Midfielder)?.Count ?? 0);
     }
 
@@ -47,7 +47,7 @@ public class RosterTests
             new Player("a", "b", 1, Role.Striker),
         };
 
-        var roster = new Roster(players);
+        var roster = new Roster(players, "someTeamId");
 
         var roles = roster.AvailablePerRole();
         Assert.Equal(1, roles[Role.Goalkeeper]);
@@ -55,8 +55,8 @@ public class RosterTests
         Assert.Equal(1, roles[Role.Midfielder]);
         Assert.Equal(1, roles[Role.Striker]);
     }
-    
-    
+
+
     [Fact]
     public void RosterCanPlayFormationTest()
     {
@@ -68,7 +68,7 @@ public class RosterTests
             new Player("a", "b", 1, Role.Striker),
         };
 
-        var roster = new Roster(players);
+        var roster = new Roster(players, "someTeamId");
         var lineup = roster.GetLineup(Formation._442);
 
         var roles = roster.AvailablePerRole();
