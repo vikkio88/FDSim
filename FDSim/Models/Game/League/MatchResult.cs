@@ -15,8 +15,8 @@ public class MatchResult : IdEntity
     public List<String>? ScorersHomeIds { get => _scorersHomeIds; private init => _scorersHomeIds = value; }
     private List<String>? _scorersAwayIds;
     public List<String>? ScorersAwayIds { get => _scorersAwayIds; private init => _scorersAwayIds = value; }
-    public List<string> HomeLineup { get; set; }
-    public List<string> AwayLineup { get; set; }
+    public Lineup HomeLineup { get; set; }
+    public Lineup AwayLineup { get; set; }
 
     public static MatchResult Make(int goalHome, int goalAway, Lineup homeLineup, Lineup awayLineup, Dicer dicer)
     {
@@ -42,8 +42,8 @@ public class MatchResult : IdEntity
             ScorersHomeIds = scorersHomeIds,
             ScorersAwayIds = scorersAwayIds,
             // maybe here need the bench too??
-            HomeLineup = homeLineup.Starters.Select(p => p.Id).ToList(),
-            AwayLineup = awayLineup.Starters.Select(p => p.Id).ToList(),
+            HomeLineup = homeLineup,
+            AwayLineup = awayLineup,
         };
     }
 
