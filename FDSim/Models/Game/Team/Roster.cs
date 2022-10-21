@@ -14,6 +14,7 @@ public class Roster : IdEntity
     // TODO: remove the Average function
     public double Avg { get => Average(); }
 
+    private string TeamId { get; init; }
     private List<Player> _players { get; init; }
     public List<Player> Players { get => _players; }
 
@@ -26,9 +27,10 @@ public class Roster : IdEntity
 
     public int Count { get => _players.Count; }
 
-    public Roster(List<Player> list)
+    public Roster(List<Player> list, string teamId)
     {
         _players = list;
+        TeamId = teamId;
         IndexPlayers();
     }
 
@@ -129,6 +131,6 @@ public class Roster : IdEntity
 
     public Lineup GetLineup(Formation formation)
     {
-        return Lineup.Make(_playersPerRole, formation);
+        return Lineup.Make(_playersPerRole, formation, TeamId);
     }
 }
