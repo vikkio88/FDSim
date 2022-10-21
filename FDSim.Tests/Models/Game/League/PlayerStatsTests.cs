@@ -24,8 +24,8 @@ public class PlayerStatsTests
         stats.Update(match);
 
 
-        Assert.Contains(match?.Result.HomeLineup[0], stats.Stats.Select(x => x.Key));
-        Assert.Contains(match?.Result.AwayLineup[0], stats.Stats.Select(x => x.Key));
+        Assert.Contains(match?.Result.HomeLineup.Starters[0].Id, stats.Stats.Select(x => x.Key));
+        Assert.Contains(match?.Result.AwayLineup.Starters[0].Id, stats.Stats.Select(x => x.Key));
 
         Assert.True(stats.OrderedScorers.Count < 10);
         if (match.Result.GoalAway > 0)
