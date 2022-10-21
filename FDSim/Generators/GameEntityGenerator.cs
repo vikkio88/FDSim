@@ -18,6 +18,7 @@ public class GameEntityGenerator
     private ContractRange _contractR;
     private FinancesProvider _financesP;
     private FacilitiesProvider _facilitiesP;
+    private RosterProvider _rosterP;
     private Dicer _dicer;
 
     public GameEntityGenerator(int seed, IIdGenerator? idGen = null, Dicer? dicer = null)
@@ -31,6 +32,7 @@ public class GameEntityGenerator
         _contractR = new ContractRange(_dicer);
         _financesP = new FinancesProvider(_dicer);
         _facilitiesP = new FacilitiesProvider(_dicer);
+        _rosterP = new RosterProvider(_dicer);
     }
 
     public Team GetTeam(Nationality? forcedNationality = null)
@@ -43,16 +45,9 @@ public class GameEntityGenerator
         .RuleFor(p => p.Name, String.Format(nameTemplate, city))
         .RuleFor(p => p.City, city)
         .RuleFor(p => p.Nationality, nationality)
-        .RuleFor(t => t.Roster, f =>
-        {
-            return new(
-                _pGen.GetPlayers(
-                    amount: f.Random.Number(15, 20),
-                    mainNationality: nationality,
-                    foreignPlayers: f.Random.Number(0, 5)
-                    )
-            );
-        }).Generate();
+        .Generate();
+
+        t.Roster = _rosterP.GetRoster(t, _pGen);
 
         // 20% chance of a Champion
         if (_dicer.Chance(20))
