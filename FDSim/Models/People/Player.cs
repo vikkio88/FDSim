@@ -4,12 +4,12 @@ using FDSim.Models.Common;
 using FDSim.Models.Enums;
 public class Player : Person
 {
-    public string PrintName { get => $"{Name} {Surname}"; }
+    public string ShortName { get => $"{Name.Substring(0, 1)}. {Surname}"; }
 
     public PlayerStatus Status { get; set; }
     public Role Role { get; init; }
 
-    public Money Value { get; set; } 
+    public Money Value { get; set; }
     public Player() : base() { Role = Role.Goalkeeper; Status = new PlayerStatus(); }
     public Player(String name, String surname, int age, Role role, PlayerStatus? status = null)
     : base(name, surname, age)
