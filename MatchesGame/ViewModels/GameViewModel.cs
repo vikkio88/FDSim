@@ -9,6 +9,10 @@ using FDSim.Models.Enums;
 using FDSim.Models.Enums.Helpers;
 using System.Collections.Generic;
 using System.Linq;
+using MatchesGame.Services;
+using System.Reactive.Linq;
+using System.Threading.Tasks;
+using Avalonia.Threading;
 
 public class GameViewModel : ReactiveObject, IRoutableViewModel
 {
@@ -56,56 +60,94 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
     }
     public string UrlPathSegment { get; } = "gameView";
 
-    public ObservableCollection<Team> GeneratedTeams { get; set; } = Services.GameDb.Instance.GeneratedTeams;
-    public ReactiveCommand<Unit, Unit> GenerateTeams { get; set; }
-    public ReactiveCommand<string?, Unit> SelectTeam { get; set; }
-    public ReactiveCommand<string, Unit> RemoveTeam { get; set; }
+    private List<Team> _generatedTeams = new();
+    public List<Team> GeneratedTeams
+    {
+        get => _generatedTeams;
+        set => this.RaiseAndSetIfChanged(ref _generatedTeams, value);
+    }
+    public ReactiveCommand<Unit, Unit> GenerateTeams { get; }
+    public ReactiveCommand<string?, Unit> SelectTeam { get; }
+    public ReactiveCommand<string, Unit> RemoveTeam { get; }
+    public ReactiveCommand<Unit, Unit> RemoveAllTeams { get; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; set; }
     public ReactiveCommand<Unit, Unit> ChangeSeed { get; set; }
     public ReactiveCommand<Unit, IRoutableViewModel> StartLeague { get; set; }
 
     const int MAX_TEAMS = 18;
+    public bool _canClickGenerate = true;
+    public bool CanClickGenerate { get => _canClickGenerate; set => this.RaiseAndSetIfChanged(ref _canClickGenerate, value); }
 
     public GameViewModel(IScreen screen)
     {
+        HostScreen = screen;
+
         _gEg = new GameEntityGenerator(_seed);
-        var generateEnabled = this.WhenAnyValue(
+        var canGenerate = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
             x => x < MAX_TEAMS
         );
+
+        var isGenerating = this.WhenAnyValue(
+            x => x.CanClickGenerate
+        );
+        canGenerate.CombineLatest(isGenerating);
+
         var startMatchesEnabled = this.WhenAnyValue(
             x => x.GeneratedTeams.Count,
             x => x > 0 && x % 2 == 0
         );
-        HostScreen = screen;
-        GenerateTeams = ReactiveCommand.Create(() =>
-        {
-            var teamsToGenerate = MAX_TEAMS - Services.GameDb.Instance.GeneratedTeams.Count;
-            foreach (var _ in Enumerable.Range(0, teamsToGenerate))
-            {
-                Services.GameDb.Instance.AddTeam(_gEg.GetTeam(_teamNationality));
-            }
 
-        }, generateEnabled);
+        GenerateTeams = ReactiveCommand.CreateFromTask(() =>
+        {
+            CanClickGenerate = false;
+            Dispatcher.UIThread.InvokeAsync(() =>
+            {
+                var teamsToGenerate = MAX_TEAMS - GeneratedTeams.Count;
+                var list = new List<Team>();
+                foreach (var _ in Enumerable.Range(0, teamsToGenerate))
+                {
+                    list.Add(_gEg.GetTeam(_teamNationality));
+                }
+                list.AddRange(GeneratedTeams);
+                GeneratedTeams = list;
+                GameDb.Instance.SetTeams(GeneratedTeams);
+                CanClickGenerate = true;
+            }, DispatcherPriority.Background);
+
+            return Task.CompletedTask;
+
+        }, canGenerate);
+
         ChangeSeed = ReactiveCommand.Create(() =>
         {
             _seed = Dicer.Make().Int(0);
             SeedText = $"{_seed}";
             _gEg = new(_seed);
         });
+
+        RemoveAllTeams = ReactiveCommand.Create(() =>
+        {
+            GeneratedTeams = new();
+        });
+
+        RemoveTeam = ReactiveCommand.Create((string teamId) =>
+        {
+            GeneratedTeams = GeneratedTeams.Where(t => t.Id != teamId).ToList();
+        });
+
         SelectTeam = ReactiveCommand.Create((string? teamId) =>
         {
-            Services.GameDb.Instance.PlayerTeamId = teamId;
+            GameDb.Instance.PlayerTeamId = teamId;
             PlayerTeamId = teamId;
         });
 
-        RemoveTeam = ReactiveCommand.Create((string teamId) => Services.GameDb.Instance.RemoveTeamById(teamId));
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
         StartLeague = ReactiveCommand.CreateFromObservable(() =>
         {
-            Services.GameDb.Instance.HasGameStarted = true;
-            Services.GameDb.Instance.StartingYear = System.DateTime.Now.Year;
-            Services.GameDb.Instance.CurrentYear = System.DateTime.Now.Year;
+            GameDb.Instance.HasGameStarted = true;
+            GameDb.Instance.StartingYear = System.DateTime.Now.Year;
+            GameDb.Instance.CurrentYear = System.DateTime.Now.Year;
             return HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen));
         }, startMatchesEnabled);
     }

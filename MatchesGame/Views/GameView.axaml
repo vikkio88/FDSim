@@ -35,14 +35,11 @@
                         Generate Teams
                     </Button>
                     <Button Classes="MediumButton"
-                        Command="{Binding StartLeague}">
-                        Start League
-                    </Button>
-                    <Button Classes="MediumButton"
                         Command="{Binding ChangeSeed}"
                         Content="{Binding SeedText}" />
-                    <ComboBox FontSize="20"
-                        MinWidth="200"
+                    <ComboBox FontSize="25"
+                        MinWidth="150"
+                        Height="50"
                         Items="{Binding Nations}"
                         SelectedItem="{Binding SelectedNation}">
                         <ComboBox.ItemTemplate>
@@ -51,6 +48,14 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
+                    <Button Classes="MediumButton"
+                        Command="{Binding RemoveAllTeams}">
+                        Delete All
+                    </Button>
+                    <Button Classes="MediumButton"
+                        Command="{Binding StartLeague}">
+                        Start League
+                    </Button>
                 </StackPanel>
 
                 <TextBlock HorizontalAlignment="Center"
@@ -59,6 +64,17 @@
                     IsVisible="{Binding !!!GeneratedTeams.Count}">
                     No Teams
                 </TextBlock>
+
+                <TextBlock HorizontalAlignment="Center"
+                    Classes="H4"
+                    Margin="0,20,0,0"
+                    IsVisible="{Binding !CanClickGenerate}">
+                    Generating teams...
+                </TextBlock>
+
+                <!-- For some reason this does not work -->
+                <!-- <i:Icon FontSize="20" IsVisible="{Binding !CanClickGenerate}" Value="fa-spinner" Animation="Pulse"/> -->
+
                 <TextBlock HorizontalAlignment="Center"
                     Classes="H4"
                     Margin="0,5,0,5"

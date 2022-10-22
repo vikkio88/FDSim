@@ -64,7 +64,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
     {
         HostScreen = screen;
         Back = HostScreen.Router.NavigateBack;
-        League = League.Make(GameDb.Instance.GeneratedTeams.Select(t => t.Id).ToList());
+        League = League.Make(GameDb.Instance.TeamsMap.Select(kv => kv.Key).ToList());
         LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
         PlayerTeamId = GameDb.Instance.PlayerTeamId;
@@ -85,7 +85,6 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
                 var matches = GameDb.Instance.MakeMatches(round);
                 try
                 {
-
                     var results = Match.SimulateMany(matches);
                     League.Table.Update(matches);
                     League.Stats.Update(matches);

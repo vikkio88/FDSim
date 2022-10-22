@@ -1,7 +1,6 @@
 namespace MatchesGame.Services;
 
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using MatchesGame.Abstracts;
 using FDSim.Models.People;
 using FDSim.Models.Game.Team;
@@ -14,8 +13,6 @@ public class GameDb : Singleton<GameDb>
     public int CurrentYear { get; set; } = DateTime.Now.Year;
     public bool HasGameStarted { get; set; } = false;
     public string? PlayerTeamId { get; set; } = null;
-
-    public ObservableCollection<Team> GeneratedTeams { get; set; } = new();
     public Dictionary<string, Team> TeamsMap { get; set; } = new();
     public Dictionary<string, Match> MatchesMap { get; set; } = new();
     public League? League { get; set; }
@@ -42,10 +39,13 @@ public class GameDb : Singleton<GameDb>
         return MatchesMap[matchId];
     }
 
-    public void AddTeam(Team team)
+    public void SetTeams(List<Team> teams)
     {
-        TeamsMap.Add(team.Id, team);
-        GeneratedTeams.Add(team);
+        TeamsMap.Clear();
+        foreach (var team in teams)
+        {
+            TeamsMap.Add(team.Id, team);
+        }
     }
 
     public Team GetTeamById(string teamId)
@@ -64,11 +64,5 @@ public class GameDb : Singleton<GameDb>
         var player = team?.Roster?.GetById(playerId);
 
         return (team, player);
-    }
-
-    public void RemoveTeamById(string teamId)
-    {
-        var t = GetTeamById(teamId);
-        GeneratedTeams.Remove(t);
     }
 }
