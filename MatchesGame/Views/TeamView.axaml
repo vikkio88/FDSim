@@ -240,19 +240,23 @@
       <!-- Stats Season -->
       <StackPanel Grid.Row="1"
         Grid.Column="2"
-        Grid.RowSpan="2">
+        Grid.RowSpan="2"
+        IsVisible="{Binding Stats, Converter={x:Static ObjectConverters.IsNotNull}}">
         <TextBlock Classes="SectionHead"
           Text="Stats" />
         <StackPanel Classes="ValueLabel">
-          <TextBlock Text="Position" />
+          <TextBlock Classes="Label"
+            Text="Position:" />
           <TextBlock Text="{Binding Stats.Position}" />
         </StackPanel>
         <StackPanel Classes="ValueLabel">
-          <TextBlock Text="Points" />
+          <TextBlock Classes="Label"
+            Text="Points:" />
           <TextBlock Text="{Binding Stats.Points}" />
         </StackPanel>
         <StackPanel Classes="ValueLabel">
-          <TextBlock Text="Matches | W/D/L" />
+          <TextBlock Classes="Label"
+            Text="Matches (W/D/L):" />
           <TextBlock>
             <TextBlock.Text>
               <MultiBinding Converter="{StaticResource TablePlayedWDLToString}">
@@ -265,7 +269,8 @@
           </TextBlock>
         </StackPanel>
         <StackPanel Classes="ValueLabel">
-          <TextBlock Text="Goals" />
+          <TextBlock Classes="Label"
+            Text="Goals:" />
           <TextBlock>
             <TextBlock.Text>
               <MultiBinding Converter="{StaticResource TableGoalsToTableString}">

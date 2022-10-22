@@ -18,7 +18,7 @@ public class TablePlayedWDLToString : IMultiValueConverter
             )
         {
 
-            return $"{played} | {won}/{drawn}/{lost}";
+            return $"{played} ({won}/{drawn}/{lost})";
 
         }
 

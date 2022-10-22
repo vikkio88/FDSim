@@ -135,6 +135,11 @@
             Value="5" />
     </Style>
 
+    <Style Selector="StackPanel.ValueLabel > TextBlock.Label">
+        <Setter Property="FontWeight"
+            Value="Bold" />
+    </Style>
+
     <Style Selector="TextBlock.SectionHead">
         <Setter Property="FontSize"
             Value="16" />
