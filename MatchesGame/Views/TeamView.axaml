@@ -17,6 +17,8 @@
     <converters:NationalityToIsoConverter x:Key="NationToIsoConverter"/>
     <converters:FormationStringConverter x:Key="FormationStringConverter"/>
     <converters:RoleStringConverter x:Key="RoleStringConverter"/>
+    <converters:TableGoalsToTableString x:Key="TableGoalsToTableString" />
+    <converters:TablePlayedWDLToString x:Key="TablePlayedWDLToString" />
   </UserControl.Resources>
 
   <DockPanel LastChildFill="True">
@@ -241,6 +243,39 @@
         Grid.RowSpan="2">
         <TextBlock Classes="SectionHead"
           Text="Stats" />
+        <StackPanel Classes="ValueLabel">
+          <TextBlock Text="Position" />
+          <TextBlock Text="{Binding Stats.Position}" />
+        </StackPanel>
+        <StackPanel Classes="ValueLabel">
+          <TextBlock Text="Points" />
+          <TextBlock Text="{Binding Stats.Points}" />
+        </StackPanel>
+        <StackPanel Classes="ValueLabel">
+          <TextBlock Text="Matches | W/D/L" />
+          <TextBlock>
+            <TextBlock.Text>
+              <MultiBinding Converter="{StaticResource TablePlayedWDLToString}">
+                <Binding Path="Stats.Played" />
+                <Binding Path="Stats.Won" />
+                <Binding Path="Stats.Drawn" />
+                <Binding Path="Stats.Lost" />
+              </MultiBinding>
+            </TextBlock.Text>
+          </TextBlock>
+        </StackPanel>
+        <StackPanel Classes="ValueLabel">
+          <TextBlock Text="Goals" />
+          <TextBlock>
+            <TextBlock.Text>
+              <MultiBinding Converter="{StaticResource TableGoalsToTableString}">
+                <Binding Path="Stats.GoalsScored" />
+                <Binding Path="Stats.GoalsConceded" />
+                <Binding Path="Stats.GoalsDiff" />
+              </MultiBinding>
+            </TextBlock.Text>
+          </TextBlock>
+        </StackPanel>
       </StackPanel>
 
       <!-- History -->

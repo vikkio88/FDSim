@@ -1,5 +1,3 @@
-using System.Linq;
-
 namespace FDSim.Models.Game.League;
 public class Table
 {
@@ -23,6 +21,12 @@ public class Table
         {
             _table.Add(tId, new(tId));
         }
+    }
+
+    public TableRow? GetRow(string teamId)
+    {
+        if (!_table.ContainsKey(teamId)) return null;
+        return _table[teamId];
     }
 
     public void Update(List<Match> matches)

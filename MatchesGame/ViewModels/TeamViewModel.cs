@@ -13,7 +13,7 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
     public string TeamId { get; } = string.Empty;
     public Team Team { get; }
     public Lineup Lineup { get; }
-    public TableRow Stats { get; }
+    public TableRow? Stats { get; }
     public bool IsPlayersTeam { get; }
     public IScreen HostScreen { get; }
     public string UrlPathSegment { get; } = "teamView";
@@ -29,7 +29,11 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
         Team = Services.GameDb.Instance.GetTeamById(TeamId);
 
         IsPlayersTeam = GameDb.Instance.PlayerTeamId == teamId && GameDb.Instance.HasGameStarted;
-        Lineup = Lineup.Make(Team.Roster.PlayersPerRole, Team.Coach.Module, TeamId);
+
+        // move this to Team itself
+        Lineup = Team?.Roster.GetLineup(Team?.Coach?.Module ?? FDSim.Models.Enums.Formation._442);
+
+        Stats = GameDb.Instance?.League?.Table.GetRow(teamId) ?? null;
 
         ViewPlayer = ReactiveCommand.CreateFromObservable(
             (string combinedId) => HostScreen.Router.Navigate.Execute(new PlayerDetailsViewModel(HostScreen, combinedId))
