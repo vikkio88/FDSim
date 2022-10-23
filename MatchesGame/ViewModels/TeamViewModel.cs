@@ -33,7 +33,10 @@ public class TeamViewModel : ReactiveObject, IRoutableViewModel
         // move this to Team itself
         Lineup = Team?.Roster.GetLineup(Team?.Coach?.Module ?? FDSim.Models.Enums.Formation._442);
 
-        Stats = GameDb.Instance?.League?.Table.GetRow(teamId) ?? null;
+        Stats = GameDb.Instance.GetTableRowByTeamId(teamId);
+        
+        // got history of positions to show in graph
+        //System.Console.WriteLine($"{string.Join(" ", GameDb.Instance.GetSeasonStatHistoryByTeamId(teamId)?.Positions)}");
 
         ViewPlayer = ReactiveCommand.CreateFromObservable(
             (string combinedId) => HostScreen.Router.Navigate.Execute(new PlayerDetailsViewModel(HostScreen, combinedId))

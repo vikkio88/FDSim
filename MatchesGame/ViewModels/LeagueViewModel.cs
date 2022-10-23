@@ -65,6 +65,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         HostScreen = screen;
         Back = HostScreen.Router.NavigateBack;
         League = League.Make(GameDb.Instance.TeamsMap.Select(kv => kv.Key).ToList());
+        // here need to save league
+        
         LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
         PlayerTeamId = GameDb.Instance.PlayerTeamId;
@@ -90,6 +92,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
                     League.Stats.Update(matches);
                     round.Played = true;
                     League = League;
+                    GameDb.Instance.OnAfterRound(League);
                     ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
                     Scorers = League.Stats.OrderedScorers;
                     LeagueTable = League.Table.OrderedTable;
