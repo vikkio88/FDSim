@@ -13,7 +13,7 @@ public class PeopleSkillRangeTest
 
         foreach (int _ in Enumerable.Range(0, 100))
         {
-            Console.WriteLine(p.GetSkill());
+            Console.WriteLine(p.GetCoachSkill());
         }
 
     }
