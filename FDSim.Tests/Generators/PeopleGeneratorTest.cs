@@ -29,13 +29,24 @@ public class PeopleGeneratorTest
         var p = pg.GetPlayer(
             forcedNationality: FDSim.Models.Enums.Nationality.Italian,
             forcedRole: FDSim.Models.Enums.Role.Goalkeeper,
-            forcedMaxAge: 15,
+            forcedAge: 24,
             forcedSkillPercent: 90
             );
         Assert.True(p.Nationality == FDSim.Models.Enums.Nationality.Italian);
         Assert.True(p.Role == FDSim.Models.Enums.Role.Goalkeeper);
-        Assert.True(p.Age == 15);
+        Assert.True(p.Age == 24);
         Assert.True(p.Skill.Value >= 90);
+    }
 
+    [Fact]
+    public void PlayeGeneratorChecksAgeOnSkillValueTest()
+    {
+        var pg = new PeopleGenerator(0, new MockedIdGen());
+        var p15 = pg.GetPlayer(forcedAge: 15, forcedSkillPercent: 90);
+        var p24 = pg.GetPlayer(forcedAge: 24, forcedSkillPercent: 90);
+        var p40 = pg.GetPlayer(forcedAge: 40, forcedSkillPercent: 90);
+        Assert.True(p15.Skill.Value < 70);
+        Assert.True(p24.Skill.Value > 90);
+        Assert.True(p40.Skill.Value < 80);
     }
 }

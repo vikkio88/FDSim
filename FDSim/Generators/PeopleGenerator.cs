@@ -12,6 +12,10 @@ using DataProviders;
 
 public class PeopleGenerator
 {
+    const int PLAYER_MIN_AGE = 15;
+    const int PLAYER_MAX_AGE = 40;
+    const int COACH_MIN_AGE = 33;
+    const int COACH_MAX_AGE = 75;
     private int _seed;
     private IIdGenerator _idGen;
     private Dicer? _dicer;
@@ -58,7 +62,7 @@ public class PeopleGenerator
         .RuleFor(p => p.Id, _idGen.Generate()) // maybe I can add a `c` or something to identify the id
         .RuleFor(p => p.Name, f => f.Name.FirstName(gender: gender))
         .RuleFor(p => p.Surname, f => f.Name.LastName(gender: gender))
-        .RuleFor(p => p.Age, f => f.Random.Number(35, forcedMaxAge ?? 70))
+        .RuleFor(p => p.Age, f => f.Random.Number(COACH_MIN_AGE, forcedMaxAge ?? COACH_MAX_AGE))
         .RuleFor(p => p.Skill, skill)
         .RuleFor(p => p.IdealWage, _peopleMR.GetIdealWage(skill, isCoach: true))
         .RuleFor(p => p.Reputation, _peopleRR.GetReputation(skill))
@@ -69,7 +73,7 @@ public class PeopleGenerator
 
     public Player GetPlayer(
         Nationality? forcedNationality = null, Role? forcedRole = null,
-        int? forcedMaxAge = null, int? forcedSkillPercent = null
+        int? forcedMaxAge = null, int? forcedSkillPercent = null, int? forcedAge = null
      )
     {
         var nationality = forcedNationality ?? _dicer.Faker.PickRandom<Nationality>();
@@ -82,7 +86,7 @@ public class PeopleGenerator
             Attachment = new(_dicer.Faker.Random.Int(20, 100)),
         };
         // Getting skill first as I need it for other calculations
-        var age = _dicer.Faker.Random.Number(15, forcedMaxAge ?? 39);
+        var age = forcedAge ?? _dicer.Faker.Random.Number(PLAYER_MIN_AGE, forcedMaxAge ?? PLAYER_MAX_AGE);
         var skill = _peopleSR.GetPlayerSkill(age, forcedSkillPercent);
 
         return new Faker<Player>(locale: NationalityHelper.GetLocale(nationality))
