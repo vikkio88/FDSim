@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/MatchesGame/MatchesGame.csproj",
+                "${workspaceFolder}/FDSim.Game/FDSim.Game.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],

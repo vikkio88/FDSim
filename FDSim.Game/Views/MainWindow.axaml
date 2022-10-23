@@ -13,7 +13,7 @@
     x:Class="FDSim.Game.Views.MainWindow"
     Icon="/Assets/logo.ico"
     CanResize="False"
-    Title="FDSim.Game">
+    Title="Football Director Simulator">
     <DockPanel LastChildFill="True">
         <rxui:RoutedViewHost Router="{Binding Router}"
             DockPanel.Dock="Top">
