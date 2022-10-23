@@ -1,0 +1,21 @@
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:FDSim.Game.Views.Common"
+    xmlns:skia="clr-namespace:Avalonia.Svg.Skia;assembly=Avalonia.Svg.Skia">
+    <Styles.Resources>
+        <common:IsoToFlagConverter x:Key="isoToFlagConverter" />
+    </Styles.Resources>
+    <Style Selector="common|Flag">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <!-- <TextBlock Text="{TemplateBinding Iso}" /> -->
+                <Image Width="{TemplateBinding FontSize}"
+                    Height="{TemplateBinding FontSize}">
+                    <Image.Source>
+                        <skia:SvgImage Source="{Binding Iso, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource isoToFlagConverter}}" />
+                    </Image.Source>
+                </Image>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>

@@ -1,0 +1,149 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+    mc:Ignorable="d"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    xmlns:shared="clr-namespace:FDSim.Game.Views.Shared"
+    xmlns:converters="clr-namespace:FDSim.Game.Helpers.Converters"
+    xmlns:common="using:FDSim.Game.Views.Common"
+    x:Class="FDSim.Game.Views.MatchDetailsView">
+    <UserControl.Resources>
+        <converters:PlayerIdToPlayerFromRoster x:Key="PlayerIdToPlayerFromRoster" />
+        <converters:CombineTeamPlayerIds x:Key="CombineTeamPlayerIds" />
+    </UserControl.Resources>
+
+    <DockPanel LastChildFill="True">
+        <shared:NavigationFooter DockPanel.Dock="Bottom"/>
+        <Border Height="40"
+            BorderBrush="Black"
+            BorderThickness="1"
+            DockPanel.Dock="Top">
+            <TextBlock HorizontalAlignment="Center"
+                FontSize="30">Match Result</TextBlock>
+        </Border>
+        <Grid Margin="0,15,0,0"
+            ColumnDefinitions="*,*,*,*,*,*"
+            RowDefinitions="*,3*,3*"
+            x:Name="MatchDetailsRoot">
+            <common:Link Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Classes="H2 HCent"
+                Label="{Binding Match.Home.Name}"
+                Command="{Binding ViewTeam}"
+                CommandParameter="{Binding Match.Home.Id}"/>
+            <StackPanel Grid.Row="0"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                VerticalAlignment="Top"
+                HorizontalAlignment="Center"
+                Orientation="Horizontal">
+                <TextBlock Classes="H3 VCent"
+                    Text="{Binding MatchResult.GoalHome}"/>
+                <TextBlock Classes="H2 VCent"
+                    Text="-"/>
+                <TextBlock Classes="H3 VCent"
+                    Text="{Binding MatchResult.GoalAway}"/>
+            </StackPanel>
+            <common:Link Grid.Row="0"
+                Grid.Column="4"
+                Grid.ColumnSpan="2"
+                Classes="H2 HCent"
+                Label="{Binding Match.Away.Name}"
+                Command="{Binding ViewTeam}"
+                CommandParameter="{Binding Match.Away.Id}"/>
+            <StackPanel Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Center">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Items="{Binding MatchResult.ScorersHomeIds}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Spacing="5"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,5">
+                                    <i:Icon Value="fa fa-futbol" />
+                                    <common:Link Command="{Binding #MatchDetailsRoot.DataContext.ViewPlayer}">
+                                        <common:Link.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource CombineTeamPlayerIds}">
+                                                <Binding Path="."/>
+                                                <Binding Path="DataContext.Match.Home.Id"
+                                                    ElementName="MatchDetailsRoot"/>
+                                            </MultiBinding>
+                                        </common:Link.CommandParameter>
+                                        <common:Link.Label>
+                                            <MultiBinding Converter="{StaticResource PlayerIdToPlayerFromRoster}">
+                                                <Binding Path="."/>
+                                                <Binding Path="DataContext.HomeRoster"
+                                                    ElementName="MatchDetailsRoot"/>
+                                            </MultiBinding>
+                                        </common:Link.Label>
+                                    </common:Link>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+            <StackPanel Grid.Row="1"
+                Grid.Column="3"
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Center">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl Items="{Binding MatchResult.ScorersAwayIds}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Spacing="5"
+                                    Orientation="Horizontal"
+                                    Margin="0,0,0,5">
+                                    <i:Icon Value="fa fa-futbol" />
+                                    <common:Link Command="{Binding #MatchDetailsRoot.DataContext.ViewPlayer}">
+                                        <common:Link.CommandParameter>
+                                            <MultiBinding Converter="{StaticResource CombineTeamPlayerIds}">
+                                                <Binding Path="."/>
+                                                <Binding Path="DataContext.Match.Away.Id"
+                                                    ElementName="MatchDetailsRoot"/>
+                                            </MultiBinding>
+                                        </common:Link.CommandParameter>
+                                        <common:Link.Label>
+                                            <MultiBinding Converter="{StaticResource PlayerIdToPlayerFromRoster}">
+                                                <Binding Path="."/>
+                                                <Binding Path="DataContext.AwayRoster"
+                                                    ElementName="MatchDetailsRoot"/>
+                                            </MultiBinding>
+                                        </common:Link.Label>
+                                    </common:Link>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+
+            <Grid Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="6"
+                ColumnDefinitions="*,*"
+                RowDefinitions="*">
+                <DockPanel Grid.Row="0"
+                    Grid.Column="0"
+                    LastChildFill="True">
+                    <common:Lineup Margin="5,0,5,0"
+                        Value="{Binding MatchResult.HomeLineup}"
+                        OnPlayerClick="{Binding ViewPlayer}" />
+                </DockPanel>
+                <DockPanel Grid.Row="0"
+                    Grid.Column="1"
+                    LastChildFill="True">
+                    <common:Lineup Margin="5,0,5,0"
+                        Value="{Binding MatchResult.AwayLineup}"
+                        OnPlayerClick="{Binding ViewPlayer}" />
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </DockPanel>
+</UserControl>

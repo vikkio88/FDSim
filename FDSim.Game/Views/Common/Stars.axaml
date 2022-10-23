@@ -1,0 +1,33 @@
+<Styles xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:common="using:FDSim.Game.Views.Common"
+    xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia">
+
+    <Style Selector="common|Stars">
+        <Setter Property="Template">
+            <ControlTemplate>
+                <StackPanel Orientation="Horizontal"
+                    Spacing="2">
+                    <i:Icon Value="fa fa-star"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsVisible="{Binding FullStars[0], RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <i:Icon Value="fa fa-star"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsVisible="{Binding FullStars[1], RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <i:Icon Value="fa fa-star"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsVisible="{Binding FullStars[2], RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <i:Icon Value="fa fa-star"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsVisible="{Binding FullStars[3], RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <i:Icon Value="fa fa-star"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsVisible="{Binding FullStars[4], RelativeSource={RelativeSource TemplatedParent}}"/>
+                    <i:Icon Value="fa fa-star-half"
+                        FontSize="{TemplateBinding FontSize}"
+                        IsVisible="{Binding HalfStar, RelativeSource={RelativeSource TemplatedParent}}"/>
+                </StackPanel>
+            </ControlTemplate>
+        </Setter>
+    </Style>
+</Styles>
