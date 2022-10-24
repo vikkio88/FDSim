@@ -96,7 +96,7 @@ public class PeopleGenerator
         .RuleFor(p => p.Age, age)
         .RuleFor(p => p.Skill, skill)
         .RuleFor(p => p.Value, _peopleMR.GetValue(skill))
-        .RuleFor(p => p.IdealWage, _peopleMR.GetIdealWage(skill))
+        .RuleFor(p => p.IdealWage, _peopleMR.GetIdealWage(skill, age: age))
         .RuleFor(p => p.Reputation, _peopleRR.GetReputation(skill))
         .RuleFor(p => p.Status, status)
         .RuleFor(p => p.Nationality, nationality)

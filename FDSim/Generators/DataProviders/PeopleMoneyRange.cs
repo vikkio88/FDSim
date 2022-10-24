@@ -10,9 +10,14 @@ public class PeopleMoneyRange
         _dicer = dicer;
     }
 
-    // Might want to add a way to change slighlty if is old player
-    public Money GetIdealWage(Perc skill, bool isCoach = false)
+    public Money GetIdealWage(Perc skill, bool isCoach = false, int? age = null)
     {
+        //@TODO: might want to handle also old players
+        if (age < 19)
+        {
+            return new(_dicer.Faker.Random.Number(5_000, 150_000));
+        }
+
         int baseVal = skill.Value switch
         {
             >= 95 => _dicer.Faker.Random.Number(5_000, 15_000),
@@ -27,7 +32,7 @@ public class PeopleMoneyRange
         return new(baseVal * (isCoach ? 250.0 : 1000.0));
     }
 
-    // Might want to add a way to change slighlty if is old player
+    // @TODO: Might want to add a way to change slighlty if is old player
     public Money GetValue(Perc skill)
     {
         int baseVal = skill.Value switch
