@@ -198,171 +198,178 @@
         <TextBlock FontSize="16"
           VerticalAlignment="Center">Played Rounds</TextBlock>
       </TabItem.Header>
-      <ScrollViewer Grid.Row="1"
-        Grid.Column="0"
-        VerticalScrollBarVisibility="Auto"
-        HorizontalContentAlignment="Center">
-        <ItemsControl Items="{Binding PlayedRounds}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <!-- Each Round  -->
-              <StackPanel Orientation="Vertical"
-                Spacing="5"
-                Margin="0,5,0,0">
-                <TextBlock Classes="H3"
-                  Text="{Binding}" />
-                <ItemsControl x:Name="RoundRoot"
-                  Items="{Binding Matches}">
-                  <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                      <!-- Single Match In round  -->
-                      <Border Classes="RowItem"
-                        Margin="2,2,2,0">
-                        <Grid ColumnDefinitions="*,*,*,*,*">
-                          <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                          </Grid.RowDefinitions>
-                          <!-- Home Team -->
-                          <TextBlock Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Classes="VCent HCent PlayersTeam">
-                            <TextBlock.Text>
-                              <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
-                                <Binding Path="HomeId" />
-                                <Binding Path="DataContext.TeamNameMap"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.Text>
-                            <TextBlock.IsVisible>
-                              <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                ConverterParameter="True">
-                                <Binding Path="HomeId" />
-                                <Binding Path="DataContext.PlayerTeamId"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.IsVisible>
-                          </TextBlock>
-                          <TextBlock Grid.Row="0"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Classes="VCent HCent">
-                            <TextBlock.Text>
-                              <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
-                                <Binding Path="HomeId" />
-                                <Binding Path="DataContext.TeamNameMap"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.Text>
-                            <TextBlock.IsVisible>
-                              <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                ConverterParameter="False">
-                                <Binding Path="HomeId" />
-                                <Binding Path="DataContext.PlayerTeamId"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.IsVisible>
-                          </TextBlock>
-                          <!-- EO Home Team -->
-
-                          <!-- Separation between teams -->
-                          <StackPanel Grid.Row="0"
-                            Grid.Column="2"
-                            Grid.ColumnSpan="1"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center">
-
-                            <!-- Showing VS if match not played -->
-                            <TextBlock Classes="VCent HCent">
+      <Panel>
+        <TextBlock Text="No Rounds Played Yet"
+          Classes="HCent MTop10"
+          IsVisible="{Binding !PlayedRounds.Count}" />
+        <ScrollViewer Grid.Row="1"
+          Grid.Column="0"
+          VerticalScrollBarVisibility="Auto"
+          HorizontalContentAlignment="Center"
+          IsVisible="{Binding PlayedRounds.Count}">
+          <ItemsControl Items="{Binding PlayedRounds}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <!-- Each Round  -->
+                <StackPanel Orientation="Vertical"
+                  Spacing="5"
+                  Margin="0,5,0,0">
+                  <TextBlock Classes="H3"
+                    Text="{Binding}" />
+                  <ItemsControl x:Name="RoundRoot"
+                    Items="{Binding Matches}">
+                    <ItemsControl.ItemTemplate>
+                      <DataTemplate>
+                        <!-- Single Match In round  -->
+                        <Border Classes="RowItem"
+                          Margin="2,2,2,0">
+                          <Grid ColumnDefinitions="*,*,*,*,*">
+                            <Grid.RowDefinitions>
+                              <RowDefinition Height="25" />
+                            </Grid.RowDefinitions>
+                            <!-- Home Team -->
+                            <TextBlock Grid.Row="0"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Classes="VCent HCent PlayersTeam">
+                              <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                                  <Binding Path="HomeId" />
+                                  <Binding Path="DataContext.TeamNameMap"
+                                    ElementName="LeagueCalendarRoot" />
+                                </MultiBinding>
+                              </TextBlock.Text>
                               <TextBlock.IsVisible>
-                                <MultiBinding Converter="{StaticResource MatchIdToUnPlayedBool}">
-                                  <Binding Path="Id" />
-                                  <Binding Path="DataContext.ResultMap"
+                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                  ConverterParameter="True">
+                                  <Binding Path="HomeId" />
+                                  <Binding Path="DataContext.PlayerTeamId"
                                     ElementName="LeagueCalendarRoot" />
                                 </MultiBinding>
                               </TextBlock.IsVisible>
-                              <TextBlock.Text>vs</TextBlock.Text>
                             </TextBlock>
-
-
-                            <!-- Showing Result if match played -->
-                            <common:Link Classes="VCent HCent"
-                              Command="{Binding #LeagueCalendarRoot.DataContext.ViewMatchResult}"
-                              CommandParameter="{Binding Id}">
-                              <common:Link.IsVisible>
-                                <MultiBinding Converter="{StaticResource MatchIdToPlayedBool}">
-                                  <Binding Path="Id" />
-                                  <Binding Path="DataContext.ResultMap"
+                            <TextBlock Grid.Row="0"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              Classes="VCent HCent">
+                              <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                                  <Binding Path="HomeId" />
+                                  <Binding Path="DataContext.TeamNameMap"
                                     ElementName="LeagueCalendarRoot" />
                                 </MultiBinding>
-                              </common:Link.IsVisible>
-                              <common:Link.Label>
-                                <MultiBinding Converter="{StaticResource MatchIdToResultMap}">
-                                  <Binding Path="Id" />
-                                  <Binding Path="DataContext.ResultMap"
+                              </TextBlock.Text>
+                              <TextBlock.IsVisible>
+                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                  ConverterParameter="False">
+                                  <Binding Path="HomeId" />
+                                  <Binding Path="DataContext.PlayerTeamId"
                                     ElementName="LeagueCalendarRoot" />
                                 </MultiBinding>
-                              </common:Link.Label>
-                            </common:Link>
-                          </StackPanel>
+                              </TextBlock.IsVisible>
+                            </TextBlock>
+                            <!-- EO Home Team -->
+
+                            <!-- Separation between teams -->
+                            <StackPanel Grid.Row="0"
+                              Grid.Column="2"
+                              Grid.ColumnSpan="1"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Center">
+
+                              <!-- Showing VS if match not played -->
+                              <TextBlock Classes="VCent HCent">
+                                <TextBlock.IsVisible>
+                                  <MultiBinding Converter="{StaticResource MatchIdToUnPlayedBool}">
+                                    <Binding Path="Id" />
+                                    <Binding Path="DataContext.ResultMap"
+                                      ElementName="LeagueCalendarRoot" />
+                                  </MultiBinding>
+                                </TextBlock.IsVisible>
+                                <TextBlock.Text>vs</TextBlock.Text>
+                              </TextBlock>
+
+
+                              <!-- Showing Result if match played -->
+                              <common:Link Classes="VCent HCent"
+                                Command="{Binding #LeagueCalendarRoot.DataContext.ViewMatchResult}"
+                                CommandParameter="{Binding Id}">
+                                <common:Link.IsVisible>
+                                  <MultiBinding Converter="{StaticResource MatchIdToPlayedBool}">
+                                    <Binding Path="Id" />
+                                    <Binding Path="DataContext.ResultMap"
+                                      ElementName="LeagueCalendarRoot" />
+                                  </MultiBinding>
+                                </common:Link.IsVisible>
+                                <common:Link.Label>
+                                  <MultiBinding Converter="{StaticResource MatchIdToResultMap}">
+                                    <Binding Path="Id" />
+                                    <Binding Path="DataContext.ResultMap"
+                                      ElementName="LeagueCalendarRoot" />
+                                  </MultiBinding>
+                                </common:Link.Label>
+                              </common:Link>
+                            </StackPanel>
 
 
 
-                          <!-- Away Team -->
-                          <TextBlock Grid.Row="0"
-                            Grid.Column="3"
-                            Grid.ColumnSpan="2"
-                            Classes="VCent HCent PlayersTeam">
-                            <TextBlock.Text>
-                              <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
-                                <Binding Path="AwayId" />
-                                <Binding Path="DataContext.TeamNameMap"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.Text>
-                            <TextBlock.IsVisible>
-                              <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                ConverterParameter="True">
-                                <Binding Path="AwayId" />
-                                <Binding Path="DataContext.PlayerTeamId"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.IsVisible>
-                          </TextBlock>
-                          <TextBlock Grid.Row="0"
-                            Grid.Column="3"
-                            Grid.ColumnSpan="2"
-                            Classes="VCent HCent">
-                            <TextBlock.Text>
-                              <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
-                                <Binding Path="AwayId" />
-                                <Binding Path="DataContext.TeamNameMap"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.Text>
-                            <TextBlock.IsVisible>
-                              <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                ConverterParameter="False">
-                                <Binding Path="AwayId" />
-                                <Binding Path="DataContext.PlayerTeamId"
-                                  ElementName="LeagueCalendarRoot" />
-                              </MultiBinding>
-                            </TextBlock.IsVisible>
-                          </TextBlock>
-                          <!-- EO Away Team -->
-                        </Grid>
-                      </Border>
-                      <!-- EO Single Match in Round -->
+                            <!-- Away Team -->
+                            <TextBlock Grid.Row="0"
+                              Grid.Column="3"
+                              Grid.ColumnSpan="2"
+                              Classes="VCent HCent PlayersTeam">
+                              <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                                  <Binding Path="AwayId" />
+                                  <Binding Path="DataContext.TeamNameMap"
+                                    ElementName="LeagueCalendarRoot" />
+                                </MultiBinding>
+                              </TextBlock.Text>
+                              <TextBlock.IsVisible>
+                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                  ConverterParameter="True">
+                                  <Binding Path="AwayId" />
+                                  <Binding Path="DataContext.PlayerTeamId"
+                                    ElementName="LeagueCalendarRoot" />
+                                </MultiBinding>
+                              </TextBlock.IsVisible>
+                            </TextBlock>
+                            <TextBlock Grid.Row="0"
+                              Grid.Column="3"
+                              Grid.ColumnSpan="2"
+                              Classes="VCent HCent">
+                              <TextBlock.Text>
+                                <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                                  <Binding Path="AwayId" />
+                                  <Binding Path="DataContext.TeamNameMap"
+                                    ElementName="LeagueCalendarRoot" />
+                                </MultiBinding>
+                              </TextBlock.Text>
+                              <TextBlock.IsVisible>
+                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                  ConverterParameter="False">
+                                  <Binding Path="AwayId" />
+                                  <Binding Path="DataContext.PlayerTeamId"
+                                    ElementName="LeagueCalendarRoot" />
+                                </MultiBinding>
+                              </TextBlock.IsVisible>
+                            </TextBlock>
+                            <!-- EO Away Team -->
+                          </Grid>
+                        </Border>
+                        <!-- EO Single Match in Round -->
 
-                    </DataTemplate>
-                  </ItemsControl.ItemTemplate>
-                </ItemsControl>
-              </StackPanel>
-              <!-- EO Each Round  -->
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </ScrollViewer>
+                      </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                  </ItemsControl>
+                </StackPanel>
+                <!-- EO Each Round  -->
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+
+      </Panel>
     </TabItem>
 
   </TabControl>
