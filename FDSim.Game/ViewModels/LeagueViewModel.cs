@@ -12,11 +12,16 @@ using FDSim.Models.Game.League;
 using Game.Services;
 using Avalonia.Threading;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
     public League? League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
+
+
+    private ObservableCollection<Round> PlayedRounds { get; } = new();
+    public ObservableCollection<Round>? UnPlayedRounds { get; } = null;
 
     private List<TableRow>? _leagueTable = null;
     public List<TableRow>? LeagueTable
@@ -40,6 +45,12 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 
     public string? PlayerTeamId { get; }
     public int SelectedTab { get; set; } = 0;
+    private int _selectedRoundTab = 0;
+    public int SelectedRoundTab
+    {
+        get => _selectedRoundTab;
+        set => this.RaiseAndSetIfChanged(ref _selectedRoundTab, value);
+    }
     public Dictionary<string, MatchResult> _resultMap = new();
     public Dictionary<string, MatchResult> ResultMap
     {
@@ -67,8 +78,9 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         HostScreen = screen;
         Back = HostScreen.Router.NavigateBack;
         League = League.Make(GameDb.Instance.TeamsMap.Select(kv => kv.Key).ToList());
+        UnPlayedRounds = new(League.Rounds);
         // here need to save league
-        
+
         LeagueTable = League.Table.OrderedTable;
         TeamNameMap = GameDb.Instance.TeamsMap;
         PlayerTeamId = GameDb.Instance.PlayerTeamId;
@@ -94,6 +106,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
                     League.Stats.Update(matches);
                     round.Played = true;
                     League = League;
+                    PlayedRounds.Insert(0, round);
+                    UnPlayedRounds.Remove(round);
                     GameDb.Instance.OnAfterRound(League);
                     ResultMap = ResultMap.Concat(results).ToDictionary(x => x.Key, x => x.Value);
                     Scorers = League.Stats.OrderedScorers;
@@ -106,6 +120,8 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
                 finally
                 {
                     CanSimulate = true;
+                    // moving to played on rounds
+                    SelectedRoundTab = 1;
                 }
             }, DispatcherPriority.Background);
 
