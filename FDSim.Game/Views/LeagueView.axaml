@@ -114,85 +114,92 @@
           <TabItem.Header>
             <TextBlock VerticalAlignment="Center">Scorers</TextBlock>
           </TabItem.Header>
-          <DockPanel LastChildFill="True">
-            <DataGrid Items="{Binding Scorers}"
-              Margin="0,5,0,0"
-              AutoGenerateColumns="False">
-              <DataGrid.Columns>
-                <DataGridTextColumn Header="#"
-                  IsReadOnly="True"
-                  Binding="{Binding Position}" />
+          <Panel>
+            <TextBlock Text="No Scorers Yet"
+              Classes="HCent MTop10"
+              IsVisible="{Binding Scorers, Converter={x:Static ObjectConverters.IsNull}}" />
 
-                <!-- Player name -->
-                <DataGridTemplateColumn Header="Player"
-                  IsReadOnly="True">
-                  <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="peopleModels:Player">
-                      <common:Link Command="{Binding #LeagueViewRoot.DataContext.ViewPlayer}"
-                        Margin="5,0,5,0">
-                        <common:Link.CommandParameter>
-                          <MultiBinding Converter="{StaticResource CombineTeamPlayerIds}">
-                            <Binding Path="PlayerId"/>
-                            <Binding Path="TeamId"/>
-                          </MultiBinding>
-                        </common:Link.CommandParameter>
-                        <common:Link.Label>
-                          <MultiBinding Converter="{StaticResource PlayerIdTeamIdToNameMap}">
-                            <Binding Path="PlayerId" />
-                            <Binding Path="TeamId" />
-                            <Binding Path="DataContext.TeamNameMap"
-                              ElementName="LeagueViewRoot" />
-                          </MultiBinding>
-                        </common:Link.Label>
-                      </common:Link>
-                    </DataTemplate>
-                  </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+            <Panel IsVisible="{Binding Scorers, Converter={x:Static ObjectConverters.IsNotNull}}">
+              <DataGrid Items="{Binding Scorers}"
+                Margin="0,5,0,0"
+                AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                  <DataGridTextColumn Header="#"
+                    IsReadOnly="True"
+                    Binding="{Binding Position}" />
 
-
-                <!-- Team name and link on ScorersTable -->
-                <DataGridTemplateColumn Header="Team"
-                  IsReadOnly="True">
-                  <DataGridTemplateColumn.CellTemplate>
-                    <DataTemplate DataType="teamModels:Team">
-                      <StackPanel Classes="ValueLabel">
-                        <common:Link Command="{Binding #LeagueViewRoot.DataContext.ViewTeam}"
-                          CommandParameter="{Binding TeamId}"
-                          Margin="3,0,3,0">
+                  <!-- Player name -->
+                  <DataGridTemplateColumn Header="Player"
+                    IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate DataType="peopleModels:Player">
+                        <common:Link Command="{Binding #LeagueViewRoot.DataContext.ViewPlayer}"
+                          Margin="5,0,5,0">
+                          <common:Link.CommandParameter>
+                            <MultiBinding Converter="{StaticResource CombineTeamPlayerIds}">
+                              <Binding Path="PlayerId"/>
+                              <Binding Path="TeamId"/>
+                            </MultiBinding>
+                          </common:Link.CommandParameter>
                           <common:Link.Label>
-                            <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                            <MultiBinding Converter="{StaticResource PlayerIdTeamIdToNameMap}">
+                              <Binding Path="PlayerId" />
                               <Binding Path="TeamId" />
                               <Binding Path="DataContext.TeamNameMap"
                                 ElementName="LeagueViewRoot" />
                             </MultiBinding>
                           </common:Link.Label>
                         </common:Link>
-                        <!-- Whether is Players Team -->
-                        <Panel VerticalAlignment="Center">
-                          <Panel.IsVisible>
-                            <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                              ConverterParameter="True">
-                              <Binding Path="TeamId" />
-                              <Binding Path="DataContext.PlayerTeamId"
-                                ElementName="LeagueViewRoot" />
-                            </MultiBinding>
-                          </Panel.IsVisible>
-                          <i:Icon Value="fa fa-user" />
-                        </Panel>
-                      </StackPanel>
-                    </DataTemplate>
-                  </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Played"
-                  IsReadOnly="True"
-                  Binding="{Binding Played}" />
-                <DataGridTextColumn Header="Goals"
-                  IsReadOnly="True"
-                  Binding="{Binding Goals}" />
-              </DataGrid.Columns>
-            </DataGrid>
-          </DockPanel>
+
+                  <!-- Team name and link on ScorersTable -->
+                  <DataGridTemplateColumn Header="Team"
+                    IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                      <DataTemplate DataType="teamModels:Team">
+                        <StackPanel Classes="ValueLabel">
+                          <common:Link Command="{Binding #LeagueViewRoot.DataContext.ViewTeam}"
+                            CommandParameter="{Binding TeamId}"
+                            Margin="3,0,3,0">
+                            <common:Link.Label>
+                              <MultiBinding Converter="{StaticResource TeamIdToNameMap}">
+                                <Binding Path="TeamId" />
+                                <Binding Path="DataContext.TeamNameMap"
+                                  ElementName="LeagueViewRoot" />
+                              </MultiBinding>
+                            </common:Link.Label>
+                          </common:Link>
+                          <!-- Whether is Players Team -->
+                          <Panel VerticalAlignment="Center">
+                            <Panel.IsVisible>
+                              <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                ConverterParameter="True">
+                                <Binding Path="TeamId" />
+                                <Binding Path="DataContext.PlayerTeamId"
+                                  ElementName="LeagueViewRoot" />
+                              </MultiBinding>
+                            </Panel.IsVisible>
+                            <i:Icon Value="fa fa-user" />
+                          </Panel>
+                        </StackPanel>
+                      </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                  </DataGridTemplateColumn>
+
+                  <DataGridTextColumn Header="Played"
+                    IsReadOnly="True"
+                    Binding="{Binding Played}" />
+                  <DataGridTextColumn Header="Goals"
+                    IsReadOnly="True"
+                    Binding="{Binding Goals}" />
+                </DataGrid.Columns>
+              </DataGrid>
+            </Panel>
+
+          </Panel>
         </TabItem>
 
         <!-- TAB for Calendar -->
