@@ -1,5 +1,3 @@
-using FDSim.Game.Services;
-
 namespace FDSim.Game.ViewModels;
 
 using FDSim.Models.Game.League;
@@ -10,11 +8,9 @@ using ReactiveUI;
 using System.Reactive;
 
 
-public class PlayerDetailsViewModel : ReactiveObject, IRoutableViewModel
+public class PlayerDetailsViewModel : BaseRxViewModel
 {
-    public IScreen HostScreen { get; }
-    public string UrlPathSegment { get; } = "PlayerDetails";
-    public ReactiveCommand<Unit, Unit> Back { get; }
+    public override string UrlPathSegment { get; } = "PlayerDetails";
 
     public int BirthYear { get; }
     public Team? Team { get; init; }
@@ -24,10 +20,8 @@ public class PlayerDetailsViewModel : ReactiveObject, IRoutableViewModel
     public StatRow? Stats { get; set; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; }
 
-    public PlayerDetailsViewModel(IScreen screen, string combinedId)
+    public PlayerDetailsViewModel(IScreen screen, string combinedId) : base(screen)
     {
-        HostScreen = screen;
-        Back = HostScreen.Router.NavigateBack;
         var ids = combinedId.Split(".");
         var teamId = ids[0];
         var playerId = ids[1];

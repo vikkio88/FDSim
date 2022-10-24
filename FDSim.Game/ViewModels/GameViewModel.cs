@@ -1,10 +1,7 @@
-using FDSim.Game.Services;
-
 namespace FDSim.Game.ViewModels;
 
 using ReactiveUI;
 using System.Reactive;
-using System.Collections.ObjectModel;
 using FDSim.Models.Game.Team;
 using FDSim.Generators;
 using FDSim.Models.Enums;
