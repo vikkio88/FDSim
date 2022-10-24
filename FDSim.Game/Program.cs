@@ -28,6 +28,7 @@ class Program
         Splat.Locator.CurrentMutable.Register(() => new LeagueView(), typeof(ReactiveUI.IViewFor<LeagueViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new MatchDetailsView(), typeof(ReactiveUI.IViewFor<MatchDetailsViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new PlayerDetailsView(), typeof(ReactiveUI.IViewFor<PlayerDetailsViewModel>));
+        Splat.Locator.CurrentMutable.Register(() => new Views.DashboardView(), typeof(ReactiveUI.IViewFor<ViewModels.DashboardViewModel>));
 
         return AppBuilder.Configure<App>()
             .UsePlatformDetect()
