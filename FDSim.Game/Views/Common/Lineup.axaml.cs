@@ -51,8 +51,6 @@ public class Lineup : TemplatedControl
 
     public void OnValueChanged()
     {
-
-
         var teamId = Value.TeamId;
         OnPlayerClickInternal = ReactiveCommand.Create((string playerId) =>
         {
