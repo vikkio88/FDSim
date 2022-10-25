@@ -14,5 +14,6 @@
         <StyleInclude Source="/Views/Common/Lineup.axaml" />
         <StyleInclude Source="/Views/Common/Flag.axaml" />
         <StyleInclude Source="/Views/Common/Link.axaml" />
+        <StyleInclude Source="/Views/Common/Healthbar.axaml" />
     </Application.Styles>
 </Application>
