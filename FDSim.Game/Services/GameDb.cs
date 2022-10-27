@@ -1,5 +1,4 @@
-using FDSim.Game.Abstracts;
-using FDSim.Game.Models;
+using FDSim.Game.Models.Game;
 
 namespace FDSim.Game.Services;
 
@@ -13,6 +12,7 @@ using Game.Models;
 
 public class GameDb : Singleton<GameDb>
 {
+    public GamePlayer? GamePlayer { get; set; } = null;
     public int StartingYear { get; set; } = DateTime.Now.Year;
     public int CurrentYear { get; set; } = DateTime.Now.Year;
     public bool HasGameStarted { get; set; } = false;

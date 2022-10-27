@@ -48,8 +48,8 @@
             <ControlTemplate>
                 <!-- Might want make Alignments props -->
                 <TextBlock Text="{TemplateBinding Label}"
-                    VerticalAlignment="Center"
-                    TextAlignment="{TemplateBinding TextAlignment}" />
+                    VerticalAlignment="Center"/>
+                <!-- TextAlignment="{TemplateBinding TextAlignment}" /> -->
             </ControlTemplate>
         </Setter>
     </Style>

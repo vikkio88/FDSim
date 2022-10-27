@@ -1,5 +1,6 @@
 namespace FDSim.Game.ViewModels;
 
+using System;
 using ReactiveUI;
 using System.Reactive;
 using FDSim.Models.Game.Team;
@@ -29,6 +30,19 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
+    private string? _playerFullName = "Mario Rossi";
+    public string? PlayerFullName
+    {
+        get => _playerFullName;
+        set => this.RaiseAndSetIfChanged(ref _playerFullName, value);
+    }
+    private DateTime _playerDOB = new(1988, 05, 01);
+    public DateTime PlayerDOB
+    {
+        get => _playerDOB;
+        set => this.RaiseAndSetIfChanged(ref _playerDOB, value);
+    }
+
     private string? _playerTeamId = null;
     public string? PlayerTeamId
     {
@@ -41,13 +55,13 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         get
         {
             var nations = NationalityHelper.GetNations();
-            nations.Add("Any");
+            nations.Add("Any Country");
             return nations;
         }
     }
 
     private Nationality? _teamNationality = null;
-    private string _selectedNation = "Any";
+    private string _selectedNation = "Any Country";
     public string SelectedNation
     {
         get => _selectedNation;
@@ -87,9 +101,17 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
             x => x < MAX_TEAMS
         );
 
+        var canDelete = this.WhenAnyValue(
+            x => x.GeneratedTeams.Count,
+            x => x > 1
+        );
+
         var isGenerating = this.WhenAnyValue(
             x => x.CanClickGenerate
         );
+
+        // check player readiness
+
         canGenerate.CombineLatest(isGenerating);
 
         var startMatchesEnabled = this.WhenAnyValue(
@@ -128,7 +150,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         RemoveAllTeams = ReactiveCommand.Create(() =>
         {
             GeneratedTeams = new();
-        });
+        }, canDelete);
 
         RemoveTeam = ReactiveCommand.Create((string teamId) =>
         {
@@ -144,9 +166,11 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         ViewTeam = ReactiveCommand.CreateFromObservable((string teamId) => HostScreen.Router.Navigate.Execute(new TeamViewModel(HostScreen, teamId)));
         StartLeague = ReactiveCommand.CreateFromObservable(() =>
         {
+            var thisYear = DateTime.Now.Year;
             GameDb.Instance.HasGameStarted = true;
-            GameDb.Instance.StartingYear = System.DateTime.Now.Year;
-            GameDb.Instance.CurrentYear = System.DateTime.Now.Year;
+            GameDb.Instance.StartingYear = thisYear;
+            GameDb.Instance.CurrentYear = thisYear;
+            GameDb.Instance.GamePlayer = new(PlayerFullName, thisYear - PlayerDOB.Year);
             return HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen));
         }, startMatchesEnabled);
     }

@@ -33,193 +33,201 @@
                 Command="{Binding StartLeague}">Start League</Button>
         </Border>
 
-        <Grid ColumnDefinitions="*"
-            RowDefinitions="*,4*">
+        <TabControl>
+            <TabItem Header="Manager Info">
 
-            <StackPanel Grid.Row="0">
-                <TextBlock Text="Player Info"
-                    HorizontalAlignment="Center"
-                    Margin="0,5,0,5"
-                    Classes="SectionHead" />
-                <StackPanel Width="800"
-                    Margin="0,0,0,5">
-                    <StackPanel HorizontalAlignment="Center"
-                        Classes="ValueLabel">
-                        <TextBlock Text="Name" />
-                        <TextBox Watermark="Mario Rossi"
-                            Width="200"/>
+                <StackPanel>
+                    <TextBlock Text="Player Info"
+                        HorizontalAlignment="Center"
+                        Margin="0,5,0,5"
+                        Classes="SectionHead" />
+                    <StackPanel Width="800"
+                        Margin="0,0,0,5">
+                        <StackPanel HorizontalAlignment="Center"
+                            Classes="ValueLabel">
+                            <TextBlock Text="Name" />
+                            <TextBox Text="{Binding PlayerFullName}"
+                                Width="200"/>
+                        </StackPanel>
+                        <StackPanel Classes="ValueLabel"
+                            HorizontalAlignment="Center">
+                            <TextBlock Text="Birth date" />
+                            <CalendarDatePicker SelectedDate="{Binding PlayerDOB}"
+                                Width="220"
+                                CustomDateFormatString="dd-MM-YYYY"/>
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Classes="ValueLabel"
+                </StackPanel>
+
+            </TabItem>
+
+            <TabItem Header="League Selection">
+                <StackPanel>
+
+                    <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Center">
-                        <TextBlock Text="Birth date" />
-                        <CalendarDatePicker Watermark="30/05/1985"
-                            Width="220"
-                            CustomDateFormatString="dd-MM-YYYY"/>
-                    </StackPanel>
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal"
-                    HorizontalAlignment="Center">
-                    <Button Classes="MediumButton"
-                        Command="{Binding GenerateTeams}">
+                        <Button Classes="Medium"
+                            Command="{Binding GenerateTeams}">
                         Generate Teams
-                    </Button>
-                    <Button Classes="MediumButton"
-                        Command="{Binding ChangeSeed}"
-                        Content="{Binding SeedText}" />
-                    <ComboBox FontSize="25"
-                        MinWidth="150"
-                        Height="50"
-                        Items="{Binding Nations}"
-                        SelectedItem="{Binding SelectedNation}">
-                        <ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding}" />
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                    </ComboBox>
-                    <Button Classes="MediumButton"
-                        IsVisible="{Binding !!!GeneratedTeams.Count}"
-                        Command="{Binding RemoveAllTeams}">
+                        </Button>
+                        <ComboBox FontSize="16"
+                            MinWidth="120"
+                            Height="30"
+                            Items="{Binding Nations}"
+                            SelectedItem="{Binding SelectedNation}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding}" />
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                        <Button Classes="Medium"
+                            Command="{Binding ChangeSeed}"
+                            Content="{Binding SeedText}" />
+                        <Button Classes="Medium"
+                            IsVisible="{Binding !!!GeneratedTeams.Count}"
+                            Command="{Binding RemoveAllTeams}">
                         Delete All
-                    </Button>
-                    <Button Classes="MediumButton"
-                        Command="{Binding RemoveAllTeams}"
-                        IsVisible="{Binding !!GeneratedTeams.Count}"
-                        Content="{Binding GeneratedTeams.Count, StringFormat='Delete {0} Team(s)'}" />
+                        </Button>
+                        <Button Classes="Medium"
+                            Command="{Binding RemoveAllTeams}"
+                            IsVisible="{Binding !!GeneratedTeams.Count}"
+                            Content="{Binding GeneratedTeams.Count, StringFormat='Delete {0} Team(s)'}" />
+
+                    </StackPanel>
+
+
+
+                    <StackPanel IsVisible="{Binding !!!GeneratedTeams.Count}">
+                        <TextBlock HorizontalAlignment="Center"
+                            Classes="H2 MTop10">No Teams</TextBlock>
+
+                        <TextBlock HorizontalAlignment="Center"
+                            Classes="H4 MTop20"
+                            IsVisible="{Binding !CanClickGenerate}">Generating teams...</TextBlock>
+                    </StackPanel>
+
+                    <!-- For some reason this does not work -->
+                    <!-- <i:Icon FontSize="20" IsVisible="{Binding !CanClickGenerate}" Value="fa-spinner" Animation="Pulse"/> -->
+                    <Panel Margin="0,0,0,0"
+                        Height="450">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                            IsVisible="{Binding !!GeneratedTeams.Count}">
+                            <ItemsControl x:Name="GameViewRoot"
+                                Items="{Binding GeneratedTeams}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Classes="RowItem"
+                                            Margin="2,2,2,0">
+                                            <Grid ColumnDefinitions="*,*,*,*,*,*">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="30" />
+                                                </Grid.RowDefinitions>
+
+                                                <!-- EO Team Name / Players Team -->
+                                                <TextBlock Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Grid.ColumnSpan="3"
+                                                    Margin="5"
+                                                    Text="{Binding Name}"
+                                                    Classes="VCent PlayersTeam">
+                                                    <TextBlock.IsVisible>
+                                                        <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                            ConverterParameter="True">
+                                                            <Binding Path="Id" />
+                                                            <Binding Path="DataContext.PlayerTeamId"
+                                                                ElementName="GameViewRoot" />
+                                                        </MultiBinding>
+                                                    </TextBlock.IsVisible>
+                                                </TextBlock>
+                                                <TextBlock Grid.Row="0"
+                                                    Grid.Column="0"
+                                                    Grid.ColumnSpan="3"
+                                                    Margin="5"
+                                                    Text="{Binding Name}"
+                                                    Classes="VCent">
+                                                    <TextBlock.IsVisible>
+                                                        <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                            ConverterParameter="False">
+                                                            <Binding Path="Id" />
+                                                            <Binding Path="DataContext.PlayerTeamId"
+                                                                ElementName="GameViewRoot" />
+                                                        </MultiBinding>
+                                                    </TextBlock.IsVisible>
+                                                </TextBlock>
+                                                <!-- EO Team Name / Players Team -->
+
+                                                <StackPanel Orientation="Horizontal"
+                                                    Grid.Row="0"
+                                                    Grid.Column="3">
+                                                    <common:Flag Iso="{Binding Nationality, Converter={StaticResource NationToIsoConverter}}"
+                                                        Margin="0,0,3,0"/>
+                                                    <StackPanel Classes="InRowIcoValue">
+                                                        <i:Icon Value="fa fa-users" />
+                                                        <TextBlock Classes="VCent"
+                                                            Text="{Binding Roster.Count}" />
+                                                    </StackPanel>
+                                                    <StackPanel Classes="InRowIcoValue">
+                                                        <common:Stars Value="{Binding Roster.Avg}"
+                                                            FontSize="10" />
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal"
+                                                    HorizontalAlignment="Right"
+                                                    Grid.Row="0"
+                                                    Grid.Column="5">
+                                                    <Button Classes="SmallButton"
+                                                        Command="{Binding #GameViewRoot.DataContext.SelectTeam}"
+                                                        CommandParameter="{Binding Id}">
+                                                        <i:Icon Value="fa fa-user-plus" />
+                                                        <Button.IsVisible>
+                                                            <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                                ConverterParameter="False">
+                                                                <Binding Path="Id" />
+                                                                <Binding Path="DataContext.PlayerTeamId"
+                                                                    ElementName="GameViewRoot" />
+                                                            </MultiBinding>
+                                                        </Button.IsVisible>
+                                                    </Button>
+
+                                                    <Button Classes="SmallButton"
+                                                        Command="{Binding #GameViewRoot.DataContext.SelectTeam}"
+                                                        CommandParameter="{Binding null}">
+                                                        <i:Icon Value="fa fa-user-minus" />
+                                                        <Button.IsVisible>
+                                                            <MultiBinding Converter="{StaticResource IsPlayersTeam}"
+                                                                ConverterParameter="True">
+                                                                <Binding Path="Id" />
+                                                                <Binding Path="DataContext.PlayerTeamId"
+                                                                    ElementName="GameViewRoot" />
+                                                            </MultiBinding>
+                                                        </Button.IsVisible>
+                                                    </Button>
+
+                                                    <Button Classes="SmallButton"
+                                                        Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
+                                                        CommandParameter="{Binding Id}">
+                                                        <i:Icon Value="fa fa-info" />
+                                                    </Button>
+                                                    <Button Classes="SmallButton"
+                                                        Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
+                                                        CommandParameter="{Binding Id}">
+                                                        <i:Icon Value="fa fa-trash" />
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Panel>
+
                 </StackPanel>
-
-            </StackPanel>
-
-            <StackPanel Grid.Row="1"
-                IsVisible="{Binding !!!GeneratedTeams.Count}">
-                <TextBlock HorizontalAlignment="Center"
-                    Classes="H2 MTop10">
-                    No Teams
-                </TextBlock>
-
-                <TextBlock HorizontalAlignment="Center"
-                    Classes="H4 MTop20"
-                    IsVisible="{Binding !CanClickGenerate}">
-                    Generating teams...
-                </TextBlock>
-            </StackPanel>
-
-            <!-- For some reason this does not work -->
-            <!-- <i:Icon FontSize="20" IsVisible="{Binding !CanClickGenerate}" Value="fa-spinner" Animation="Pulse"/> -->
-            <Panel Grid.Row="1"
-                Margin="0,5,0,5">
-                <ScrollViewer VerticalScrollBarVisibility="Auto"
-                    IsVisible="{Binding !!GeneratedTeams.Count}">
-                    <ItemsControl x:Name="GameViewRoot"
-                        Items="{Binding GeneratedTeams}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border Classes="RowItem"
-                                    Margin="2,2,2,0">
-                                    <Grid ColumnDefinitions="*,*,*,*,*,*">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="30" />
-                                        </Grid.RowDefinitions>
-
-                                        <!-- EO Team Name / Players Team -->
-                                        <TextBlock Grid.Row="0"
-                                            Grid.Column="0"
-                                            Grid.ColumnSpan="3"
-                                            Margin="5"
-                                            Text="{Binding Name}"
-                                            Classes="VCent PlayersTeam">
-                                            <TextBlock.IsVisible>
-                                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                                    ConverterParameter="True">
-                                                    <Binding Path="Id" />
-                                                    <Binding Path="DataContext.PlayerTeamId"
-                                                        ElementName="GameViewRoot" />
-                                                </MultiBinding>
-                                            </TextBlock.IsVisible>
-                                        </TextBlock>
-                                        <TextBlock Grid.Row="0"
-                                            Grid.Column="0"
-                                            Grid.ColumnSpan="3"
-                                            Margin="5"
-                                            Text="{Binding Name}"
-                                            Classes="VCent">
-                                            <TextBlock.IsVisible>
-                                                <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                                    ConverterParameter="False">
-                                                    <Binding Path="Id" />
-                                                    <Binding Path="DataContext.PlayerTeamId"
-                                                        ElementName="GameViewRoot" />
-                                                </MultiBinding>
-                                            </TextBlock.IsVisible>
-                                        </TextBlock>
-                                        <!-- EO Team Name / Players Team -->
-
-                                        <StackPanel Orientation="Horizontal"
-                                            Grid.Row="0"
-                                            Grid.Column="3">
-                                            <common:Flag Iso="{Binding Nationality, Converter={StaticResource NationToIsoConverter}}"
-                                                Margin="0,0,3,0"/>
-                                            <StackPanel Classes="InRowIcoValue">
-                                                <i:Icon Value="fa fa-users" />
-                                                <TextBlock Classes="VCent"
-                                                    Text="{Binding Roster.Count}" />
-                                            </StackPanel>
-                                            <StackPanel Classes="InRowIcoValue">
-                                                <common:Stars Value="{Binding Roster.Avg}"
-                                                    FontSize="10" />
-                                            </StackPanel>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Right"
-                                            Grid.Row="0"
-                                            Grid.Column="5">
-                                            <Button Classes="SmallButton"
-                                                Command="{Binding #GameViewRoot.DataContext.SelectTeam}"
-                                                CommandParameter="{Binding Id}">
-                                                <i:Icon Value="fa fa-user-plus" />
-                                                <Button.IsVisible>
-                                                    <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                                        ConverterParameter="False">
-                                                        <Binding Path="Id" />
-                                                        <Binding Path="DataContext.PlayerTeamId"
-                                                            ElementName="GameViewRoot" />
-                                                    </MultiBinding>
-                                                </Button.IsVisible>
-                                            </Button>
-
-                                            <Button Classes="SmallButton"
-                                                Command="{Binding #GameViewRoot.DataContext.SelectTeam}"
-                                                CommandParameter="{Binding null}">
-                                                <i:Icon Value="fa fa-user-minus" />
-                                                <Button.IsVisible>
-                                                    <MultiBinding Converter="{StaticResource IsPlayersTeam}"
-                                                        ConverterParameter="True">
-                                                        <Binding Path="Id" />
-                                                        <Binding Path="DataContext.PlayerTeamId"
-                                                            ElementName="GameViewRoot" />
-                                                    </MultiBinding>
-                                                </Button.IsVisible>
-                                            </Button>
-
-                                            <Button Classes="SmallButton"
-                                                Command="{Binding #GameViewRoot.DataContext.ViewTeam}"
-                                                CommandParameter="{Binding Id}">
-                                                <i:Icon Value="fa fa-info" />
-                                            </Button>
-                                            <Button Classes="SmallButton"
-                                                Command="{Binding #GameViewRoot.DataContext.RemoveTeam}"
-                                                CommandParameter="{Binding Id}">
-                                                <i:Icon Value="fa fa-trash" />
-                                            </Button>
-                                        </StackPanel>
-                                    </Grid>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </ScrollViewer>
-            </Panel>
-        </Grid>
+            </TabItem>
+        </TabControl>
     </DockPanel>
 </UserControl>

@@ -19,7 +19,6 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
     public IScreen HostScreen { get; }
     public League? League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
 
-
     private ObservableCollection<Round> PlayedRounds { get; } = new();
     public ObservableCollection<Round>? UnPlayedRounds { get; } = null;
 
@@ -75,6 +74,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 
     public LeagueViewModel(IScreen screen)
     {
+        System.Console.WriteLine($"{GameDb.Instance.GamePlayer.PrintName}");
         HostScreen = screen;
         Back = HostScreen.Router.NavigateBack;
         League = League.Make(GameDb.Instance.TeamsMap.Select(kv => kv.Key).ToList());
