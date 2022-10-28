@@ -9,7 +9,7 @@ abstract public class BaseRxViewModel : ReactiveObject, IRoutableViewModel
     virtual public string? UrlPathSegment { get; }
 
     public IScreen HostScreen { get; }
-    public ReactiveCommand<Unit, Unit> Back { get; }
+    public ReactiveCommand<Unit, Unit>? Back { get; set; } = null;
 
 
     public BaseRxViewModel(IScreen screen)

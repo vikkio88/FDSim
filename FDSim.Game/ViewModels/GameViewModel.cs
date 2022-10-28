@@ -29,7 +29,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
             this.RaiseAndSetIfChanged(ref _seedText, $"Seed: {value}");
         }
     }
-
+    public int SelectedTab { get; set; } = 0;
     private string? _playerFullName = "Mario Rossi";
     public string? PlayerFullName
     {
@@ -50,6 +50,21 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         set => this.RaiseAndSetIfChanged(ref _playerTeamId, value);
     }
 
+    public List<string> Nationalities
+    {
+        get
+        {
+            var nations = NationalityHelper.GetNationalities();
+            return nations;
+        }
+    }
+    private string _selectedPlayerNationality = "Italian";
+    public string SelectedPlayerNationality
+    {
+        get => _selectedPlayerNationality;
+        set => this.RaiseAndSetIfChanged(ref _selectedPlayerNationality, value);
+    }
+
     public List<string> Nations
     {
         get
@@ -60,14 +75,14 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         }
     }
 
-    private Nationality? _teamNationality = null;
-    private string _selectedNation = "Any Country";
+    private Nationality? _generatedTeamsCountry = Nationality.Italian;
+    private string _selectedNation = "Italy";
     public string SelectedNation
     {
         get => _selectedNation;
         set
         {
-            _teamNationality = NationalityHelper.FromNationString(value);
+            _generatedTeamsCountry = NationalityHelper.FromNationString(value);
             _selectedNation = value;
         }
     }
@@ -122,19 +137,23 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
         GenerateTeams = ReactiveCommand.CreateFromTask(() =>
         {
             CanClickGenerate = false;
-            Dispatcher.UIThread.InvokeAsync(() =>
+            var task = new Task(() =>
             {
                 var teamsToGenerate = MAX_TEAMS - GeneratedTeams.Count;
                 var list = new List<Team>();
                 foreach (var _ in Enumerable.Range(0, teamsToGenerate))
                 {
-                    list.Add(_gEg.GetTeam(_teamNationality));
+                    list.Add(_gEg.GetTeam(_generatedTeamsCountry));
                 }
                 list.AddRange(GeneratedTeams);
-                GeneratedTeams = list;
-                GameDb.Instance.SetTeams(GeneratedTeams);
-                CanClickGenerate = true;
-            }, DispatcherPriority.Background);
+                GameDb.Instance.SetTeams(list);
+                Dispatcher.UIThread.InvokeAsync(() =>
+                {
+                    GeneratedTeams = list;
+                    CanClickGenerate = true;
+                }, DispatcherPriority.Background);
+            });
+            task.Start();
 
             return Task.CompletedTask;
 
@@ -169,9 +188,9 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
             var thisYear = DateTime.Now.Year;
             GameDb.Instance.HasGameStarted = true;
             GameDb.Instance.StartingYear = thisYear;
-            GameDb.Instance.CurrentYear = thisYear;
+            GameDb.Instance.GameDate = new(thisYear, 7, 1);// starts always in july this year
             GameDb.Instance.GamePlayer = new(PlayerFullName, thisYear - PlayerDOB.Year);
-            return HostScreen.Router.Navigate.Execute(new LeagueViewModel(HostScreen));
+            return HostScreen.Router.Navigate.Execute(new DashboardViewModel(HostScreen));
         }, startMatchesEnabled);
     }
 }

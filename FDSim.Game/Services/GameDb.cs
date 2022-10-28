@@ -14,7 +14,7 @@ public class GameDb : Singleton<GameDb>
 {
     public GamePlayer? GamePlayer { get; set; } = null;
     public int StartingYear { get; set; } = DateTime.Now.Year;
-    public int CurrentYear { get; set; } = DateTime.Now.Year;
+    public DateTime GameDate { get; set; } = DateTime.Now;
     public bool HasGameStarted { get; set; } = false;
     public string? PlayerTeamId { get; set; } = null;
     public Dictionary<string, Team> TeamsMap { get; set; } = new();

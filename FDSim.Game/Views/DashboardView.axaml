@@ -2,28 +2,185 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
   x:Class="FDSim.Game.Views.DashboardView">
   <DockPanel LastChildFill="True">
+    <!-- Header -->
     <Border Height="40"
       BorderBrush="Black"
       BorderThickness="1"
       DockPanel.Dock="Top">
-      <TextBlock HorizontalAlignment="Center"
-        FontSize="30">Dashboard</TextBlock>
+      <Grid ColumnDefinitions="*,3*,*"
+        RowDefinitions="*">
+        <StackPanel Grid.Column="0"
+          Classes="VCent"
+          Margin="5,0,0,0"
+          Orientation="Horizontal">
+          <Button ToolTip.Tip="Close">
+            <i:Icon Value="fa-xmark"/>
+          </Button>
+          <Button ToolTip.Tip="Save">
+            <i:Icon Value="fa-floppy-disk"/>
+          </Button>
+        </StackPanel>
+        <StackPanel Grid.Column="1"
+          Classes="HCent VCent"
+          Orientation="Horizontal"
+          Spacing="5">
+          <i:Icon Value="fa-user-tie"/>
+          <TextBlock Text="{Binding GamePlayer.PrintName}"/>
+        </StackPanel>
+        <TextBlock Grid.Column="2"
+          Classes="HCent VCent"
+          DockPanel.Dock="Right"
+          Text="07 July 2022"/>
+      </Grid>
     </Border>
+
+    <!-- Bottom Bar -->
     <Border Height="25"
-      Background="LemonChiffon"
       BorderBrush="Black"
       BorderThickness="1"
       DockPanel.Dock="Bottom">
       <TextBlock Foreground="Black">Bottom</TextBlock>
     </Border>
-    <StackPanel Margin="10"
-      VerticalAlignment="Center">
-      <TextBlock>Body</TextBlock>
-    </StackPanel>
+
+    <!-- Main Area -->
+    <Grid ColumnDefinitions="1.2*,*"
+      RowDefinitions="*,*">
+
+      <!-- Apps Link -->
+      <Grid Grid.Row="0"
+        Grid.Column="0"
+        ColumnDefinitions="*,*"
+        RowDefinitions="*,*">
+        <!-- League Link -->
+        <StackPanel Grid.Row="0"
+          Grid.Column="0"
+          Classes="VCent HCent">
+          <Button Classes="DashLink"
+            Command="{Binding ViewLeague}">
+            <i:Icon Value="fa-futbol"/>
+          </Button>
+          <TextBlock Classes="HCent"
+            Text="League" />
+        </StackPanel>
+        <StackPanel Grid.Row="0"
+          Grid.Column="1"
+          Classes="VCent HCent">
+          <Button Classes="DashLink">
+            <i:Icon Value="fa-calendar-days"/>
+          </Button>
+          <TextBlock Classes="HCent"
+            Text="Calendar" />
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+          Grid.Column="0"
+          Classes="VCent HCent">
+          <Button Classes="DashLink">
+            <i:Icon Value="fa-user-tie"/>
+          </Button>
+          <TextBlock Classes="HCent"
+            Text="Profile" />
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+          Grid.Column="1"
+          Classes="VCent HCent">
+          <Button Classes="DashLink">
+            <i:Icon Value="fa-shirt"/>
+          </Button>
+          <TextBlock Classes="HCent"
+            Text="Team" />
+        </StackPanel>
+      </Grid>
+      <!-- EO Apps Link -->
+
+      <!-- Rapid Club Info -->
+      <Border Grid.Row="1"
+        Grid.Column="0"
+        BorderBrush="Black"
+        BorderThickness="1"
+        Padding="5"
+        Margin="25">
+        <Grid ColumnDefinitions="*"
+          RowDefinitions="*,1.2*">
+          <Grid Grid.Row="0"
+            Grid.Column="0"
+            ColumnDefinitions="*,*"
+            RowDefinitions="*,*">
+            <TextBlock Grid.Row="0"
+              Grid.Column="0"
+              Text="Team" />
+          </Grid>
+          <Grid Grid.Row="1"
+            Grid.Column="0"
+            ColumnDefinitions="*"
+            RowDefinitions="*">
+            <TextBlock Grid.Row="0"
+              Grid.Column="0"
+              Text="Objectives" />
+          </Grid>
+
+        </Grid>
+      </Border>
+      <!-- EO Rapid Club Info -->
+
+      <!-- Mail/News Tabs -->
+      <TabControl Grid.Row="0"
+        Grid.Column="1"
+        Grid.RowSpan="2">
+        <TabItem>
+          <TabItem.Header>
+            <StackPanel Classes="VCent HCent">
+              <i:Icon Value="fa-envelope"/>
+              <TextBlock Classes="TinyHead"
+                Text="Mail" />
+            </StackPanel>
+          </TabItem.Header>
+          <!-- Mails -->
+          <DataGrid Margin="0,5,0,0"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="#"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="Date"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="Subject"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="From"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="Read"
+                IsReadOnly="True" />
+            </DataGrid.Columns>
+          </DataGrid>
+        </TabItem>
+        <TabItem>
+          <TabItem.Header>
+            <StackPanel Classes="VCent HCent">
+              <i:Icon Value="fa-newspaper"/>
+              <TextBlock Classes="TinyHead"
+                Text="News" />
+            </StackPanel>
+          </TabItem.Header>
+          <!-- News -->
+          <DataGrid Margin="0,5,0,0"
+            AutoGenerateColumns="False">
+            <DataGrid.Columns>
+              <DataGridTextColumn Header="#"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="Date"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="Title"
+                IsReadOnly="True" />
+              <DataGridTextColumn Header="Read"
+                IsReadOnly="True" />
+            </DataGrid.Columns>
+          </DataGrid>
+        </TabItem>
+      </TabControl>
+    </Grid>
   </DockPanel>
 </UserControl>

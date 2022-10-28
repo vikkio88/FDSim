@@ -52,7 +52,36 @@ public static class NationalityHelper
             _ => null,
         };
     }
+    public static Nationality? FromNationalityString(string nation)
+    {
+        return nation switch
+        {
+            "Italian" => Nationality.Italian,
+            "English" => Nationality.English,
+            "German" => Nationality.German,
+            "Spanish" => Nationality.Spanish,
+            "French" => Nationality.French,
+            "Dutch" => Nationality.Dutch,
+            "Polish" => Nationality.Polish,
+            "Turkish" => Nationality.Turkish,
+            _ => null,
+        };
+    }
 
+    public static List<string> GetNationalities()
+    {
+        return new()
+        {
+            "Italian",
+            "English",
+            "German",
+            "Spanish",
+            "French",
+            "Dutch",
+            "Polish",
+            "Turkish",
+        };
+    }
     public static List<string> GetNations()
     {
         return new()
@@ -67,6 +96,7 @@ public static class NationalityHelper
             "Turkey",
         };
     }
+
     public static String GetIsoCode(string nationality)
     {
         Enum.TryParse(nationality, out Nationality nationalityEnum);

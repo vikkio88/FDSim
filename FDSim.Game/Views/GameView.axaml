@@ -21,7 +21,7 @@
             DockPanel.Dock="Top">
             <TextBlock HorizontalAlignment="Center"
                 FontSize="30">
-                Matches
+                New Game Setup
             </TextBlock>
         </Border>
         <Border DockPanel.Dock="Bottom"
@@ -33,27 +33,45 @@
                 Command="{Binding StartLeague}">Start League</Button>
         </Border>
 
-        <TabControl>
+        <TabControl SelectedIndex="{Binding SelectedTab}">
             <TabItem Header="Manager Info">
 
                 <StackPanel>
-                    <TextBlock Text="Player Info"
+                    <i:Icon Value="fa fa-user-tie"
+                        FontSize="80"
                         HorizontalAlignment="Center"
-                        Margin="0,5,0,5"
-                        Classes="SectionHead" />
+                        Margin="0,20,0,30"/>
                     <StackPanel Width="800"
                         Margin="0,0,0,5">
-                        <StackPanel HorizontalAlignment="Center"
-                            Classes="ValueLabel">
-                            <TextBlock Text="Name" />
+                        <StackPanel Classes="ValueLabel HCent">
+                            <TextBlock Width="100"
+                                Text="Name"
+                                Classes="VCent"/>
                             <TextBox Text="{Binding PlayerFullName}"
                                 Width="200"/>
                         </StackPanel>
-                        <StackPanel Classes="ValueLabel"
-                            HorizontalAlignment="Center">
-                            <TextBlock Text="Birth date" />
+                        <StackPanel Classes="ValueLabel HCent">
+                            <TextBlock Width="100"
+                                Text="Nationality"
+                                Classes="VCent" />
+                            <ComboBox Items="{Binding Nationalities}"
+                                Width="200"
+                                SelectedItem="{Binding SelectedPlayerNationality}">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Classes="ValueLabel">
+                                            <TextBlock Text="{Binding}" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                        <StackPanel Classes="ValueLabel HCent">
+                            <TextBlock Text="Birth date"
+                                Width="100"
+                                Classes="VCent"/>
                             <CalendarDatePicker SelectedDate="{Binding PlayerDOB}"
-                                Width="220"
+                                Width="200"
                                 CustomDateFormatString="dd-MM-YYYY"/>
                         </StackPanel>
                     </StackPanel>
@@ -71,7 +89,7 @@
                         Generate Teams
                         </Button>
                         <ComboBox FontSize="16"
-                            MinWidth="120"
+                            MinWidth="150"
                             Height="30"
                             Items="{Binding Nations}"
                             SelectedItem="{Binding SelectedNation}">
@@ -108,12 +126,16 @@
                         <TextBlock HorizontalAlignment="Center"
                             Classes="H4 MTop20"
                             IsVisible="{Binding !CanClickGenerate}">Generating teams...</TextBlock>
+                        <i:Icon FontSize="30"
+                            IsVisible="{Binding !CanClickGenerate}"
+                            Value="fa-spinner"
+                            Animation="Spin"/>
                     </StackPanel>
 
                     <!-- For some reason this does not work -->
-                    <!-- <i:Icon FontSize="20" IsVisible="{Binding !CanClickGenerate}" Value="fa-spinner" Animation="Pulse"/> -->
+
                     <Panel Margin="0,0,0,0"
-                        Height="450">
+                        Height="600">
                         <ScrollViewer VerticalScrollBarVisibility="Auto"
                             IsVisible="{Binding !!GeneratedTeams.Count}">
                             <ItemsControl x:Name="GameViewRoot"
