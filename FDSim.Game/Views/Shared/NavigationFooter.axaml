@@ -24,8 +24,11 @@
 
             <StackPanel Grid.Column="1"
                 Orientation="Horizontal"
-                Classes="VCent HCent">
-                <TextBlock Text="Some Text" />
+                Classes="VCent HCent"
+                IsVisible="{Binding GoToDashboard, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <Button Command="{Binding GoToDashboard}">
+                    <i:Icon Value="fa fa-home" />
+                </Button>
             </StackPanel>
 
             <StackPanel Grid.Column="2"
