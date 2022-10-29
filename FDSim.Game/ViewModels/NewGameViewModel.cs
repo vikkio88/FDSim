@@ -169,6 +169,7 @@ public class NewGameViewModel : ReactiveObject, IRoutableViewModel
         RemoveAllTeams = ReactiveCommand.Create(() =>
         {
             GeneratedTeams = new();
+            GameDb.Instance.TeamsMap.Clear();
         }, canDelete);
 
         RemoveTeam = ReactiveCommand.Create((string teamId) =>
