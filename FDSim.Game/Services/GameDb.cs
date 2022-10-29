@@ -44,9 +44,15 @@ public class GameDb : Singleton<GameDb>
         return MatchesMap[matchId];
     }
 
-    public void SetTeams(List<Team> teams)
+    public void ClearMappings()
     {
         TeamsMap.Clear();
+        TeamStatsMap.Clear();
+    }
+
+    public void SetTeams(List<Team> teams)
+    {
+        ClearMappings();
         foreach (var team in teams)
         {
             TeamsMap.Add(team.Id, team);
