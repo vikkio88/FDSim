@@ -14,9 +14,9 @@ using Avalonia.Threading;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 
-public class LeagueViewModel : ReactiveObject, IRoutableViewModel
+public class LeagueViewModel : BaseRxViewModel
 {
-    public IScreen HostScreen { get; }
+    public override string UrlPathSegment { get; } = "leagueView";
     public League? League { get => GameDb.Instance.League; set => GameDb.Instance.League = value; }
 
     private ObservableCollection<Round> PlayedRounds { get; } = new();
@@ -61,7 +61,7 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
         }
     }
     public Dictionary<string, Team> TeamNameMap { get; }
-    public ReactiveCommand<Unit, Unit> Back { get; }
+
 
     public bool _canSimulate = true;
     public bool CanSimulate { get => _canSimulate; set => this.RaiseAndSetIfChanged(ref _canSimulate, value); }
@@ -70,12 +70,9 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
     public ReactiveCommand<string, IRoutableViewModel> ViewMatchResult { get; init; }
     public ReactiveCommand<string, IRoutableViewModel> ViewTeam { get; init; }
     public ReactiveCommand<string, IRoutableViewModel> ViewPlayer { get; init; }
-    public string UrlPathSegment { get; } = "leagueView";
 
-    public LeagueViewModel(IScreen screen)
+    public LeagueViewModel(IScreen screen) : base(screen)
     {
-        HostScreen = screen;
-        Back = HostScreen.Router.NavigateBack;
         League = League.Make(GameDb.Instance.TeamsMap.Select(kv => kv.Key).ToList());
         UnPlayedRounds = new(League.Rounds);
         // here need to save league

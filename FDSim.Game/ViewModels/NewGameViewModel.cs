@@ -190,7 +190,8 @@ public class NewGameViewModel : ReactiveObject, IRoutableViewModel
             GameDb.Instance.StartingYear = thisYear;
             GameDb.Instance.GameDate = new(thisYear, 7, 1);// starts always in july this year
             GameDb.Instance.GamePlayer = new(PlayerFullName, thisYear - PlayerDOB.Year);
-            return HostScreen.Router.Navigate.Execute(new DashboardViewModel(HostScreen));
+            var dashboard = ViewsStore.Instance.Get(NavigableRoute.Dashboard, () => new DashboardViewModel(HostScreen));
+            return HostScreen.Router.Navigate.Execute(dashboard);
         }, startMatchesEnabled);
     }
 }
