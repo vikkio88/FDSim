@@ -18,6 +18,16 @@ public class DashboardViewModel : BaseRxViewModel
     {
         Back = null;
         GamePlayer = GameDb.Instance.GamePlayer;
-        ViewLeague = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new LeagueViewModel(screen)));
+        ViewLeague = ReactiveCommand.CreateFromObservable(() =>
+        {
+            var leagueView = ViewStore.Instance.Get(NavigableRoute.League);
+            if (leagueView is null)
+            {
+                leagueView = new LeagueViewModel(screen);
+                ViewStore.Instance.Store(NavigableRoute.League, leagueView);
+            }
+            
+            return HostScreen.Router.Navigate.Execute(leagueView);
+        });
     }
 }

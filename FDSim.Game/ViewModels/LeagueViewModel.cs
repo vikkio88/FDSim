@@ -74,7 +74,6 @@ public class LeagueViewModel : ReactiveObject, IRoutableViewModel
 
     public LeagueViewModel(IScreen screen)
     {
-        System.Console.WriteLine($"{GameDb.Instance.GamePlayer.PrintName}");
         HostScreen = screen;
         Back = HostScreen.Router.NavigateBack;
         League = League.Make(GameDb.Instance.TeamsMap.Select(kv => kv.Key).ToList());
