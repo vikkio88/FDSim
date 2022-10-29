@@ -18,7 +18,7 @@ public class MainMenuViewModel : ReactiveObject, IRoutableViewModel
     public MainMenuViewModel(IScreen screen)
     {
         HostScreen = screen;
-        NewGame = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new GameViewModel(this.HostScreen)));
+        NewGame = ReactiveCommand.CreateFromObservable(() => HostScreen.Router.Navigate.Execute(new NewGameViewModel(this.HostScreen)));
         Exit = ReactiveCommand.Create(() =>
         {
             if (App.Current?.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     d:DesignWidth="800"
     d:DesignHeight="450"
-    x:Class="FDSim.Game.Views.GameView">
+    x:Class="FDSim.Game.Views.NewGameView">
     <UserControl.Resources>
         <converters:NationalityToIsoConverter x:Key="NationToIsoConverter"/>
         <converters:IsPlayersTeam x:Key="IsPlayersTeam"/>
@@ -21,7 +21,7 @@
             DockPanel.Dock="Top">
             <TextBlock HorizontalAlignment="Center"
                 FontSize="30">
-                New Game Setup
+                New Game
             </TextBlock>
         </Border>
         <Border DockPanel.Dock="Bottom"

@@ -23,7 +23,7 @@ class Program
     public static AppBuilder BuildAvaloniaApp()
     {
         Splat.Locator.CurrentMutable.Register(() => new MainMenuView(), typeof(ReactiveUI.IViewFor<MainMenuViewModel>));
-        Splat.Locator.CurrentMutable.Register(() => new GameView(), typeof(ReactiveUI.IViewFor<GameViewModel>));
+        Splat.Locator.CurrentMutable.Register(() => new NewGameView(), typeof(ReactiveUI.IViewFor<NewGameViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new TeamView(), typeof(ReactiveUI.IViewFor<TeamViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new LeagueView(), typeof(ReactiveUI.IViewFor<LeagueViewModel>));
         Splat.Locator.CurrentMutable.Register(() => new MatchDetailsView(), typeof(ReactiveUI.IViewFor<MatchDetailsViewModel>));

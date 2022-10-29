@@ -14,7 +14,7 @@ using System.Reactive.Linq;
 using System.Threading.Tasks;
 using Avalonia.Threading;
 
-public class GameViewModel : ReactiveObject, IRoutableViewModel
+public class NewGameViewModel : ReactiveObject, IRoutableViewModel
 {
     public IScreen HostScreen { get; }
 
@@ -106,7 +106,7 @@ public class GameViewModel : ReactiveObject, IRoutableViewModel
     public bool _canClickGenerate = true;
     public bool CanClickGenerate { get => _canClickGenerate; set => this.RaiseAndSetIfChanged(ref _canClickGenerate, value); }
 
-    public GameViewModel(IScreen screen)
+    public NewGameViewModel(IScreen screen)
     {
         HostScreen = screen;
 

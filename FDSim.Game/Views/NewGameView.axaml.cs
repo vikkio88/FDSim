@@ -10,9 +10,9 @@ using ReactiveUI;
 using Game.ViewModels;
 
 
-public partial class GameView : ReactiveUserControl<GameViewModel>
+public partial class NewGameView : ReactiveUserControl<NewGameViewModel>
 {
-    public GameView()
+    public NewGameView()
     {
         this.WhenActivated(disposables => {});
         AvaloniaXamlLoader.Load(this);
