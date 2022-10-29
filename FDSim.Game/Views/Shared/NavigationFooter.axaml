@@ -1,20 +1,39 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
-             mc:Ignorable="d"
-             d:DesignWidth="800"
-             d:DesignHeight="450"
-             x:Class="FDSim.Game.Views.Shared.NavigationFooter">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
+    mc:Ignorable="d"
+    d:DesignWidth="800"
+    d:DesignHeight="450"
+    x:Class="FDSim.Game.Views.Shared.NavigationFooter">
     <Border Height="50"
-            BorderBrush="Black"
-            BorderThickness="1">
-        <StackPanel Orientation="Horizontal">
-            <Button Command="{Binding Back}"
-                    IsVisible="{Binding Back, Converter={x:Static ObjectConverters.IsNotNull}}">
-                <i:Icon Value="fa fa-backward-step" />
-            </Button>
-        </StackPanel>
+        BorderBrush="Black"
+        BorderThickness="1">
+        <Grid ColumnDefinitions="*,3*,*"
+            RowDefinitions="*">
+            <StackPanel Grid.Column="0"
+                Orientation="Horizontal"
+                Classes="VCent"
+                IsVisible="{Binding Back, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <Button Command="{Binding Back}">
+                    <i:Icon Value="fa fa-backward-step" />
+                </Button>
+            </StackPanel>
+
+
+            <StackPanel Grid.Column="1"
+                Orientation="Horizontal"
+                Classes="VCent HCent">
+                <TextBlock Text="Some Text" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="2"
+                Classes="VCent"
+                Orientation="Horizontal">
+                <TextBlock Text="Some Text" />
+            </StackPanel>
+
+        </Grid>
     </Border>
 </UserControl>
