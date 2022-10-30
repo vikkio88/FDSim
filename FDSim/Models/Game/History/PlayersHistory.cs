@@ -40,9 +40,9 @@ public class PlayersHistory
 
 public class PlayerSeason
 {
-    public PlayerPlaceholder Player { get; set; }
-    public TeamPlaceholder Team { get; set; }
-    public string Season { get; set; } // this will look like 2022/2023
+    public PlayerPlaceholder? Player { get; set; }
+    public TeamPlaceholder? Team { get; set; }
+    public string? Season { get; set; } // this will look like 2022/2023
     public int ScorersPosition { get; set; }
     public int Played { get; set; }
     public int Goals { get; set; }

@@ -1,5 +1,6 @@
 namespace FDSim.Models.Enums;
-public enum Formation {
+public enum Formation
+{
     _442,
     _433,
     _343,

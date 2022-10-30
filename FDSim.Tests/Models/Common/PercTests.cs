@@ -5,7 +5,7 @@ public class PercTest
 {
     class Box
     {
-        public Perc Val { get; init; }
+        public Perc? Val { get; init; }
     }
     [Fact]
     public void PercCompareWhilstBoxedTest()

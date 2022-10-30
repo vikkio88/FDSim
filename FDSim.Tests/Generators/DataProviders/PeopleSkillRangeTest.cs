@@ -4,7 +4,7 @@ using FDSim.Generators;
 using FDSim.Generators.DataProviders;
 public class PeopleSkillRangeTest
 {
-    [Fact(Skip="Just to see what the distrivution looks like")]
+    [Fact(Skip = "Just to see what the distrivution looks like")]
     public void PeopleSkillRangeTestDistribution()
     {
         var dicer = new Dicer(0);

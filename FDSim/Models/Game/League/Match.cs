@@ -5,8 +5,8 @@ using FDSim.Models.Enums;
 using FDSim.Models.Game.Team;
 public class Match : IdEntity
 {
-    public Team Home { get; init; }
-    public Team Away { get; init; }
+    public Team? Home { get; init; }
+    public Team? Away { get; init; }
 
     private String _winnerId = String.Empty;
     public String WinnerId { get => _winnerId; }

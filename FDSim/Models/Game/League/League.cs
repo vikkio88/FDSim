@@ -4,8 +4,8 @@ public class League : IdEntity
 {
     public string Name { get; set; } = string.Empty;
     public List<Round> Rounds { get; set; } = new();
-    public Table Table { get; set; }
-    public PlayerStats Stats { get; set; }
+    public Table? Table { get; set; }
+    public PlayerStats? Stats { get; set; }
 
     private int _roundPointer = 0;
 

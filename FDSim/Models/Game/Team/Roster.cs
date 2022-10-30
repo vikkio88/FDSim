@@ -36,11 +36,12 @@ public class Roster : IdEntity
 
     private void IndexPlayers()
     {
-        _playersPerRole = new(){
-            {Role.Goalkeeper, new()},
-            {Role.Defender, new()},
-            {Role.Midfielder, new()},
-            {Role.Striker, new()},
+        _playersPerRole = new()
+        {
+            { Role.Goalkeeper, new() },
+            { Role.Defender, new() },
+            { Role.Midfielder, new() },
+            { Role.Striker, new() },
         };
 
         _playersById = new();

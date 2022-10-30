@@ -1,6 +1,7 @@
 namespace FDSim.Models.Enums;
 
-public enum Role {
+public enum Role
+{
     Goalkeeper,
     Defender,
     Midfielder,

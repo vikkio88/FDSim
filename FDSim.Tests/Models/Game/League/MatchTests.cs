@@ -19,8 +19,8 @@ public class MatchTests
         Assert.True(m.isFinished);
         Assert.NotNull(m.Result);
     }
-    
-    [Fact(Skip="Testing result and scorers")]
+
+    [Fact(Skip = "Testing result and scorers")]
     public void MatchSimulationDebugScorersTests()
     {
         var dicer = new Dicer(0);

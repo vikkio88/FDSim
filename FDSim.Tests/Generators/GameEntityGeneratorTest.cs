@@ -18,7 +18,7 @@ public class GameEntityGeneratorTest
             var t = gEG.GetTeam();
             Console.WriteLine(t);
             Console.WriteLine(t.Roster?.Average());
-            
+
         }
     }
 

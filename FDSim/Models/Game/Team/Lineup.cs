@@ -10,14 +10,14 @@ using DRd = Dictionary<Enums.Role, double>;
 public class Lineup : IdEntity
 {
     const int NUMBER_OF_SUBS = 2;
-    public string TeamId { get; init; }
+    public string? TeamId { get; init; }
     public Formation Module { get; init; }
-    public List<Player> Starters { get; init; }
-    public List<Player> Bench { get; init; }
-    public DRi RolesAssigned { get; init; }
-    public DRi RolesNeeded { get; init; }
-    public DRi RolesMissing { get; init; }
-    public DRd AvgSkillPerRole { get; init; }
+    public List<Player>? Starters { get; init; }
+    public List<Player>? Bench { get; init; }
+    public DRi? RolesAssigned { get; init; }
+    public DRi? RolesNeeded { get; init; }
+    public DRi? RolesMissing { get; init; }
+    public DRd? AvgSkillPerRole { get; init; }
     public double AvgMorale { get; init; } = 0;
     public double AvgCondition { get; init; } = 0;
 

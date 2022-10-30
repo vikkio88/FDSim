@@ -42,8 +42,8 @@ public class LeagueHistory
 
 public class TeamSeason
 {
-    public TeamPlaceholder Team { get; set; }
-    public string Season { get; set; } // this will look like 2022/2023
+    public TeamPlaceholder? Team { get; set; }
+    public string? Season { get; set; } // this will look like 2022/2023
     public int Played { get; set; }
     public int FinalPosition { get; set; }
     public int Points { get; set; }
