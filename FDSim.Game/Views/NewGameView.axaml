@@ -20,9 +20,7 @@
             BorderThickness="1"
             DockPanel.Dock="Top">
             <TextBlock HorizontalAlignment="Center"
-                FontSize="30">
-                New Game
-            </TextBlock>
+                FontSize="30" Text="New Game" />
         </Border>
         <Border DockPanel.Dock="Bottom"
             BorderBrush="Black"
@@ -121,11 +119,11 @@
 
                     <StackPanel IsVisible="{Binding !!!GeneratedTeams.Count}">
                         <TextBlock HorizontalAlignment="Center"
-                            Classes="H2 MTop10">No Teams</TextBlock>
+                            Classes="H2 MTop10" Text="No Teams" />
 
                         <TextBlock HorizontalAlignment="Center"
                             Classes="H4 MTop20"
-                            IsVisible="{Binding !CanClickGenerate}">Generating teams...</TextBlock>
+                            IsVisible="{Binding !CanClickGenerate}" Text="Generating teams..."/>
                         <i:Icon FontSize="30"
                             IsVisible="{Binding !CanClickGenerate}"
                             Value="fa-spinner"

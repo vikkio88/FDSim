@@ -12,14 +12,14 @@
       BorderThickness="1"
       DockPanel.Dock="Top">
       <TextBlock HorizontalAlignment="Center"
-        FontSize="30">Main Menu</TextBlock>
+        FontSize="30" Text="Main Menu" />
     </Border>
     <Border Height="25"
       Background="LemonChiffon"
       BorderBrush="Black"
       BorderThickness="1"
       DockPanel.Dock="Bottom">
-      <TextBlock Foreground="Black">Dock = &quot;Bottom&quot;</TextBlock>
+      <TextBlock Foreground="Black" Text="Bottom Text" />
     </Border>
     <StackPanel Margin="10"
       VerticalAlignment="Center">

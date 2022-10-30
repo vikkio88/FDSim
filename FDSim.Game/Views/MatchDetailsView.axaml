@@ -22,7 +22,7 @@
             BorderThickness="1"
             DockPanel.Dock="Top">
             <TextBlock HorizontalAlignment="Center"
-                FontSize="30">Match Result</TextBlock>
+                FontSize="30" Text="Match Result"/>
         </Border>
         <Grid Margin="0,15,0,0"
             ColumnDefinitions="*,*,*,*,*,*"

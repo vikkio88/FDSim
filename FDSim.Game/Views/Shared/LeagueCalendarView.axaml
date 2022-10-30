@@ -23,7 +23,7 @@
     <TabItem>
       <TabItem.Header>
         <TextBlock FontSize="16"
-          VerticalAlignment="Center">Upcoming Rounds</TextBlock>
+          VerticalAlignment="Center" Text="Upcoming Rounds" />
       </TabItem.Header>
       <ScrollViewer Grid.Row="1"
         Grid.Column="0"
@@ -196,7 +196,7 @@
     <TabItem>
       <TabItem.Header>
         <TextBlock FontSize="16"
-          VerticalAlignment="Center">Played Rounds</TextBlock>
+          VerticalAlignment="Center" Text="Played Rounds"/>
       </TabItem.Header>
       <Panel>
         <TextBlock Text="No Rounds Played Yet"

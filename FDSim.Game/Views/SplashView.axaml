@@ -9,7 +9,7 @@
   <StackPanel HorizontalAlignment="Center"
     VerticalAlignment="Center">
     <TextBlock HorizontalAlignment="Center"
-      VerticalAlignment="Center">Splash Screen</TextBlock>
+      VerticalAlignment="Center" Text="Splash Screen"/>
     <ProgressBar HorizontalAlignment="Center"
       VerticalAlignment="Center"
       Value="50"

@@ -27,14 +27,14 @@
       BorderThickness="1"
       DockPanel.Dock="Top">
       <TextBlock HorizontalAlignment="Center"
-        FontSize="30">League</TextBlock>
+        FontSize="30" Text="League" />
     </Border>
     <Border Margin="0,4,0,0">
       <TabControl SelectedIndex="{Binding SelectedTab}">
         <!-- TAB for League Table -->
         <TabItem>
           <TabItem.Header>
-            <TextBlock VerticalAlignment="Center">Table</TextBlock>
+            <TextBlock VerticalAlignment="Center" Text="Table" />
           </TabItem.Header>
           <StackPanel x:Name="LeagueViewRoot">
             <DataGrid Items="{Binding LeagueTable}"
@@ -112,7 +112,7 @@
         <!-- TAB for Scorers -->
         <TabItem>
           <TabItem.Header>
-            <TextBlock VerticalAlignment="Center">Scorers</TextBlock>
+            <TextBlock VerticalAlignment="Center" Text="Scorers" />
           </TabItem.Header>
           <Panel>
             <TextBlock Text="No Scorers Yet"
@@ -205,7 +205,7 @@
         <!-- TAB for Calendar -->
         <TabItem>
           <TabItem.Header>
-            <TextBlock VerticalAlignment="Center">Calendar</TextBlock>
+            <TextBlock VerticalAlignment="Center" Text="Calendar" />
           </TabItem.Header>
           <DockPanel LastChildFill="True">
             <StackPanel HorizontalAlignment="Right"
