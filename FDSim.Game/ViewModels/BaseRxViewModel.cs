@@ -10,7 +10,9 @@ abstract public class BaseRxViewModel : ReactiveObject, IRoutableViewModel
     virtual public string? UrlPathSegment { get; }
 
     public IScreen HostScreen { get; }
-    public ReactiveCommand<Unit, IRoutableViewModel?>? Back { get; set; } = null;
+    // this is for ReactiveUi Route on avalonia 11
+    // public ReactiveCommand<Unit, IRoutableViewModel?>? Back { get; set; } = null;
+    public ReactiveCommand<Unit, Unit>? Back { get; set; } = null;
     public ReactiveCommand<Unit, IRoutableViewModel>? GoToDashboard { get; set; } = null;
 
 
