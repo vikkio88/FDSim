@@ -14,7 +14,7 @@ public partial class MainMenuView : ReactiveUserControl<MainMenuViewModel>
 {
     public MainMenuView()
     {
-        this.WhenActivated(disposables => {});
+        this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
     }
 }

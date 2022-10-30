@@ -10,7 +10,7 @@ public partial class PlayerDetailsView : ReactiveUserControl<PlayerDetailsViewMo
 {
     public PlayerDetailsView()
     {
-        this.WhenActivated(disposables => {});
+        this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
     }
 }

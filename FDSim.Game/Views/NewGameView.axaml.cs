@@ -14,7 +14,7 @@ public partial class NewGameView : ReactiveUserControl<NewGameViewModel>
 {
     public NewGameView()
     {
-        this.WhenActivated(disposables => {});
+        this.WhenActivated(disposables => { });
         AvaloniaXamlLoader.Load(this);
     }
 }

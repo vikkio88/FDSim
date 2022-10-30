@@ -18,7 +18,7 @@ public class Lineup : TemplatedControl
             AvaloniaProperty.RegisterDirect<Lineup, FLineup>(nameof(Value),
                 l => l.Value, (l, command) => l.Value = command);
 
-    private FLineup _value;
+    private FLineup? _value;
     public FLineup Value
     {
         get => _value;
@@ -41,7 +41,7 @@ public class Lineup : TemplatedControl
         set => SetAndRaise(OnPlayerClickProperty, ref _onPlayerClick, value);
     }
 
-    public ReactiveUI.ReactiveCommand<string, Unit> OnPlayerClickInternal { get; set; }
+    public ReactiveUI.ReactiveCommand<string, Unit>? OnPlayerClickInternal { get; set; }
 
     static Lineup()
     {
