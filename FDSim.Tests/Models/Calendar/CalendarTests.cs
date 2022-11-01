@@ -79,4 +79,20 @@ public class CalendarTests
         Assert.Equal(6, cal.WeeksMap[52].Item2.Month); //finishes in july
         Assert.Equal(2024, cal.WeeksMap[52].Item2.Year); //finishes in 2023
     }
+
+    [Fact]
+    public void CalendarWeekWhereItStartsSeasonIsAlwaysInAugust()
+    {
+        List<Calendar> cals = new();
+        foreach (var i in Enumerable.Range(0, 100))
+        {
+            cals.Add(new Calendar(new(2022 + i, 7, 1)));
+        }
+
+        foreach (var cal in cals)
+        {
+            Assert.True(8 == cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item1.Month, $"Start of {Calendar.LEAGUE_STARTING_WEEK}th week on year {cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item1.Year} - {cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item1}");
+            Assert.True(8 <= cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item2.Month, $"End of {Calendar.LEAGUE_STARTING_WEEK}th week on year {cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item2.Year} - {cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item2}");
+        }
+    }
 }

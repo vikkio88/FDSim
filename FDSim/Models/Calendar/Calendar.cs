@@ -1,6 +1,8 @@
 namespace FDSim.Models.Calendar;
 public class Calendar
 {
+    // League starts the last week of August
+    public static int LEAGUE_STARTING_WEEK = 8;
     private DateTime _date;
     public DateTime Date { get => _date; }
 
