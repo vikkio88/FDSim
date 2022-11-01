@@ -5,7 +5,7 @@ public class EventDispatcherTests
     [Fact]
     public void EventDispatcherDoesItsThingTest()
     {
-        var a = new EventDispatcher();
+        // var a = new EventDispatcher();
         Assert.Equal(true, true);
     }
 }

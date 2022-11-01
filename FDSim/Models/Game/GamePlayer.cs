@@ -1,8 +1,7 @@
-using System;
 using FDSim.Models.Common;
 using FDSim.Models.Enums;
 
-namespace FDSim.Game.Models.Game;
+namespace FDSim.Models.Game;
 public class GamePlayer
 {
     public string Name { get; init; }

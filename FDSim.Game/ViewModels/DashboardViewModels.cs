@@ -1,7 +1,7 @@
 namespace FDSim.Game.ViewModels;
 
-using FDSim.Game.Models.Game;
 using FDSim.Game.Services;
+using FDSim.Models.Game;
 using ReactiveUI;
 using System.Reactive;
 

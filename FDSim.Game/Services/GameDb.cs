@@ -1,5 +1,3 @@
-using FDSim.Game.Models.Game;
-
 namespace FDSim.Game.Services;
 
 using System.Collections.Generic;
@@ -7,8 +5,9 @@ using Game.Abstracts;
 using FDSim.Models.People;
 using FDSim.Models.Game.Team;
 using FDSim.Models.Game.League;
-using System;
 using Game.Models;
+using System;
+using FDSim.Models.Game;
 
 public class GameDb : Singleton<GameDb>
 {

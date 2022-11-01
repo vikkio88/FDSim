@@ -8,6 +8,7 @@ public class League : IdEntity
     public PlayerStats? Stats { get; set; }
 
     private int _roundPointer = 0;
+    public int RoundPointer => _roundPointer;
 
     public static League Make(List<string> teamIds, string? name = null)
     {
