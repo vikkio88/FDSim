@@ -3,7 +3,7 @@ namespace FDSim.Generators;
 using System;
 using Bogus;
 
-public class Dicer
+public class Dicer : IDicer
 {
     private int _seed;
     public int Seed { get => _seed; }
@@ -40,5 +40,10 @@ public class Dicer
     public int Int(int min = int.MinValue, int max = int.MaxValue)
     {
         return _faker.Random.Int(min, max);
+    }
+
+    public T PickOne<T>(IList<T> list)
+    {
+        return _faker.PickRandom(list);
     }
 }
