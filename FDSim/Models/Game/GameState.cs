@@ -8,7 +8,7 @@ public class GameState
     public PlayerStats PlayersStats { get; init; }
     public int RoundPointer { get; init; }
     public List<Round> Rounds { get; init; }
-    public Dictionary<string, Team.Team> TeamsMap { get; set; }
+    public Dictionary<string, Team.Team> TeamsMap { get; init; }
 
     public static GameState Make(
      GamePlayer gamePlayer,
