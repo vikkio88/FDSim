@@ -4,16 +4,17 @@ using FDSim.Models.Game;
 namespace FDSim.Models.Calendar;
 public class EventDispatcher
 {
-    private Dicer _dicer;
-    public EventDispatcher(Dicer dicer)
+    private IDicer _dicer;
+    public EventDispatcher(IDicer dicer)
     {
         _dicer = dicer;
     }
 
 
-    public List<Event> GetEvents(DateTime date, GameState gameState)
+    public List<Event> GetEvents(Calendar calendar, GameState gameState)
     {
         var events = new List<Event>();
+
         return events;
     }
 
