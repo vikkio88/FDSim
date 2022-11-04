@@ -1,12 +1,30 @@
+using System.Globalization;
+
 namespace FDSim.Models.Calendar;
 public class Calendar
 {
     // League starts the last week of August
     public static int LEAGUE_STARTING_WEEK = 8;
+    private int _weekPointer = 0;
+    public int WeekPointer => _weekPointer;
+    private GregorianCalendar _cal = new();
     private DateTime _date;
     public DateTime Date { get => _date; }
 
     public Dictionary<int, (DateTime, DateTime)> WeeksMap { get; } = new();
+
+    public int? GetLeagueWeekIndex
+    {
+        get
+        {
+            if (_weekPointer < LEAGUE_STARTING_WEEK)
+            {
+                return null;
+            }
+
+            return _weekPointer - LEAGUE_STARTING_WEEK;
+        }
+    }
 
     public Calendar(DateTime startingDate)
     {
@@ -50,8 +68,17 @@ public class Calendar
 
     public DateTime Advance(TimeSpan time)
     {
+
+        var initialDate = _date;
         _date = _date.Add(time);
+
+        var initialWeek = _cal.GetWeekOfYear(initialDate, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+        var finalWeek = _cal.GetWeekOfYear(_date, CalendarWeekRule.FirstDay, DayOfWeek.Monday);
+        _weekPointer += finalWeek - initialWeek;
+
         return _date;
     }
+
+
 
 }

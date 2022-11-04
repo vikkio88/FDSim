@@ -95,4 +95,37 @@ public class CalendarTests
             Assert.True(8 <= cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item2.Month, $"End of {Calendar.LEAGUE_STARTING_WEEK}th week on year {cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item2.Year} - {cal.WeeksMap[Calendar.LEAGUE_STARTING_WEEK].Item2}");
         }
     }
+
+    [Fact]
+    public void CalendarGetRoundIndexGivenWeek()
+    {
+        var initialDate = new DateTime(2022, 07, 01);
+        var cal = new Calendar(initialDate);
+
+        cal.Advance(TimeSpan.FromDays(1));
+        Assert.Equal(null, cal.GetLeagueWeekIndex);
+        Assert.Equal(0, cal.WeekPointer);
+
+        cal.Advance(TimeSpan.FromDays(6));
+        Assert.Equal(1, cal.WeekPointer);
+        Assert.Equal(null, cal.GetLeagueWeekIndex);
+
+        Assert.Equal(initialDate.DayOfWeek, cal.Date.DayOfWeek);
+
+        cal.NextWeek();
+        Assert.Equal(2, cal.WeekPointer);
+        Assert.Equal(null, cal.GetLeagueWeekIndex);
+        Assert.Equal(initialDate.DayOfWeek, cal.Date.DayOfWeek);
+
+
+        cal.Advance(TimeSpan.FromDays(6 * 7)); // 6 weeks so it is the 8th week
+        Assert.Equal(8, cal.WeekPointer);
+        Assert.Equal(0, cal.GetLeagueWeekIndex);
+        Assert.Equal(initialDate.DayOfWeek, cal.Date.DayOfWeek);
+
+        cal.Advance(TimeSpan.FromDays(5 * 7)); // 5 weeks more
+        Assert.Equal(13, cal.WeekPointer);
+        Assert.Equal(5, cal.GetLeagueWeekIndex);
+        Assert.Equal(initialDate.DayOfWeek, cal.Date.DayOfWeek);
+    }
 }
