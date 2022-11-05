@@ -5,6 +5,7 @@ public class Calendar
 {
     // League starts the last week of August
     public static int LEAGUE_STARTING_WEEK = 8;
+    const int JULY_MONTH = 7;
     private int _weekPointer = 0;
     public int WeekPointer => _weekPointer;
     private GregorianCalendar _cal = new();
@@ -24,6 +25,13 @@ public class Calendar
 
             return _weekPointer - LEAGUE_STARTING_WEEK;
         }
+    }
+
+    public static Calendar MakeSeasonCalendar(int year)
+    {
+        var startingDate = new DateTime(year, JULY_MONTH, 1);
+
+        return new(startingDate);
     }
 
     public Calendar(DateTime startingDate)

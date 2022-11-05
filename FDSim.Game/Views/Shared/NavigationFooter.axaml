@@ -33,8 +33,21 @@
 
             <StackPanel Grid.Column="2"
                 Classes="VCent"
-                Orientation="Horizontal">
-                <TextBlock Text="Some Text" />
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                IsVisible="{Binding AdvanceDay, Converter={x:Static ObjectConverters.IsNotNull}}">
+                <Button Command="{Binding AdvanceDay}">
+                    <StackPanel Classes="H">
+                        <i:Icon Value="fa-calendar-days" />
+                        <i:Icon Value="fa-forward-step" />
+                    </StackPanel>
+                </Button>
+                <Button Command="{Binding AdvanceWeek}">
+                    <StackPanel Classes="H">
+                        <i:Icon Value="fa-calendar-days" />
+                        <i:Icon Value="fa-forward-fast" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
 
         </Grid>

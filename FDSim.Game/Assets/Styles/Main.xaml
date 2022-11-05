@@ -16,6 +16,10 @@
         <Setter Property="VerticalAlignment"
             Value="Center"/>
     </Style>
+    <Style Selector="StackPanel.H">
+        <Setter Property="Orientation"
+            Value="Horizontal"/>
+    </Style>
     <Style Selector="TextBlock.MTop10">
         <Setter Property="Margin"
             Value="0,10,0,0"/>

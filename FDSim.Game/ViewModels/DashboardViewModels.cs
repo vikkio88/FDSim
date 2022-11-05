@@ -18,6 +18,16 @@ public class DashboardViewModel : BaseRxViewModel
     {
         Back = null;
         GoToDashboard = null;
+        
+        AdvanceDay = ReactiveCommand.Create(() =>
+        {
+            System.Console.WriteLine($"Advancing Day");
+        });
+        AdvanceWeek = ReactiveCommand.Create(() =>
+        {
+            System.Console.WriteLine($"Advancing Week");
+        });
+
         GamePlayer = GameDb.Instance.GamePlayer;
         ViewLeague = ReactiveCommand.CreateFromObservable(() =>
         {

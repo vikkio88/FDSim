@@ -14,6 +14,8 @@ abstract public class BaseRxViewModel : ReactiveObject, IRoutableViewModel
     // public ReactiveCommand<Unit, IRoutableViewModel?>? Back { get; set; } = null;
     public ReactiveCommand<Unit, Unit>? Back { get; set; } = null;
     public ReactiveCommand<Unit, IRoutableViewModel>? GoToDashboard { get; set; } = null;
+    public ReactiveCommand<Unit, Unit>? AdvanceDay { get; set; } = null;
+    public ReactiveCommand<Unit, Unit>? AdvanceWeek { get; set; } = null;
 
 
     public BaseRxViewModel(IScreen screen)
