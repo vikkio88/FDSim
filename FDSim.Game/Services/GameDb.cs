@@ -8,12 +8,13 @@ using FDSim.Models.Game.League;
 using Game.Models;
 using System;
 using FDSim.Models.Game;
+using FDSim.Models.Calendar;
 
 public class GameDb : Singleton<GameDb>
 {
     public GamePlayer? GamePlayer { get; set; } = null;
     public int StartingYear { get; set; } = DateTime.Now.Year;
-    public DateTime GameDate { get; set; } = DateTime.Now;
+    public Calendar? Calendar { get; set; } = null;
     public bool HasGameStarted { get; set; } = false;
     public string? PlayerTeamId { get; set; } = null;
     public Dictionary<string, Team> TeamsMap { get; set; } = new();

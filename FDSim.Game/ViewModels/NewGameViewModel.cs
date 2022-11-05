@@ -191,7 +191,9 @@ public class NewGameViewModel : ReactiveObject, IRoutableViewModel
             var thisYear = DateTime.Now.Year;
             GameDb.Instance.HasGameStarted = true;
             GameDb.Instance.StartingYear = thisYear;
-            GameDb.Instance.GameDate = new(thisYear, 7, 1);// starts always in july this year
+            // starts always in july this year
+            var startingDate = new DateTime(thisYear, 7, 1);
+            GameDb.Instance.Calendar = new(startingDate);
             GameDb.Instance.GamePlayer = new(PlayerFullName, thisYear - PlayerDOB.Year);
             var dashboard = ViewsStore.Instance.Get(NavigableRoute.Dashboard, () => new DashboardViewModel(HostScreen));
             return HostScreen.Router.Navigate.Execute(dashboard);
