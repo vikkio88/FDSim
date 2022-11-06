@@ -37,13 +37,13 @@
                 Orientation="Horizontal"
                 IsVisible="{Binding AdvanceDay, Converter={x:Static ObjectConverters.IsNotNull}}">
                 <Button Command="{Binding AdvanceDay}">
-                    <StackPanel Classes="H">
+                    <StackPanel Classes="H S5" ToolTip.Tip="Next Day">
                         <i:Icon Value="fa-calendar-days" />
                         <i:Icon Value="fa-forward-step" />
                     </StackPanel>
                 </Button>
                 <Button Command="{Binding AdvanceWeek}">
-                    <StackPanel Classes="H">
+                    <StackPanel Classes="H S5" ToolTip.Tip="Next Week">
                         <i:Icon Value="fa-calendar-days" />
                         <i:Icon Value="fa-forward-fast" />
                     </StackPanel>

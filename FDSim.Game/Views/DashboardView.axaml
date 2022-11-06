@@ -4,10 +4,14 @@
   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
   xmlns:i="clr-namespace:Projektanker.Icons.Avalonia;assembly=Projektanker.Icons.Avalonia"
   xmlns:shared="clr-namespace:FDSim.Game.Views.Shared"
+  xmlns:converters="clr-namespace:FDSim.Game.Helpers.Converters"
   mc:Ignorable="d"
   d:DesignWidth="800"
   d:DesignHeight="450"
   x:Class="FDSim.Game.Views.DashboardView">
+  <UserControl.Resources>
+    <converters:DateTimeToString x:Key="DateTimeToString" />
+  </UserControl.Resources>
   <DockPanel LastChildFill="True">
     <!-- Header -->
     <Border Height="40"
@@ -37,7 +41,7 @@
         <TextBlock Grid.Column="2"
           Classes="HCent VCent"
           DockPanel.Dock="Right"
-          Text="07 July 2022"/>
+          Text="{Binding Date, Converter={StaticResource DateTimeToString}}"/>
       </Grid>
     </Border>
 

@@ -20,6 +20,16 @@
         <Setter Property="Orientation"
             Value="Horizontal"/>
     </Style>
+    
+    <Style Selector="StackPanel.S3">
+        <Setter Property="Spacing"
+            Value="3"/>
+    </Style>
+    <Style Selector="StackPanel.S5">
+        <Setter Property="Spacing"
+            Value="5"/>
+    </Style>
+
     <Style Selector="TextBlock.MTop10">
         <Setter Property="Margin"
             Value="0,10,0,0"/>
