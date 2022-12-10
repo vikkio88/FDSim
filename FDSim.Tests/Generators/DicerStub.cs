@@ -28,7 +28,7 @@ public class DicerStub : IDicer
     }
 
     public static IDicer Make(int fixedChance = 50, double fixedDoubleChance = 50, int fixedInt = 100,
-        int fixedPercent = 50, int pick =0) =>
+        int fixedPercent = 50, int pick = 0) =>
         new DicerStub()
         {
             Seed = 0,
