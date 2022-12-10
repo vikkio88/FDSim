@@ -2,6 +2,7 @@ namespace FDSim.Generators;
 
 using System;
 using Bogus;
+using FDSim.Generators.Utils;
 
 public class Dicer : IDicer
 {
@@ -45,5 +46,25 @@ public class Dicer : IDicer
     public T PickOne<T>(IList<T> list)
     {
         return _faker.PickRandom(list);
+    }
+
+    public T PickWeighted<T>(IList<T> list, IList<int> weights)
+    {
+        var options = WeightedOptionsHelper.MakeList(list, weights);
+        var totalWeight = weights.Sum();
+
+        var runningTotal = 0;
+        foreach (var option in options)
+        {
+            runningTotal += option.Weight;
+            if (runningTotal >= _faker.Random.Int(0, totalWeight))
+            {
+                return option.Item;
+            }
+        }
+
+        // If no object is selected, return null
+        // this should only happen if the list is empty
+        return options[0].Item;
     }
 }
