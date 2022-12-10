@@ -1,3 +1,4 @@
+using System.Linq;
 namespace FDSim.Generators.Utils;
 
 public class WeightedOption<T> : IWeightedOption<T>
@@ -13,14 +14,6 @@ public static class WeightedOptionsHelper
         {
             throw new ArgumentException($"weights should be the same as the options: weights {weights.Count}, opts: {options.Count}");
         }
-
-        var result = new List<WeightedOption<T>>();
-
-        for (var i = 0; i < weights.Count; i++)
-        {
-            result.Add(new() { Weight = weights[i], Item = options[i] });
-        }
-
-        return result;
+        return options.Zip(weights).Select(pair => new WeightedOption<T>() { Item = pair.First, Weight = pair.Second }).ToList();
     }
 }
