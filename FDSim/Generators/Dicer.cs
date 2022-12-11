@@ -67,4 +67,23 @@ public class Dicer : IDicer
         // this should only happen if the list is empty
         return options[0].Item;
     }
+    
+    public T PickWeighted<T>(IList<(T, int)> optionsAndWeights)
+    {
+        var totalWeight = optionsAndWeights.Select(x => x.Item2).Sum();
+
+        var runningTotal = 0;
+        foreach (var (option, weight) in optionsAndWeights)
+        {
+            runningTotal += weight;
+            if (runningTotal >= _faker.Random.Int(0, totalWeight))
+            {
+                return option;
+            }
+        }
+
+        // If no object is selected, return null
+        // this should only happen if the list is empty
+        return optionsAndWeights[0].Item1;
+    }
 }

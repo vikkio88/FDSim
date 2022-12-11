@@ -66,4 +66,36 @@ public class DicerTest
         Assert.True(picks.Item1 < picks.Item3, $"Third pick was not greater than the first ({picks.Item1} < {picks.Item3})");
         Assert.True(picks.Item2 < picks.Item3, $"Third pick was not greater than the second ({picks.Item2} < {picks.Item3})");
     }
+
+    [Fact(Skip = "Debugging Test")]
+    public void TestWeightedPickerWithTuple()
+    {
+        var dicer = new Dicer(0);
+        var picks = (0, 0, 0);
+        foreach (var _ in Enumerable.Range(0, 1000))
+        {
+            var pick = dicer.PickWeighted(
+                new List<(Thing, int)>(){
+                    (new Thing(1),1),
+                    (new Thing(2),1),
+                    (new Thing(3),1000)
+                    }
+            );
+
+            switch (pick.Id)
+            {
+                case 1:
+                    picks.Item1 += 1;
+                    break;
+                case 2:
+                    picks.Item2 += 1;
+                    break;
+                case 3:
+                    picks.Item3 += 1;
+                    break;
+            }
+        }
+        Assert.True(picks.Item1 < picks.Item3, $"Third pick was not greater than the first ({picks.Item1} < {picks.Item3})");
+        Assert.True(picks.Item2 < picks.Item3, $"Third pick was not greater than the second ({picks.Item2} < {picks.Item3})");
+    }
 }
